@@ -108,9 +108,7 @@ set_high_temperature:
     - service: climate.set_temperature
       entity_id: climate.thermostat
       data:
-        temperature: '{{ states("input_number.temperature_high") }}
-
-          '
+        temperature: '{{ states("input_number.temperature_high") }}'
 leaving:
   alias: Leaving the house
   sequence:
@@ -212,8 +210,8 @@ flash_bedroom:
     - service: light.turn_off
       data:
         entity_id: light.bedroom
-flash_bedroom10:
-  alias: Flash bedroom on 10 times
+flash_bedroom_30_times:
+  alias: Flash bedroom on 30 times
   sequence:
     - service: script.flash_bedroom
     - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
@@ -234,6 +232,47 @@ flash_bedroom10:
     - service: script.flash_bedroom
     - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
     - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
     - service: light.turn_on
       data:
         entity_id: light.bedroom
