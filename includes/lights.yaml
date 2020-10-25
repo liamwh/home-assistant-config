@@ -1,0 +1,34 @@
+---
+- platform: philips_ambilight
+  name: TV Ambilight
+  host: !secret tv_ip
+  username: !secret tv_username
+  password: !secret tv_password
+
+- platform: group
+  name: Living Room Lights
+  entities:
+    - light.tv_ambilight
+    - light.corner_lamp
+    - light.table_lamp
+    - light.standing_lamp
+    - light.java_lamp
+
+- platform: group
+  name: Bedroom lights
+  entities:
+    - light.bedroom_ceiling
+    - light.bedside_lamp
+
+- platform: group
+  name: Bathroom Lights
+  entities:
+    - light.bathroom_shower
+    - light.bathroom_mirror
+    - light.bathroom_toilet
+
+- platform: group
+  name: Hallway lights
+  entities:
+    - light.hallway_spot
+    - light.hallway_entrance
