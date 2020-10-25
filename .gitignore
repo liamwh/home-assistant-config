@@ -2,6 +2,7 @@
 .cloud
 .google
 .vscode
+image/
 
 tts
 
@@ -9,6 +10,5 @@ secrets.yaml
 
 *.db
 *.log
-
 
 HomeAssistant.code-workspace
