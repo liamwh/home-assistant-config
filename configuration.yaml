@@ -14,7 +14,7 @@ script: !include scripts.yaml
 scene: !include includes/scenes.yaml
 spotify: !include includes/spotify.yaml
 sensor: !include includes/sensors.yaml
-light: !include includes/lights.yaml
+#light: !include includes/lights.yaml
 vacuum: !include includes/vacuum.yaml
 notify: !include includes/notify.yaml
 ios: !include includes/ios.yaml

@@ -1,7 +1,0 @@
----
-- platform: group
-  name: Bathroom Lights
-  entities:
-    - light.bathroom_entrance
-    - light.shower_light
-    - light.above_toilet

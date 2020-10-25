@@ -2,7 +2,7 @@
 - id: "1602662464896"
   name: Bathroom & Hallway - Energize
   entities:
-    light.bathroom_lights:
+    light.bathroom:
       min_mireds: 153
       max_mireds: 500
       effect_list:
