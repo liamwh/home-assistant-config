@@ -1,0 +1,18 @@
+---
+- platform: group
+  name: all_iphones
+  services:
+    - service: mobile_app_liams_iphone
+
+- platform: group
+  name: liam
+  services:
+    - service: mobile_app_liams_iphone
+    - service: chrome
+
+- platform: group
+  name: all
+  services:
+    - service: mobile_app_liams_iphone
+    - service: tv
+    - service: chrome

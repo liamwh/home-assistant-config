@@ -1,0 +1,15 @@
+---
+extends: default
+
+rules:
+  line-length: disable
+  comments: disable
+  comments-indentation: disable
+
+ignore: |
+  ui-lovelace.yaml
+  custom_components/
+  www/
+  .github/workflows/yamllint.yml
+  .git
+  .github

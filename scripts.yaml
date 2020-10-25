@@ -1,0 +1,238 @@
+---
+message_blood_sugar:
+  alias: Message blood sugar
+  sequence:
+    - service: notify.notify
+      data:
+        message:
+          "BG: {{ states('sensor.dexcom_liamwoodleigh_glucose_value') }}. Trend:
+          {{ states('sensor.dexcom_liamwoodleigh_glucose_trend') }}"
+white_lights_living_room:
+  alias: Set white lights in the living room
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.living_room
+        color_temp: 366
+    - service: input_select.select_option
+      entity_id: input_select.last_script_living_room
+      data:
+        option: script.white_lights_living_room
+white_lights_bedroom:
+  alias: Set white lights in the bedroom
+  sequence:
+    - data:
+        color_temp: 366
+        entity_id:
+          - light.bedroom
+      service: light.turn_on
+    - service: input_select.select_option
+      entity_id: input_select.last_script_bedroom
+      data:
+        option: script.white_lights_bedroom
+increase_brightness:
+  alias: Increase the brightness of a group of lights
+  fields:
+    group:
+      description: The group to apply the light increase to.
+      example: light.living_room
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: "{{ group }}"
+        brightness:
+          "{% set b = state_attr(group, 'brightness') %} {% if b == None %}\n\
+          \  10\n{% elif b < 20 %}\n  128\n{% elif b < 140 %}\n  255\n{% else %}\n \
+          \ 10\n{% endif %}\n"
+turn_off_everything_non_automatic:
+  alias: Turn off everything
+  sequence:
+    - service: light.turn_off
+      data:
+        transition: 4
+        entity_id:
+          - light.living_room
+          - light.bedroom
+          - light.bathroom
+          - light.hallway
+    - service: media_player.turn_off
+      entity_id: media_player.tv
+    - service: climate.turn_off
+      entity_id: sensor.thermostat_heating
+  mode: single
+turn_off_everything:
+  alias: Turn off everything
+  sequence:
+    - service: script.turn_off_everything_non_automatic
+    - service: light.turn_off
+      entity_id: all
+going_to_sleep:
+  alias: Going to sleep
+  sequence:
+    - entity_id: input_select.sleep_mode
+      service: input_select.select_option
+      data:
+        option: total
+    - service: script.turn_off_everything_non_automatic
+next_colors:
+  alias: Change the colors of lights
+  fields:
+    input_select:
+      description: The input select that lists script names.
+      example: input_select.last_script_living_room
+  sequence:
+    - service: input_select.select_next
+      data:
+        entity_id: "{{ input_select }}"
+    - service: "{{ states(input_select) }}"
+start_netflix:
+  alias: Start Netflix
+  sequence:
+    - entity_id: media_player.tv
+      service: media_player.turn_on
+    - data:
+        source: Netflix
+      entity_id: media_player.living_room_tv
+      service: media_player.select_source
+  mode: single
+set_low_temperature:
+  alias: Set low temperature
+  sequence:
+    - service: climate.set_temperature
+      entity_id: climate.thermostat
+      data:
+        temperature: '{{ states("input_number.temperature_low") }}'
+set_high_temperature:
+  alias: Set high temperature
+  sequence:
+    - service: climate.set_temperature
+      entity_id: climate.thermostat
+      data:
+        temperature: '{{ states("input_number.temperature_high") }}
+
+          '
+leaving:
+  alias: Leaving the house
+  sequence:
+    - service: script.set_low_temperature
+    - service: script.turn_off_everything
+arriving:
+  alias: Arriving home
+  sequence:
+    - service: script.set_high_temperature
+    - service: script.cozy_lights_living_room
+vacuum_command:
+  alias: Vacuum living room
+  icon: mdi:robot-vacuum
+  fields:
+    option:
+      description: living_room, bedroom, office, hall, kitchen, all, or stop
+      example: living_room
+  sequence:
+    choose:
+      - conditions: "{{ option == 'living_room' }}"
+        sequence:
+          service: vacuum.send_command
+          data:
+            entity_id: vacuum.xiaomi_vacuum_cleaner
+            command: app_zoned_clean
+            params:
+              - - 29706
+                - 27237
+                - 34806
+                - 31137
+                - 1
+      - conditions: "{{ option == 'bedroom' }}"
+        sequence:
+          service: vacuum.send_command
+          data:
+            entity_id: vacuum.xiaomi_vacuum_cleaner
+            command: app_zoned_clean
+            params:
+              - - 22799
+                - 27340
+                - 27649
+                - 31240
+                - 1
+      - conditions: "{{ option == 'office' }}"
+        sequence:
+          service: vacuum.send_command
+          data:
+            entity_id: vacuum.xiaomi_vacuum_cleaner
+            command: app_zoned_clean
+            params:
+              - - 22803
+                - 25150
+                - 26353
+                - 27250
+                - 1
+      - conditions: "{{ option == 'hall' }}"
+        sequence:
+          service: vacuum.send_command
+          data:
+            entity_id: vacuum.xiaomi_vacuum_cleaner
+            command: app_zoned_clean
+            params:
+              - - 26379
+                - 26239
+                - 31929
+                - 27189
+                - 1
+      - conditions: "{{ option == 'kitchen' }}"
+        sequence:
+          service: vacuum.send_command
+          data:
+            entity_id: vacuum.xiaomi_vacuum_cleaner
+            command: app_zoned_clean
+            params:
+              - - 31941
+                - 25364
+                - 34791
+                - 27164
+                - 1
+      - conditions: "{{ option == 'all' }}"
+        sequence:
+          service: vacuum.start
+          entity_id: vacuum.xiaomi_vacuum_cleaner
+      - conditions: "{{ option == 'stop' }}"
+        sequence:
+          service: vacuum.return_to_base
+          entity_id: vacuum.xiaomi_vacuum_cleaner
+flash_bedroom:
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.bedroom
+        rgb_color: [0, 191, 255]
+        brightness: 255
+    - delay: 1
+    - service: light.turn_off
+      data:
+        entity_id: light.bedroom
+
+flash_bedroom10:
+  alias: Flash bedroom on 10 times
+  sequence:
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
+    - service: script.flash_bedroom
+    - service: light.turn_on
+      data:
+        entity_id: light.bedroom

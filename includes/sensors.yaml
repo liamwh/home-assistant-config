@@ -1,0 +1,146 @@
+---
+- platform: rest
+  name: liam_cgm
+  resource: https://g6-cgm.herokuapp.com/api/v1/entries/current.json
+  value_template: >
+    sgv:{{value_json[0].sgv}}, trend:{{value_json[0].trend}}, direction:{{value_json[0].direction}}, time:{{ ( (as_timestamp(now()) - as_timestamp(value_json[0].dateString) ) / 60) | round(0) }}
+
+- platform: template
+  sensors:
+    liam_cgm_sgv:
+      value_template: >
+        {{ (states('sensor.liam_cgm') | regex_findall_index("sgv:(\d+)") | int) / 18 }}
+      unit_of_measurement: "mmol/L"
+    liam_cgm_trend:
+      value_template: >
+        {{ states('sensor.liam_cgm') | regex_findall_index("trend:(\d+)") }}
+    liam_cgm_direction:
+      value_template: >
+        {{ states('sensor.liam_cgm') | regex_findall_index("direction:(\w+)") }}
+    liam_cgm_time:
+      value_template: >
+        {{ states('sensor.liam_cgm') | regex_findall_index("time:(\d+)") }}
+
+# Average out BG over 90 days (aka eAG value)
+- platform: average
+  name: "Glucose Avg 90d"
+  duration:
+    days: 90
+  entities:
+    - sensor.dexcom_liamwoodleigh_glucose_value # This is from the Dexcom Custom Component. I Labeled it this
+
+# Calculate HbA1C % based off 90 day BG averge sensor above
+# NOTE: These calculations are based on HbA1C from mmol/L values.
+# The math is different for MG/DL. If you cant figure it out, let me know and ill make a template
+# for HbA1C based off MG/DL
+- platform: template
+  sensors:
+    liams_hba1c_value:
+      #entity_id: sensor.glucose_avg_90d
+      unique_id: sensor.glucose_avg_90d
+      value_template: >
+        {% set a = ( states("sensor.glucose_avg_90d") | float + 2.59 ) %}
+        {% set a1c = (a / 1.59) %}
+        {{a1c}}
+
+# Format the Date and Time of the dexcom sensor start to “January 1, 2000 // 1:00 AM” format.
+- platform: template
+  sensors:
+    cgm_sensor_start:
+      friendly_name: "G6 Sensor Started: "
+      value_template: >
+        {{ state_attr('input_datetime.cgm_sensor_start', 'timestamp') | timestamp_custom('%B %-d, %Y')}} // {{state_attr('input_datetime.cgm_sensor_start', 'timestamp') | timestamp_custom('%-I:%M %p') }}
+      icon_template: >
+        mdi:leak
+
+# Do the same formatting of the date and time for sensor expiry.
+- platform: template
+  sensors:
+    cgm_sensor_expire:
+      friendly_name: "G6 Sensor Expires on: "
+      value_template: >
+        {{ (state_attr('input_datetime.cgm_sensor_start', 'timestamp') + 864000) | timestamp_custom('%B %-d, %Y')}} // {{state_attr('input_datetime.cgm_sensor_start', 'timestamp') | timestamp_custom('%-I:%M %p') }}
+      icon_template: >
+        mdi:leak-off
+
+# The Dexcom G6 Sensors only last 10 days before it expires in the dexcom app.
+# This sensor Counts Down from 10 days from the start date and displays it as “X Days” left.
+# When you get down to 2 days remaining, it will change to “Tomorrow...” and then “TODAY!”
+- platform: template
+  sensors:
+    cgm_sensor_expire_days:
+      friendly_name: "G6 Sensor Expires in: "
+      value_template: >
+        {% set days =  (( as_timestamp(strptime(states.input_datetime.cgm_sensor_start.state, "%Y-%m-%dT%H:%M:%S")) + 864000 - as_timestamp(now()) )/ (3600*24)) | round(1) | int %}
+        {%- if days < 1 -%}
+        TODAY!
+        {%- else -%}
+        {%- if days < 2 -%}
+        Tomorrow...
+        {%- endif -%}
+        {%- if days > 1 -%}
+        {{ days }} Days
+        {%- endif -%}
+        {%- endif -%}
+      icon_template: >
+        mdi:leak-off
+
+# These Sensor templates follow the same templates for the Transmitter start, expiry, and days left as the G6 Sensor templates above.
+- platform: template
+  sensors:
+    cgm_trans_start:
+      friendly_name: "G6 Transmitter Started: "
+      value_template: >
+        {{ state_attr('input_datetime.cgm_trans_start', 'timestamp') | timestamp_custom('%B %-d, %Y')}} // {{state_attr('input_datetime.cgm_trans_start', 'timestamp') | timestamp_custom('%-I:%M %p') }}
+      icon_template: >
+        mdi:leak
+
+# Format Expiry date/time
+- platform: template
+  sensors:
+    cgm_trans_expire:
+      friendly_name: "G6 Transmitter Expires on: "
+      value_template: >
+        {{ (state_attr('input_datetime.cgm_trans_start', 'timestamp') + 7776000) | timestamp_custom('%B %-d, %Y')}} // {{state_attr('input_datetime.cgm_trans_start', 'timestamp') | timestamp_custom('%-I:%M %p') }}
+      icon_template: >
+        mdi:leak-off
+
+# The Dexcom G6 Transmitters have a life of 90 days before they’re “expired” in the Dexcom App.
+# This template Counts Down from 90 Days.
+- platform: template
+  sensors:
+    cgm_trans_expire_days:
+      friendly_name: "G6 Transmitter Expires in: "
+      value_template: >
+        {% set days =  (( as_timestamp(strptime(states.input_datetime.cgm_trans_start.state, "%Y-%m-%dT%H:%M:%S")) + 7776000 - as_timestamp(now()) )/ (3600*24)) | round(1) | int %}
+        {%- if days < 1 -%}
+        TODAY!
+        {%- else -%}
+        {%- if days < 2 -%}
+        Tomorrow...
+        {%- endif -%}
+        {%- if days > 1 -%}
+        {{ days }} Days
+        {%- endif -%}
+        {%- endif -%}
+      icon_template: >
+        mdi:leak-off
+
+- platform: time_date
+  display_options:
+    - "time"
+    - "date"
+    - "date_time"
+    - "date_time_utc"
+    - "date_time_iso"
+    - "time_date"
+    - "time_utc"
+    - "beat"
+
+- platform: afvalbeheer
+  wastecollector: mijnafvalwijzer
+  resources:
+    - restafval
+    - papier
+  postcode: 3511AA
+  streetnumber: 46

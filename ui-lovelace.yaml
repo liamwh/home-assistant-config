@@ -1,0 +1,199 @@
+background: var(--background-image)
+title: Home
+views:
+  - theme: dark-mode
+    badges:
+      - entity: person.liam
+    path: home
+    icon: mdi:home
+    cards:
+      - type: vertical-stack
+        cards:
+          - entities:
+              - entities:
+                  - light.corner_lamp
+                  - light.table_lamp
+                  - light.java_lamp
+                  - light.standing_lamp
+                type: custom:fold-entity-row
+                # - entity: script.cozy_lights_living_room
+                #   icon_height: 20px
+                #   name: Cozy lights
+                #   show_icon: false
+                #   show_name: true
+                #   tap_action:
+                #     action: call-service
+                #     service: script.cozy_lights_living_room
+                # - entity: script.white_lights_living_room
+                #   icon_height: 20px
+                #   name: White lights
+                #   show_icon: false
+                #   show_name: true
+                #   tap_action:
+                #     action: call-service
+                #     service: script.white_lights_living_room
+                head:
+                  color_picker: true
+                  entity: light.living_room
+                  name: Living
+                  type: custom:slider-entity-row
+                  icon: mdi:sofa
+              - entities:
+                  - light.bedroom_light
+                  - light.bedside_lamp
+                # - input_boolean.automatic_bedroom_lights
+                # - input_boolean.bedroom_lights_automatically_turned_on
+                # - entity: script.cozy_lights_bedroom
+                #   icon_height: 20px
+                #   name: Cozy lights
+                #   show_icon: false
+                #   show_name: true
+                #   tap_action:
+                #     action: call-service
+                #     service: script.cozy_lights_bedroom
+                # - entity: script.white_lights_bedroom
+                #   icon_height: 20px
+                #   name: White lights
+                #   show_icon: false
+                #   show_name: true
+                #   tap_action:
+                #     action: call-service
+                #     service: script.white_lights_bedroom
+                type: custom:fold-entity-row
+                head:
+                  entity: light.bedroom
+                  icon: mdi:bed-double
+                  type: custom:slider-entity-row
+                  name: Bedroom
+              - entities:
+                  - light.shower_light
+                  - light.bathroom_entrance
+                  - light.above_toilet
+                type: custom:fold-entity-row
+                head:
+                  entity: light.bathroom
+                  name: Bathroom
+                  icon: mdi:shower
+                  type: custom:slider-entity-row
+              - entities:
+                  - light.hallway_light
+                  - light.spot_light
+                type: custom:fold-entity-row
+                head:
+                  entity: light.hallway
+                  name: Hallway
+                  icon: mdi:hanger
+                  type: custom:slider-entity-row
+            show_header_toggle: false
+            title: Lights
+            type: entities
+          - type: thermostat
+            entity: climate.living_room
+      - type: vertical-stack
+        cards:
+          - type: iframe
+            aspect_ratio: 400x100
+            url: "https://g6-cgm.herokuapp.com/clock/clock-color"
+          - type: "custom:mini-graph-card"
+            animate: true
+            color_thresholds:
+              - color: "#039BE5"
+                value: 2
+              - color: "#0DA035"
+                value: 5
+              - color: "#E0B400"
+                value: 10
+              - color: "#E45E65"
+                value: 15
+            detail: 2
+            entities:
+              - entity: sensor.dexcom_liamwoodleigh_glucose_value
+                show_fill: true
+                show_state: false
+                smoothing: true
+            hours_to_show: 12
+            line_width: 3
+            name: CGM Graph - 12 Hours
+            points_per_hour: 60
+            show:
+              graph: line
+              labels: true
+            unit: mmol/L
+          - type: media-control
+            entity: media_player.spotify_liam_woodleigh
+      - type: vertical-stack
+        cards:
+          - type: weather-forecast
+            entity: weather.home
+          - type: entities
+            title: Garbage
+            entities:
+              - entity: sensor.mijnafvalwijzer_restafval
+                name: Restafval
+                icon: "hass:delete-empty"
+              - entity: sensor.mijnafvalwijzer_papier
+                name: Papier
+                icon: "hass:file"
+      - type: vertical-stack
+        cards:
+          - entities:
+              - entity: vacuum.xiaomi_vacuum_cleaner
+                name: Vacuum cleaner
+                primary:
+                  entity: binary_sensor.vacuum_day
+                  name: Vacuum day
+                secondary:
+                  attribute: battery_level
+                  name: Battery
+                  unit: "%"
+                type: custom:multiple-entity-row
+              - entity: switch.vacuum_mode
+              - entity: input_boolean.cleaned_today
+              - entity: binary_sensor.vacuum_day
+            show_header_toggle: false
+            type: entities
+            title: Vacuum
+          - calibration_points:
+              - map:
+                  x: 711
+                  y: 474
+                vacuum:
+                  x: 30194
+                  y: 26665
+              - map:
+                  x: 911
+                  y: 269
+                vacuum:
+                  x: 32508
+                  y: 28968
+              - map:
+                  x: 41
+                  y: 63
+                vacuum:
+                  x: 22813
+                  y: 31276
+            entity: vacuum.xiaomi_vacuum_cleaner
+            map_image: /local/vacuum-map.png
+            service: vacuum.send_command
+            type: custom:xiaomi-vacuum-map-card
+            zones:
+              - - - 29706
+                  - 27237
+                  - 34806
+                  - 31137
+              - - - 22799
+                  - 27340
+                  - 27649
+                  - 31240
+              - - - 22803
+                  - 25150
+                  - 26353
+                  - 27250
+              - - - 26379
+                  - 26239
+                  - 31929
+                  - 27189
+              - - - 31941
+                  - 25364
+                  - 34791
+                  - 27164

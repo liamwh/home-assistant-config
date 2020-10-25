@@ -1,0 +1,24 @@
+---
+- name: Home
+  latitude: !secret latitude_home
+  longitude: !secret longitude_home
+  radius: 40
+  icon: mdi:home
+
+- name: Work
+  latitude: !secret latitude_work
+  longitude: !secret longitude_work
+  radius: 300
+  icon: mdi:work
+
+- name: Squash
+  latitude: !secret latitude_squash
+  longitude: !secret longitude_squash
+  radius: 100
+  icon: mdi:Racquetball
+
+- name: Toms
+  latitude: !secret latitude_tom
+  longitude: !secret longitiude_tom
+  radius: 100
+  icon: mdi:account-multiple

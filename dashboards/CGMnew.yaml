@@ -1,0 +1,171 @@
+---
+lovelace:
+  mode: yaml
+  resources:
+    - url: /local/text-element.js?v=0
+      type: module
+title: CGM
+views:
+  - badges: []
+    cards:
+      - cards:
+          - color_thresholds:
+              - color: "#039BE5"
+                value: 2
+              - color: "#0DA035"
+                value: 5
+              - color: "#E0B400"
+                value: 10
+              - color: "#E45E65"
+                value: 15
+            detail: 1
+            entities:
+              - entity: sensor.liams_hba1c_value
+                show_fill: false
+                show_state: true
+                smoothing: true
+            hours_to_show: 2160
+            icon: "mdi:water"
+            line_width: 3
+            name: HbA1C Avg - 90 days
+            show:
+              graph: line
+            type: "custom:mini-graph-card"
+            unit: "%"
+          - color_thresholds:
+              - color: "#039BE5"
+                value: 2
+              - color: "#0DA035"
+                value: 5
+              - color: "#E0B400"
+                value: 10
+              - color: "#E45E65"
+                value: 15
+            detail: 1
+            entities:
+              - entity: sensor.glucose_avg_90d
+                show_fill: false
+                show_state: true
+                smoothing: true
+            hours_to_show: 2160
+            icon: "mdi:water"
+            line_width: 3
+            name: eAG Avg - 90 days
+            show:
+              graph: line
+            type: "custom:mini-graph-card"
+            unit: mmol/L
+          - aggregate_func: avg
+            animate: true
+            color_thresholds:
+              - color: "#039BE5"
+                value: 2
+              - color: "#0da035"
+                value: 5
+              - color: "#e0b400"
+                value: 10
+              - color: "#e45e65"
+                value: 15
+            entities:
+              - entity: sensor.dexcom_liamwoodleigh_glucose_value
+            group_by: date
+            hours_to_show: 168
+            name: Avg CGM Value Per Day
+            show:
+              graph: bar
+              labels: true
+              state: true
+            type: "custom:mini-graph-card"
+          - cards:
+            type: horizontal-stack
+        type: vertical-stack
+      - cards:
+          - aspect_ratio: 500x220
+            type: iframe
+            url: "https://g6-cgm.herokuapp.com/clock/clock-color"
+          - type: glance
+            entities:
+              - entity: sensor.cgm_sensor_expire_days
+              - entity: sensor.cgm_trans_expire_days
+            title: CGM Expiries
+          - cards:
+              - entities:
+                  - entity: input_datetime.cgm_sensor_start
+                  - entity: input_datetime.cgm_trans_start
+                show_header_toggle: false
+                type: entities
+            type: horizontal-stack
+        type: vertical-stack
+      - cards:
+          - animate: true
+            color_thresholds:
+              - color: "#039BE5"
+                value: 2
+              - color: "#0DA035"
+                value: 5
+              - color: "#E0B400"
+                value: 10
+              - color: "#E45E65"
+                value: 15
+            detail: 2
+            entities:
+              - entity: sensor.dexcom_liamwoodleigh_glucose_value
+                show_fill: true
+                show_state: false
+                smoothing: true
+            hours_to_show: 12
+            line_width: 3
+            name: CGM Graph - 12 Hours
+            points_per_hour: 60
+            show:
+              graph: line
+              labels: true
+            type: "custom:mini-graph-card"
+            unit: mmol/L
+          - animate: true
+            color_thresholds:
+              - color: "#c0392b"
+                value: 3
+              - color: "#08ff2d"
+                value: 5
+              - color: "#f7ff08"
+                value: 10
+              - color: "#ff3508"
+                value: 15
+            detail: 1
+            entities:
+              - sensor.dexcom_liamwoodleigh_glucose_value
+            graph: line
+            hours_to_show: 36
+            line_width: 3
+            name: CGM Graph - 36 Hours
+            points_per_hour: 30
+            show:
+              labels: true
+            type: "custom:mini-graph-card"
+          - animate: true
+            color_thresholds:
+              - color: "#c0392b"
+                value: 3
+              - color: "#08ff2d"
+                value: 5
+              - color: "#f7ff08"
+                value: 10
+              - color: "#ff3508"
+                value: 15
+            entities:
+              - sensor.dexcom_liamwoodleigh_glucose_value
+            hours_to_show: 168
+            line_width: 3
+            name: CGM Graph - 7 Days
+            points_per_hour: 5
+            show:
+              labels: true
+              state: true
+            type: "custom:mini-graph-card"
+          - cards: []
+            type: horizontal-stack
+        type: vertical-stack
+    icon: "mdi:diabetes"
+    path: liam-cgm-data
+    title: liam CGM Data

@@ -1,0 +1,14 @@
+.storage
+.cloud
+.google
+.vscode
+
+tts
+
+secrets.yaml
+
+*.db
+*.log
+
+
+HomeAssistant.code-workspace

@@ -1,0 +1,7 @@
+---
+mode: yaml
+resources:
+  - url: /local/mini-graph-card/mini-graph-card-bundle.js
+    type: module
+  - url: /www/community/text-element-0.0.2/text-element.js
+    type: module

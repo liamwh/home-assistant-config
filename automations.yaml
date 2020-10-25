@@ -1,0 +1,134 @@
+---
+- id: "1602664406744"
+  alias: "Motion: Nightlight"
+  description: ""
+  trigger:
+    - type: motion
+      platform: device
+      device_id: 48d7ced70bd011eba87c3ff9365e8b47
+      entity_id: binary_sensor.motion_sensor_motion
+      domain: binary_sensor
+  condition:
+    - condition: time
+      after: "22:00"
+      weekday:
+        - mon
+        - wed
+        - thu
+        - sun
+  action:
+    - scene: scene.bathroom_nightlight
+  mode: single
+- id: "1602664470905"
+  alias: "Motion: Energise Lights"
+  description: ""
+  trigger:
+    - type: motion
+      platform: device
+      device_id: 48d7ced70bd011eba87c3ff9365e8b47
+      entity_id: binary_sensor.motion_sensor_motion
+      domain: binary_sensor
+  condition:
+    - condition: time
+      weekday:
+        - mon
+        - tue
+        - thu
+        - fri
+      after: "6:00:00"
+      before: "10:00"
+  action:
+    - scene: scene.bathroom_energize
+  mode: single
+- id: "1602664574688"
+  alias: "Motion: Daytime Lights"
+  description: ""
+  trigger:
+    - platform: time
+      at: "10:00:00"
+    - type: motion
+      platform: device
+      device_id: 48d7ced70bd011eba87c3ff9365e8b47
+      entity_id: binary_sensor.motion_sensor_motion
+      domain: binary_sensor
+  condition:
+    - condition: time
+      after: "10:00"
+      before: "22:00"
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+        - sat
+        - sun
+  action:
+    - scene: scene.bathroom_bright
+  mode: single
+- id: "1603094346151"
+  alias: "Motion: Turn off bathroom"
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_motion
+      to: "off"
+      for: 0:15:00
+      from: "on"
+  condition: []
+  action:
+    - type: turn_off
+      device_id: 48dcfd840bd011eb9c63c31b0c46b7ed
+      entity_id: light.bathroom_entrance
+      domain: light
+    - type: turn_off
+      device_id: 48dcf27f0bd011ebb346957d9ba63992
+      entity_id: light.shower_light
+      domain: light
+    - type: turn_off
+      device_id: 48dd07bf0bd011ebba5e2df55d49d7d4
+      entity_id: light.above_toilet
+      domain: light
+  mode: single
+- id: "1603094605380"
+  alias: "Motion: Turn off hallway after 1.5 hours"
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_motion
+      to: "off"
+      attribute: sensitivity
+      from: "on"
+      for: "1:30:00"
+  condition: []
+  action:
+    - type: turn_off
+      device_id: 48dca02e0bd011ebbfc2f9955f9e2327
+      entity_id: light.hallway_light
+      domain: light
+    - type: turn_off
+      device_id: 48dcad480bd011ebae36ef26443efe25
+      entity_id: light.spot_light
+      domain: light
+  mode: single
+- id: "1603538333212"
+  alias: Low Blood Sugar
+  description: ""
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.dexcom_liamwoodleigh_glucose_value
+      below: 4
+  condition:
+    - condition: state
+      entity_id: person.liam
+      state: home
+  action:
+    - service: script.turn_on
+      entity_id: script.flash_bedroom_lights
+      data:
+        flash: short
+        rgb_color:
+          - 30
+          - 144
+          - 255
+  mode: single

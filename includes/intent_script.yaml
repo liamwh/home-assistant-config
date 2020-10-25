@@ -1,0 +1,5 @@
+---
+intent_script:
+  GetBloodGlucoseValue:
+    speech:
+      text: Your blood sugar is {{ states('sensor.dexcom_liamwoodleigh_glucose_value') }}

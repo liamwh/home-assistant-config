@@ -1,0 +1,13 @@
+---
+- alias: "flash_bedroom_start"
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.dexcom_liamwoodleigh_glucose_value
+    below: "4"
+  condition:
+    condition: state
+    entity_id: person.liam
+    state: home
+  action:
+    service: script.turn_on
+    entity_id: script.flash_bedroom10
