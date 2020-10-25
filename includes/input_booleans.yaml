@@ -2,3 +2,6 @@
 cleaned_today:
   name: Vacuum cleaned today
   icon: mdi:broom
+guest_mode:
+  name: Guest mode
+  icon: mdi:human-male-female
