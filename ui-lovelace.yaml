@@ -39,7 +39,7 @@ views:
                   type: custom:slider-entity-row
                   icon: mdi:sofa
               - entities:
-                  - light.bedroom_light
+                  - light.bedroom_ceiling
                   - light.bedside_lamp
                 # - input_boolean.automatic_bedroom_lights
                 # - input_boolean.bedroom_lights_automatically_turned_on

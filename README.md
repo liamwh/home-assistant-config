@@ -1,4 +1,4 @@
-# Liam WH's Home Assistant config files
+# Liam WH's Home Assistant Configuration
 
 [![GitHub stars](https://img.shields.io/github/stars/liamwh/home-assistant-config.svg?style=plasticr)](https://github.com/liamwh/home-assistant-config/stargazers)
 [![GitHub last commit](https://img.shields.io/github/last-commit/liamwh/home-assistant-config.svg?style=plasticr)](https://github.com/liamwh/home-assistant-config/commits/master)
