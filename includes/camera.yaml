@@ -1,0 +1,7 @@
+---
+- platform: xiaomi_cloud_map_extractor
+  host: !secret vacuum_ip
+  token: !secret vacuum_token
+  username: !secret xiaomi_username
+  password: !secret xiaomi_password
+  country: de
