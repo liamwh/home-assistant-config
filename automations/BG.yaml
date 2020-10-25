@@ -1,5 +1,5 @@
 ---
-- alias: "BG: Start flashing bedroom lights"
+- alias: "BG: Below 4, flash bedroom lights"
   trigger:
     platform: numeric_state
     entity_id: sensor.dexcom_liamwoodleigh_glucose_value
