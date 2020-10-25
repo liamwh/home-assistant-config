@@ -4,7 +4,7 @@ longitude: !secret longitude_home
 elevation: 0
 unit_system: metric
 time_zone: Europe/Amsterdam
-name: The Pad
+name: Home
 customize:
   switch.vacuum_mode:
     friendly_name: Vacuum
