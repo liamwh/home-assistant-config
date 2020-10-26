@@ -196,6 +196,14 @@ vacuum_command:
         sequence:
           service: vacuum.return_to_base
           entity_id: vacuum.xiaomi_vacuum_cleaner
+show_home_assistant_on_kitchen_hub:
+  alias: Show Home Assistant
+  sequence:
+    - data:
+        dashboard_path: lovelace
+        entity_id: media_player.living_room_display
+        view_path: home
+      service: cast.show_lovelace_view
 flash_bedroom:
   sequence:
     - service: light.turn_on
