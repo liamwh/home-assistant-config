@@ -15,6 +15,7 @@ decluttering_templates:
 
 views:
   - theme: dark-mode
+    title: home
     badges:
       - entity: person.liam
     path: home
@@ -31,7 +32,7 @@ views:
                   - light.java_lamp
                   - light.standing_lamp
                   - entity: scene.living_room_chill
-                    name: "Set scene to: Chill"
+                    name: "Scene: Chill"
                     icon: mdi:script-outline
                 type: custom:fold-entity-row
                 head:
@@ -50,23 +51,29 @@ views:
                   type: custom:slider-entity-row
                   name: Bedroom
               - entities:
-                  - light.bathroom_mirror
-                  - light.bathroom_toilet
-                  - light.bathroom_shower
-                type: custom:fold-entity-row
-                head:
-                  entity: light.bathroom
-                  name: Bathroom
-                  icon: mdi:shower
-                  type: custom:slider-entity-row
-              - entities:
                   - light.hallway_entrance
                   - light.hallway_spot
+                  - entity: scene.bathroom_nightlight
+                    name: "Scene: Nightlight"
+                    icon: mdi:script-outline
                 type: custom:fold-entity-row
                 head:
                   entity: light.hallway
                   name: Hallway
                   icon: mdi:hanger
+                  type: custom:slider-entity-row
+              - entities:
+                  - light.bathroom_mirror
+                  - light.bathroom_toilet
+                  - light.bathroom_shower
+                  - entity: scene.bathroom_energize
+                    name: "Scene: Energize"
+                    icon: mdi:script-outline
+                type: custom:fold-entity-row
+                head:
+                  entity: light.bathroom
+                  name: Bathroom
+                  icon: mdi:shower
                   type: custom:slider-entity-row
             show_header_toggle: false
             title: Lights
@@ -75,6 +82,24 @@ views:
             entity: climate.living_room
       - type: vertical-stack
         cards:
+          - type: custom:mini-media-player
+            #artwork: cover
+            #background: /local/tv.jpg
+            entity: media_player.tv
+            hide:
+              controls: true
+              mute: false
+              play_stop: true
+              volume: true
+            icon: mdi:television
+          - type: custom:mini-media-player
+            artwork: cover
+            entity: media_player.spotify
+            hide:
+              power: true
+              source: false
+              volume: true
+            icon: mdi:spotify
           - type: weather-forecast
             entity: weather.home
           - type: entities
@@ -88,86 +113,21 @@ views:
                 icon: "hass:file"
       - type: vertical-stack
         cards:
+          - type: custom:xiaomi-vacuum-card
+            entity: vacuum.xiaomi_vacuum_cleaner
+            name: Vacuum
           - entities:
-              - entity: vacuum.xiaomi_vacuum_cleaner
-                name: Vacuum cleaner
-                primary:
-                  entity: binary_sensor.vacuum_day
-                  name: Vacuum day
-                secondary:
-                  attribute: battery_level
-                  name: Battery
-                  unit: "%"
-                type: custom:multiple-entity-row
-              - entity: switch.vacuum_mode
               - entity: input_boolean.cleaned_today
               - entity: binary_sensor.vacuum_day
             show_header_toggle: false
             type: entities
-            title: Vacuum
-          - entity: vacuum.xiaomi_vacuum_cleaner
-            type: custom:xiaomi-vacuum-map-card
-            map_image: /local/vacuum-map.png
-            service: vacuum.send_command
-            calibration_points:
-              - map:
-                  x: 711
-                  y: 474
-                vacuum:
-                  x: 30194
-                  y: 26665
-              - map:
-                  x: 911
-                  y: 269
-                vacuum:
-                  x: 32508
-                  y: 28968
-              - map:
-                  x: 41
-                  y: 63
-                vacuum:
-                  x: 22813
-                  y: 31276
-  - title: Liam
-    icon: mdi:account
-    path: liam
-    badges: []
-    cards:
-      - type: media-control
-        entity: media_player.spotify
-      - type: vertical-stack
-        cards:
-          - type: iframe
-            aspect_ratio: 400x100
-            url: "https://g6-cgm.herokuapp.com/clock/clock-color"
-          - type: "custom:mini-graph-card"
-            animate: true
-            color_thresholds:
-              - color: "#039BE5"
-                value: 2
-              - color: "#0DA035"
-                value: 5
-              - color: "#E0B400"
-                value: 10
-              - color: "#E45E65"
-                value: 15
-            detail: 2
-            entities:
-              - entity: sensor.dexcom_liamwoodleigh_glucose_value
-                show_fill: true
-                show_state: false
-                smoothing: true
-            hours_to_show: 12
-            line_width: 3
-            name: CGM Graph - 12 Hours
-            points_per_hour: 60
-            show:
-              graph: line
-              labels: true
-            unit: mmol/L
+          - type: custom:xiaomi-vacuum-map-card
+            map_camera: camera.xiaomi_cloud_map_extractor
+            camera_calibration: true
+            entity: vacuum.xiaomi_vacuum_cleaner
   - title: CGM
     badges: []
-    icon: "mdi:diabetes"
+    icon: mdi:chart-bell-curve
     path: CGM
     cards:
       - cards:
