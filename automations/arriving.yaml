@@ -6,11 +6,14 @@
     from: "off"
     to: "on"
   condition:
+    - condition: time
+      before: "22:00:00"
     - condition: state
       entity_id: input_boolean.guest_mode
       state: "off"
-    - "{{ is_state_attr('media_player.spotify', 'source', 'Liam’s iPhone') }}"
-    - "{{ is_state('media_player.spotify', 'playing') }}"
+    - "{{ is_state('binary_sensor.no_one_home', 'off') }}" # If no one is home
+    - "{{ is_state_attr('media_player.spotify', 'source', 'Liam’s iPhone') }}" # And Liam's iPhone is selected as the spotify source
+    - "{{ is_state('media_player.spotify', 'playing') }}" # And Spotify is playing
   action:
     - service: notify.mobile_app_liams_iphone
       data:
