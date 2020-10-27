@@ -95,18 +95,18 @@ push:
     - name: Vacuum locations
       identifier: vacuum_locations
       actions:
-        - identifier: LIVING_ROOM
-          title: Living room
-        - identifier: BEDROOM
-          title: Bedroom
-        - identifier: OFFICE
-          title: Office
-        - identifier: HALL
-          title: Hall
-        - identifier: KITCHEN
-          title: Kitchen
         - identifier: ALL
           title: All
+        - identifier: LIVING_ROOM
+          title: Living room
+        - identifier: HALLWAY
+          title: Hallway
+        - identifier: Kitchen
+          title: Kitchen
+        - identifier: DINING_AREA
+          title: Dining area
+        - identifier: BEDROOM
+          title: Bedroom
         - identifier: STOP
           title: Stop and return
 

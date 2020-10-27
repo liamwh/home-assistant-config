@@ -74,10 +74,6 @@ push:
           title: "100%"
         - identifier: ONE
           title: "1%"
-        # - identifier: WHITE
-        #   title: White lights
-        # - identifier: COZY
-        #   title: Cozy lights
 
     - name: Vacuum locations
       identifier: vacuum_locations
@@ -86,10 +82,12 @@ push:
           title: Living room
         - identifier: BEDROOM
           title: Bedroom
-        - identifier: OFFICE
-          title: Office
-        - identifier: HALL
-          title: Hall
+        - identifier: HALLWAY
+          title: Hallway
+        - identifier: Kitchen
+          title: Kitchen
+        - identifier: DINING_AREA
+          title: Dining area
         - identifier: ALL
           title: All
         - identifier: STOP

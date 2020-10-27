@@ -124,70 +124,10 @@ vacuum_command:
   icon: mdi:robot-vacuum
   fields:
     option:
-      description: living_room, bedroom, office, hall, kitchen, all, or stop
+      description: all, stop, living_room, bedroom, hallway, kitchen, dining_space or bathroom
       example: living_room
   sequence:
     choose:
-      - conditions: "{{ option == 'living_room' }}"
-        sequence:
-          service: vacuum.send_command
-          data:
-            entity_id: vacuum.xiaomi_vacuum_cleaner
-            command: app_zoned_clean
-            params:
-              - - 29706
-                - 27237
-                - 34806
-                - 31137
-                - 1
-      - conditions: "{{ option == 'bedroom' }}"
-        sequence:
-          service: vacuum.send_command
-          data:
-            entity_id: vacuum.xiaomi_vacuum_cleaner
-            command: app_zoned_clean
-            params:
-              - - 22799
-                - 27340
-                - 27649
-                - 31240
-                - 1
-      - conditions: "{{ option == 'office' }}"
-        sequence:
-          service: vacuum.send_command
-          data:
-            entity_id: vacuum.xiaomi_vacuum_cleaner
-            command: app_zoned_clean
-            params:
-              - - 22803
-                - 25150
-                - 26353
-                - 27250
-                - 1
-      - conditions: "{{ option == 'hall' }}"
-        sequence:
-          service: vacuum.send_command
-          data:
-            entity_id: vacuum.xiaomi_vacuum_cleaner
-            command: app_zoned_clean
-            params:
-              - - 26379
-                - 26239
-                - 31929
-                - 27189
-                - 1
-      - conditions: "{{ option == 'kitchen' }}"
-        sequence:
-          service: vacuum.send_command
-          data:
-            entity_id: vacuum.xiaomi_vacuum_cleaner
-            command: app_zoned_clean
-            params:
-              - - 31941
-                - 25364
-                - 34791
-                - 27164
-                - 1
       - conditions: "{{ option == 'all' }}"
         sequence:
           service: vacuum.start
@@ -196,6 +136,43 @@ vacuum_command:
         sequence:
           service: vacuum.return_to_base
           entity_id: vacuum.xiaomi_vacuum_cleaner
+      - conditions: "{{ option == 'living_room' }}"
+        sequence:
+          service: xiaomi_miio.vacuum_clean_zone
+          data:
+            entity_id: vacuum.xiaomi_vacuum_cleaner
+            segments: 18
+      - conditions: "{{ option == 'bedroom' }}"
+        sequence:
+          service: xiaomi_miio.vacuum_clean_zone
+          data:
+            entity_id: vacuum.xiaomi_vacuum_cleaner
+            segments: 17
+      - conditions: "{{ option == 'hallway' }}"
+        sequence:
+          service: xiaomi_miio.vacuum_clean_zone
+          data:
+            entity_id: vacuum.xiaomi_vacuum_cleaner
+            segments: 19
+      - conditions: "{{ option == 'kitchen' }}"
+        sequence:
+          service: xiaomi_miio.vacuum_clean_zone
+          data:
+            entity_id: vacuum.xiaomi_vacuum_cleaner
+            segments: 20
+      - conditions: "{{ option == 'dining_area' }}"
+        sequence:
+          service: xiaomi_miio.vacuum_clean_zone
+          data:
+            entity_id: vacuum.xiaomi_vacuum_cleaner
+            segments: 21
+      - conditions: "{{ option == 'bathroom' }}"
+        sequence:
+          service: xiaomi_miio.vacuum_clean_zone
+          data:
+            entity_id: vacuum.xiaomi_vacuum_cleaner
+            segments: 16
+
 show_home_assistant_on_kitchen_hub:
   alias: Show Home Assistant
   sequence:

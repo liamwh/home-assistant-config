@@ -111,6 +111,31 @@ views:
               - entity: sensor.mijnafvalwijzer_papier
                 name: Papier
                 icon: "hass:file"
+          - animate: true
+            color_thresholds:
+              - color: "#039BE5"
+                value: 2
+              - color: "#0DA035"
+                value: 5
+              - color: "#E0B400"
+                value: 10
+              - color: "#E45E65"
+                value: 15
+            detail: 2
+            entities:
+              - entity: sensor.dexcom_liamwoodleigh_glucose_value
+                show_fill: true
+                show_state: false
+                smoothing: true
+            hours_to_show: 12
+            line_width: 3
+            name: CGM Graph - 12 Hours
+            points_per_hour: 60
+            show:
+              graph: line
+              labels: true
+            type: "custom:mini-graph-card"
+            unit: mmol/L
       - type: vertical-stack
         cards:
           - type: custom:xiaomi-vacuum-card
