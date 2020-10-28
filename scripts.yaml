@@ -124,7 +124,7 @@ vacuum_command:
   icon: mdi:robot-vacuum
   fields:
     option:
-      description: all, stop, living_room, bedroom, hallway, kitchen, dining_space or bathroom
+      description: all, stop, living_room, bedroom, hallway, kitchen, dining_area or bathroom
       example: living_room
   sequence:
     choose:
@@ -138,37 +138,37 @@ vacuum_command:
           entity_id: vacuum.xiaomi_vacuum_cleaner
       - conditions: "{{ option == 'living_room' }}"
         sequence:
-          service: xiaomi_miio.vacuum_clean_zone
+          service: xiaomi_miio.vacuum_clean_segment
           data:
             entity_id: vacuum.xiaomi_vacuum_cleaner
             segments: 18
       - conditions: "{{ option == 'bedroom' }}"
         sequence:
-          service: xiaomi_miio.vacuum_clean_zone
+          service: xiaomi_miio.vacuum_clean_segment
           data:
             entity_id: vacuum.xiaomi_vacuum_cleaner
             segments: 17
       - conditions: "{{ option == 'hallway' }}"
         sequence:
-          service: xiaomi_miio.vacuum_clean_zone
+          service: xiaomi_miio.vacuum_clean_segment
           data:
             entity_id: vacuum.xiaomi_vacuum_cleaner
             segments: 19
       - conditions: "{{ option == 'kitchen' }}"
         sequence:
-          service: xiaomi_miio.vacuum_clean_zone
+          service: xiaomi_miio.vacuum_clean_segment
           data:
             entity_id: vacuum.xiaomi_vacuum_cleaner
             segments: 20
       - conditions: "{{ option == 'dining_area' }}"
         sequence:
-          service: xiaomi_miio.vacuum_clean_zone
+          service: xiaomi_miio.vacuum_clean_segment
           data:
             entity_id: vacuum.xiaomi_vacuum_cleaner
             segments: 21
       - conditions: "{{ option == 'bathroom' }}"
         sequence:
-          service: xiaomi_miio.vacuum_clean_zone
+          service: xiaomi_miio.vacuum_clean_segment
           data:
             entity_id: vacuum.xiaomi_vacuum_cleaner
             segments: 16
@@ -178,7 +178,7 @@ show_home_assistant_on_kitchen_hub:
   sequence:
     - data:
         dashboard_path: lovelace
-        entity_id: media_player.living_room_display
+        entity_id: media_player.living_room_hub
         view_path: home
       service: cast.show_lovelace_view
 flash_bedroom:
