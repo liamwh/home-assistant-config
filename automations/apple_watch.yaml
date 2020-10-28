@@ -22,21 +22,6 @@
     service: media_player.media_play_pause
     entity_id: media_player.tv
 
-# - alias: "Apple Watch: minimal lights bedroom"
-#   trigger:
-#     platform: event
-#     event_type: ios.action_fired
-#     event_data:
-#       actionName: Minimal lights bedroom
-#   action:
-#     service: light.turn_on
-#     data:
-#       entity_id:
-#         - light.philips_go
-#         - light.bed_led
-#       brightness: 1
-#       color_name: red
-
 - alias: "Apple Watch: set sleep mode"
   mode: parallel
   trigger:
@@ -76,7 +61,7 @@
       actionName: Set lights
   action:
     - variables:
-        iphone: "notify.notify"
+        iphone: "notify.notify" #TODO: Use regex on source device to limit to specific iPhone
     - service: "{{ iphone }}"
       data:
         message: "Apple Watch: set lights"
