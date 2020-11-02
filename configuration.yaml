@@ -6,6 +6,10 @@ default_config:
 tts:
   - platform: google_translate
 
+# Inputs:
+input_boolean: !include includes/input_booleans.yaml
+input_select: !include includes/input_selects.yaml
+
 automation: !include automations.yaml
 automation old: !include_dir_merge_list automations
 binary_sensor: !include includes/binary_sensors.yaml
@@ -20,7 +24,6 @@ light: !include includes/lights.yaml
 vacuum: !include includes/vacuum.yaml
 notify: !include includes/notify.yaml
 ios: !include includes/ios.yaml
-input_boolean: !include includes/input_booleans.yaml
 switch: !include includes/switches.yaml
 lovelace: !include includes/lovelace.yaml
 media_player: !include includes/media_players.yaml

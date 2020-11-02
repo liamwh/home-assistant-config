@@ -11,3 +11,11 @@ alarm_clock:
 automatic_temperature:
   name: Automatic temperature
   icon: mdi:thermometer
+wake_up_with_spotify:
+  name: Start wake up with Spotify
+  initial: "off"
+  icon: mdi:music
+wake_up_light:
+  name: Start wake up light
+  initial: "off"
+  icon: mdi:weather-sunset-up
