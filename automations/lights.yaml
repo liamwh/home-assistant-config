@@ -1,5 +1,5 @@
 ---
-- alias: "Lights: Nightlight"
+- alias: "Lights: Workday Nightlight"
   description: ""
   trigger:
     - type: motion
@@ -18,7 +18,7 @@
   action:
     - scene: scene.bathroom_nightlight
   mode: single
-- alias: "Lights: Energise Lights"
+- alias: "Lights: Morning energise"
   description: ""
   trigger:
     - type: motion
@@ -31,14 +31,20 @@
       weekday:
         - mon
         - tue
+        - wed
         - thu
         - fri
+        - sat
+        - sun
       after: "6:00:00"
-      before: "10:00"
+      before: "11:59"
+    - condition: state
+      entity_id: binary_sensor.no_one_home
+      state: "off"
   action:
     - scene: scene.bathroom_energize
   mode: single
-- alias: "Lights: Daytime Lights"
+- alias: "Lights: Daytime"
   description: ""
   trigger:
     - platform: time
@@ -60,10 +66,13 @@
         - fri
         - sat
         - sun
+    - condition: state
+      entity_id: binary_sensor.no_one_home
+      state: "off"
   action:
     - scene: scene.bathroom_bright
   mode: single
-- alias: "Lights: Turn off bathroom"
+- alias: "Lights: Turn off bathroom after 15 minutes"
   description: ""
   trigger:
     - platform: state
@@ -73,18 +82,9 @@
       from: "on"
   condition: []
   action:
-    - type: turn_off
-      device_id: 48dcfd840bd011eb9c63c31b0c46b7ed
-      entity_id: light.bathroom_entrance
-      domain: light
-    - type: turn_off
-      device_id: 48dcf27f0bd011ebb346957d9ba63992
-      entity_id: light.shower_light
-      domain: light
-    - type: turn_off
-      device_id: 48dd07bf0bd011ebba5e2df55d49d7d4
-      entity_id: light.above_toilet
-      domain: light
+    service: light.turn_off
+    data:
+      entity_id: light.bathroom_lights
   mode: single
 - alias: "Lights: Turn off hallway after 1.5 hours"
   description: ""
@@ -97,12 +97,7 @@
       for: "1:30:00"
   condition: []
   action:
-    - type: turn_off
-      device_id: 48dca02e0bd011ebbfc2f9955f9e2327
-      entity_id: light.hallway_light
-      domain: light
-    - type: turn_off
-      device_id: 48dcad480bd011ebae36ef26443efe25
-      entity_id: light.spot_light
-      domain: light
+    service: light.turn_off
+    data:
+      entity_id: light.hallway_lights
   mode: single
