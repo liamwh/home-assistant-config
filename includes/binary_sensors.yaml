@@ -1,15 +1,10 @@
 ---
 - platform: workday
-  country: NL
+  country: !secret country_code
   workdays: [mon, tue, thu, fri]
 
 - platform: template
   sensors:
-    # someone_showering:
-    #   friendly_name: Someone is showering
-    #   value_template: >
-    #     {{ states("sensor.humidity_bathroom") | float(0) > 85 }}
-
     motion_detected:
       friendly_name: Any motion detected
       value_template: >
@@ -42,10 +37,11 @@
     any_light_on:
       friendly_name: Any light is on
       value_template: >
-        {% set automatic_lights_on = is_state("light.automatic_lights", "on") %}
         {% set bedroom_lights_on = is_state("light.bedroom_lights", "on") %}
-        {% set living_room_lights_on = is_state("light.living_room", "on") %}
-        {{ automatic_lights_on or bedroom_lights_on or living_room_lights_on }}
+        {% set living_room_lights_on = is_state("light.living_room_lights", "on") %}
+        {% set bathroom_lights_on = is_state("light.bathroom_lights", "on") %}
+        {% set hallway_lights_on = is_state("light.hallway_lights", "on") %}
+        {{ bathroom_lights_on or bedroom_lights_on or living_room_lights_on or hallway_lights_on }}
 
     anything_on:
       friendly_name: Anything is on
