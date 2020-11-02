@@ -5,3 +5,9 @@ cleaned_today:
 guest_mode:
   name: Guest mode
   icon: mdi:human-male-female
+alarm_clock:
+  name: Alarm clock is on
+  icon: mdi:alarm
+automatic_temperature:
+  name: Automatic temperature
+  icon: mdi:thermometer

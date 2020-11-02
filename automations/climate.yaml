@@ -1,0 +1,35 @@
+---
+- alias: "Climate: turn off the heating at 22:00"
+  trigger:
+    platform: time
+    at: "22:00"
+  condition:
+    - condition: state
+      entity_id: input_boolean.automatic_temperature
+      state: "on"
+    - condition: state
+      entity_id: binary_sensor.no_one_home
+      state: "off"
+    - "{{ not is_state_attr('climate.living_room', 'temperature', states('input_number.temperature_low')|float) }}"
+  action:
+    - service: script.set_low_temperature
+    - service: notify.all_iphones
+      data:
+        message: "Turned off the heating 🥶, click to turn it on again?"
+        data:
+          push:
+            category: turn_on_heating
+
+- alias: "Climate: turn on the heating 30 min before waking up"
+  trigger:
+    platform: template
+    value_template: >
+      {{ states("sensor.time")[0:5] == states("sensor.half_hour_before_alarm") }}
+  condition:
+    condition: state
+    entity_id:
+      - input_boolean.alarm_clock
+      - input_boolean.automatic_temperature
+    state: "on"
+  action:
+    service: script.set_high_temperature

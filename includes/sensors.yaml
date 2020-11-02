@@ -1,7 +1,7 @@
 ---
 - platform: rest
   name: liam_cgm
-  resource: https://g6-cgm.herokuapp.com/api/v1/entries/current.json
+  resource: !secret cgm_json_url
   value_template: >
     sgv:{{value_json[0].sgv}}, trend:{{value_json[0].trend}}, direction:{{value_json[0].direction}}, time:{{ ( (as_timestamp(now()) - as_timestamp(value_json[0].dateString) ) / 60) | round(0) }}
 
@@ -20,6 +20,14 @@
     liam_cgm_time:
       value_template: >
         {{ states('sensor.liam_cgm') | regex_findall_index("time:(\d+)") }}
+
+    half_hour_before_alarm:
+      friendly_name: Half an hour before alarm
+      value_template: >
+        {% set t_alarm = state_attr("input_datetime.alarm_clock", "timestamp") | int %}
+        {% set t_start = states("sensor.timestamp_start_of_today") | int %}
+        {% set half_hour_before_alarm = t_alarm + t_start - 60 * 30 %}
+        {{ half_hour_before_alarm | timestamp_custom("%H:%M", True) }}
 
 # Average out BG over 90 days (aka eAG value)
 - platform: average
@@ -142,6 +150,6 @@
   resources:
     - restafval
     - papier
-  postcode: 3511AA
-  streetnumber: 46
+  postcode: !secret home_postcode
+  streetnumber: !secret home_number
   upcomingsensor: 1
