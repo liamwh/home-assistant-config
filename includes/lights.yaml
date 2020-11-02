@@ -32,3 +32,6 @@
   entities:
     - light.hallway_spot
     - light.hallway_entrance
+    - light.cabinet_left
+    - light.cabinet_middle
+    - light.cabinet_right
