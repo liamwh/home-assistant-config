@@ -18,7 +18,7 @@ camera: !include includes/camera.yaml
 google_assistant: !include .google/google_assistant.yaml
 group: !include includes/groups.yaml
 script: !include scripts.yaml
-#scene: !include includes/scenes.yaml
+scene: !include scenes.yaml
 spotify: !include includes/spotify.yaml
 sensor: !include includes/sensors.yaml
 light: !include includes/lights.yaml
