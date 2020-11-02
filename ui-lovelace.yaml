@@ -53,6 +53,9 @@ views:
               - entities:
                   - light.hallway_entrance
                   - light.hallway_spot
+                  - light.cabinet_left
+                  - light.cabinet_middle
+                  - light.cabinet_right
                   - entity: scene.bathroom_nightlight
                     name: "Scene: Nightlight"
                     icon: mdi:script-outline
