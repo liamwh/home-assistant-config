@@ -51,7 +51,7 @@ turn_off_everything_non_automatic:
       data:
         transition: 4
         entity_id:
-          - light.living_room
+          - light.living_room_lights
           - light.bedroom
           - light.bathroom
           - light.hallway
