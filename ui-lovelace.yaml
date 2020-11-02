@@ -81,13 +81,18 @@ views:
             show_header_toggle: false
             title: Lights
             type: entities
-          - type: thermostat
+          - type: custom:simple-thermostat
             entity: climate.living_room
+            step_layout: row
+            name: false
+            icon: false
+            control: true
+            decimals: 1
       - type: vertical-stack
         cards:
           - type: custom:mini-media-player
-            #artwork: cover
-            #background: /local/tv.jpg
+            artwork: cover
+            background: /local/tv.jpg
             entity: media_player.tv
             hide:
               controls: true
@@ -114,31 +119,60 @@ views:
               - entity: sensor.mijnafvalwijzer_papier
                 name: Papier
                 icon: "hass:file"
-          - animate: true
-            color_thresholds:
-              - color: "#039BE5"
-                value: 2
-              - color: "#0DA035"
-                value: 5
-              - color: "#E0B400"
-                value: 10
-              - color: "#E45E65"
-                value: 15
-            detail: 2
-            entities:
-              - entity: sensor.dexcom_liamwoodleigh_glucose_value
-                show_fill: true
-                show_state: false
-                smoothing: true
-            hours_to_show: 12
-            line_width: 3
-            name: CGM Graph - 12 Hours
-            points_per_hour: 60
-            show:
-              graph: line
-              labels: true
-            type: "custom:mini-graph-card"
-            unit: mmol/L
+          - type: custom:swipe-card
+            parameters:
+            spaceBetween: 8
+            scrollbar:
+              hide: false
+              draggable: true
+              snapOnRelease: true
+            cards:
+              - name: CGM Graph - 12 Hours
+                animate: true
+                color_thresholds:
+                  - color: "#039BE5"
+                    value: 2
+                  - color: "#0DA035"
+                    value: 5
+                  - color: "#E0B400"
+                    value: 10
+                  - color: "#E45E65"
+                    value: 15
+                detail: 2
+                entities:
+                  - entity: sensor.dexcom_liamwoodleigh_glucose_value
+                    show_fill: true
+                    show_state: false
+                    smoothing: true
+                hours_to_show: 12
+                line_width: 3
+                points_per_hour: 60
+                show:
+                  graph: line
+                  labels: true
+                type: "custom:mini-graph-card"
+                unit: mmol/L
+              - aggregate_func: avg
+                animate: true
+                color_thresholds:
+                  - color: "#039BE5"
+                    value: 2
+                  - color: "#0da035"
+                    value: 5
+                  - color: "#e0b400"
+                    value: 10
+                  - color: "#e45e65"
+                    value: 15
+                entities:
+                  - entity: sensor.dexcom_liamwoodleigh_glucose_value
+                group_by: date
+                hours_to_show: 168
+                name: Avg CGM Value Per Day
+                show:
+                  graph: bar
+                  labels: true
+                  state: true
+                type: "custom:mini-graph-card"
       - type: vertical-stack
         cards:
           - type: custom:xiaomi-vacuum-card
