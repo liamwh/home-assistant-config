@@ -92,7 +92,7 @@ views:
         cards:
           - type: custom:mini-media-player
             artwork: cover
-            background: /local/tv.jpg
+            background: /local/tv1.jpg
             entity: media_player.tv
             hide:
               controls: true
