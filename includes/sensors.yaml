@@ -5,6 +5,12 @@
   value_template: >
     sgv:{{value_json[0].sgv}}, trend:{{value_json[0].trend}}, direction:{{value_json[0].direction}}, time:{{ ( (as_timestamp(now()) - as_timestamp(value_json[0].dateString) ) / 60) | round(0) }}
 
+- platform: github
+  access_token: !secret github_access_token
+  repositories:
+    - path: "liamwh/home-assistant-config"
+    - path: "liamwh/liamwh.com"
+
 - platform: template
   sensors:
     liam_cgm_sgv:
