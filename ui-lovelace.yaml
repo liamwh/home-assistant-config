@@ -118,15 +118,6 @@ views:
               draggable: true
               snapOnRelease: true
             cards:
-              - type: entities
-                title: Garbage
-                entities:
-                  - entity: sensor.mijnafvalwijzer_restafval
-                    name: Restafval
-                    icon: "hass:delete-empty"
-                  - entity: sensor.mijnafvalwijzer_papier
-                    name: Papier
-                    icon: "hass:file"
               - name: CGM Graph - 12 Hours
                 animate: true
                 color_thresholds:
@@ -152,6 +143,15 @@ views:
                   labels: true
                 type: "custom:mini-graph-card"
                 unit: mmol/L
+              - type: entities
+                title: Garbage
+                entities:
+                  - entity: sensor.mijnafvalwijzer_restafval
+                    name: Restafval
+                    icon: "hass:delete-empty"
+                  - entity: sensor.mijnafvalwijzer_papier
+                    name: Papier
+                    icon: "hass:file"
               - aggregate_func: avg
                 animate: true
                 color_thresholds:
