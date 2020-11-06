@@ -27,3 +27,5 @@ resources:
     type: module
   - url: /hacsfiles/simple-thermostat/simple-thermostat.js
     type: module
+  - url: /hacsfiles/button-card/button-card.js
+    type: module
