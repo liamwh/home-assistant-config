@@ -1,0 +1,26 @@
+---
+- name: living room
+  lights:
+    - light.living_room_lights
+  min_brightness: 70
+  prefer_rgb_color: true
+  detect_non_ha_changes: true
+  interval: 30
+
+- name: bedroom
+  lights:
+    - light.bedroom_lights
+  sleep_brightness: 20
+  min_brightness: 70
+  prefer_rgb_color: true
+  detect_non_ha_changes: true
+  interval: 30
+
+- name: bedroom half and dim
+  lights:
+    - light.bedroom_lights
+  min_brightness: 70
+  prefer_rgb_color: true
+  detect_non_ha_changes: true
+  interval: 30
+  sunrise_time: "07:30:00"
