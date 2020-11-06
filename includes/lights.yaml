@@ -44,3 +44,10 @@
     - light.bedroom_lights
     - light.living_room_lights
     - light.tv_ambilight
+
+- platform: group
+  name: Cabinet lights
+  entities:
+    - light.cabinet_left
+    - light.cabinet_middle
+    - light.cabinet_right

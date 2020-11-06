@@ -42,20 +42,19 @@ views:
                   type: custom:slider-entity-row
                   icon: mdi:sofa
               - entities:
-                  - light.bedroom_ceiling
-                  - light.bedside_lamp
-                type: custom:fold-entity-row
-                head:
-                  entity: light.bedroom
-                  icon: mdi:bed-double
-                  type: custom:slider-entity-row
-                  name: Bedroom
-              - entities:
                   - light.hallway_entrance
                   - light.hallway_spot
-                  - light.cabinet_left
-                  - light.cabinet_middle
-                  - light.cabinet_right
+                  - type: custom:fold-entity-row
+                    head:
+                      color_picker: true
+                      entity: light.cabinet_lights
+                      name: Cabinet
+                      type: custom:slider-entity-row
+                      icon: mdi:wardrobe
+                    entities:
+                      - light.cabinet_left
+                      - light.cabinet_middle
+                      - light.cabinet_right
                   - entity: scene.bathroom_nightlight
                     name: "Scene: Nightlight"
                     icon: mdi:script-outline
@@ -65,6 +64,15 @@ views:
                   name: Hallway
                   icon: mdi:hanger
                   type: custom:slider-entity-row
+              - entities:
+                  - light.bedroom_ceiling
+                  - light.bedside_lamp
+                type: custom:fold-entity-row
+                head:
+                  entity: light.bedroom
+                  icon: mdi:bed-double
+                  type: custom:slider-entity-row
+                  name: Bedroom
               - entities:
                   - light.bathroom_mirror
                   - light.bathroom_toilet
