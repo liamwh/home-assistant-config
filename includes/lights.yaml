@@ -35,3 +35,12 @@
     - light.cabinet_left
     - light.cabinet_middle
     - light.cabinet_right
+
+- platform: group
+  name: All the lights
+  entities:
+    - light.hallway_lights
+    - light.bathroom_lights
+    - light.bedroom_lights
+    - light.living_room_lights
+    - light.tv_ambilight
