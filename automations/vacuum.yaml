@@ -85,7 +85,7 @@
 - alias: "Vacuum: reset to standard mode"
   trigger:
     platform: state
-    entity_id: vacuum.living_room
+    entity_id: vacuum.xiaomi_vacuum_cleaner
     to: docked
   action:
     service: vacuum.set_fan_speed
