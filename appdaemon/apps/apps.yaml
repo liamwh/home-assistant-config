@@ -8,7 +8,7 @@ wake_up_with_spotify:
   class: WakeUpWithSpotify
   total_time: 400
   final_volume: 0.35
-  speaker: media_player.tv
+  speaker: media_player.living_room_tv
   spotify_source: Living Room TV
   playlist: "spotify:playlist:0CEjl8h9im31fUWsTa8cXG"
   input_boolean: input_boolean.wake_up_with_spotify
