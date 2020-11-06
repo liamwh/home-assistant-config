@@ -37,7 +37,7 @@
         - sat
         - sun
       after: "6:00:00"
-      before: "11:59"
+      before: "12:00"
     - condition: state
       entity_id: binary_sensor.no_one_home
       state: "off"
@@ -47,8 +47,6 @@
 - alias: "Lights: Daytime"
   description: ""
   trigger:
-    - platform: time
-      at: "10:00:00"
     - type: motion
       platform: device
       device_id: 48d7ced70bd011eba87c3ff9365e8b47
@@ -56,7 +54,7 @@
       domain: binary_sensor
   condition:
     - condition: time
-      after: "10:00"
+      after: "12:00"
       before: "22:00"
       weekday:
         - mon
@@ -86,7 +84,7 @@
     data:
       entity_id: light.bathroom_lights
   mode: single
-- alias: "Lights: Turn off hallway after 1.5 hours"
+- alias: "Lights: Turn off hallway after 1 hour"
   description: ""
   trigger:
     - platform: state
@@ -94,7 +92,7 @@
       to: "off"
       attribute: sensitivity
       from: "on"
-      for: "1:30:00"
+      for: "1:00:00"
   condition: []
   action:
     service: light.turn_off
