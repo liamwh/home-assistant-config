@@ -128,18 +128,18 @@
             data:
               entity_id: "{{ light }}"
               brightness_pct: 1
-        - conditions: "{{ option == 'WHITE' and light == 'light.living_room'}}"
-          sequence:
-            service: script.white_lights_living_room
-        - conditions: "{{ option == 'WHITE' and light == 'light.bedroom_lights'}}"
-          sequence:
-            service: script.white_lights_living_room
-        - conditions: "{{ option == 'COZY' and light == 'light.living_room'}}"
-          sequence:
-            service: script.cozy_lights_living_room
-        - conditions: "{{ option == 'COZY' and light == 'light.bedroom_lights'}}"
-          sequence:
-            service: script.cozy_lights_bedroom
+        # - conditions: "{{ option == 'WHITE' and light == 'light.living_room'}}"
+        #   sequence:
+        #     service: script.white_lights_living_room
+        # - conditions: "{{ option == 'WHITE' and light == 'light.bedroom_lights'}}"
+        #   sequence:
+        #     service: script.white_lights_living_room
+        # - conditions: "{{ option == 'COZY' and light == 'light.living_room'}}"
+        #   sequence:
+        #     service: script.cozy_lights_living_room
+        # - conditions: "{{ option == 'COZY' and light == 'light.bedroom_lights'}}"
+        #   sequence:
+        #     service: script.cozy_lights_bedroom
 
 - alias: "Apple Watch: temperature report"
   mode: parallel
