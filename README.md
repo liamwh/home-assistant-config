@@ -5,3 +5,5 @@
 [![HA Version](https://img.shields.io/badge/Running%20Home%20Asssistant-0.116.4%20-darkblue)](https://github.com/home-assistant/core/releases/tag/0.116.4)
 [![HA Community](https://img.shields.io/badge/HA%20community-forum-orange)](https://community.home-assistant.io/u/liamwh/summary)
 [![Yaml Lint](https://github.com/liamwh/home-assistant-config/workflows/Yaml%20Lint/badge.svg)](https://github.com/liamwh/home-assistant-config/actions?query=workflow%3A%22Yaml+Lint%22)
+
+Hi, welcome to my Home Assistant Configuration repository containing the code I use to automate and control my home. I intend to thoroughly document this configuration in the near future so it can potentially be of use to you. 😄
