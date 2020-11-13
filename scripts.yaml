@@ -51,9 +51,7 @@ turn_off_everything:
       data:
         transition: 4
         entity_id: light.all_the_lights
-    - service: media_player.turn_off
-      entity_id: media_player.tv
-    - service: climate.turn_off
+    - service: script.turn_off_tv
   mode: single
 going_to_sleep:
   alias: Going to sleep
@@ -108,10 +106,7 @@ arriving:
   alias: Arriving home
   sequence:
     - service: script.set_high_temperature
-    - service: light.turn_on
-      entity_id:
-        - light.living_room_lights
-        - light.hallway_lights
+    - service: script.turn_on_lights
 vacuum_command:
   alias: Vacuum living room
   icon: mdi:robot-vacuum
@@ -172,7 +167,7 @@ show_home_assistant_on_kitchen_hub:
   sequence:
     - data:
         dashboard_path: lovelace
-        entity_id: media_player.living_room_hub
+        entity_id: media_player.kitchen_hub
         view_path: home
       service: cast.show_lovelace_view
 flash_bedroom:
@@ -255,7 +250,6 @@ flash_bedroom_30_times:
     - service: light.turn_on
       data:
         entity_id: light.bedroom
-
 turn_on_lights:
   alias: Turn on lights with Adaptive Lighting
   icon: mdi:lamp
@@ -266,6 +260,27 @@ turn_on_lights:
   sequence:
     service: adaptive_lighting.apply
     data:
-      entity_id: switch.adaptive_lighting_living_room
-      lights: "{{ entity_id }}"
+      entity_id:
+        - switch.adaptive_lighting_bedroom
+        - switch.adaptive_lighting_living_room
+        - switch.adaptive_lighting_hallway
+        - switch.adaptive_lighting_bathroom
+      lights:
+        - light.hallway_lights
+        - light.bedroom_lights
+        - light.corner_lamp
+        - light.standing_lamp
+        - light.bathroom_lights
       turn_on_lights: true
+turn_off_tv:
+  alias: Turn off TV
+  sequence:
+    - condition: not
+      conditions:
+        - condition: state
+          entity_id: media_player.tv
+          state: unavailable
+    - service: media_player.turn_off
+      data: {}
+      entity_id: media_player.tv
+  mode: single
