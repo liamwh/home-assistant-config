@@ -18,58 +18,6 @@
   action:
     - scene: scene.bathroom_nightlight
   mode: single
-- alias: "Lights: Morning energise"
-  description: ""
-  trigger:
-    - type: motion
-      platform: device
-      device_id: 48d7ced70bd011eba87c3ff9365e8b47
-      entity_id: binary_sensor.motion_sensor_motion
-      domain: binary_sensor
-  condition:
-    - condition: time
-      weekday:
-        - mon
-        - tue
-        - wed
-        - thu
-        - fri
-        - sat
-        - sun
-      after: "6:00:00"
-      before: "12:00"
-    - condition: state
-      entity_id: binary_sensor.no_one_home
-      state: "off"
-  action:
-    - scene: scene.bathroom_energize
-  mode: single
-- alias: "Lights: Daytime"
-  description: ""
-  trigger:
-    - type: motion
-      platform: device
-      device_id: 48d7ced70bd011eba87c3ff9365e8b47
-      entity_id: binary_sensor.motion_sensor_motion
-      domain: binary_sensor
-  condition:
-    - condition: time
-      after: "12:00"
-      before: "22:00"
-      weekday:
-        - mon
-        - tue
-        - wed
-        - thu
-        - fri
-        - sat
-        - sun
-    - condition: state
-      entity_id: binary_sensor.no_one_home
-      state: "off"
-  action:
-    - scene: scene.bathroom_bright
-  mode: single
 - alias: "Lights: Turn off bathroom after 15 minutes"
   description: ""
   trigger:
@@ -98,4 +46,24 @@
     service: light.turn_off
     data:
       entity_id: light.hallway_lights
+  mode: single
+- alias: "Lights: Turn on bathroom & hallway with motion"
+  description: ""
+  trigger:
+    - type: motion
+      platform: device
+      device_id: 48d7ced70bd011eba87c3ff9365e8b47
+      entity_id: binary_sensor.motion_sensor_motion
+      domain: binary_sensor
+  condition: []
+  action:
+    service: adaptive_lighting.apply
+    data:
+      entity_id:
+        - switch.adaptive_lighting_hallway
+        - switch.adaptive_lighting_bathroom
+      lights:
+        - light.hallway_lights
+        - light.bathroom_lights
+      turn_on_lights: true
   mode: single

@@ -1,7 +1,8 @@
 ---
 - name: living room
   lights:
-    - light.living_room_lights
+    - light.corner_lamp
+    - light.standing_lamp
   min_brightness: 70
   prefer_rgb_color: true
   detect_non_ha_changes: true
@@ -15,12 +16,20 @@
   prefer_rgb_color: true
   detect_non_ha_changes: true
   interval: 30
+  sunrise_time: "07:30:00"
 
-- name: bedroom half and dim
+- name: hallway
   lights:
-    - light.bedroom_lights
+    - light.hallway_lights
   min_brightness: 70
   prefer_rgb_color: true
   detect_non_ha_changes: true
   interval: 30
-  sunrise_time: "07:30:00"
+
+- name: bathroom
+  lights:
+    - light.bathroom_lights
+  min_brightness: 70
+  prefer_rgb_color: false
+  detect_non_ha_changes: true
+  interval: 30
