@@ -1,5 +1,5 @@
 ---
-- alias: "Leaving: automatically turn off everything"
+- alias: "Leaving: automatically turn off everything after 1 hour"
   initial_state: "on"
   trigger:
     - platform: state
@@ -24,10 +24,10 @@
     - service: script.leaving
     - service: notify.all_iphones
       data:
-        title: "Leaving"
+        title: "No one home"
         message: "Everything automatically turned off!"
 
-- alias: "Leaving: ask to turn off everything"
+- alias: "Leaving: ask to turn off everything after 5 minutes"
   initial_state: "on"
   trigger:
     - platform: state
@@ -54,7 +54,7 @@
           push:
             category: turn_off_everything
 
-- alias: "Leaving: turn off everything after notification"
+- alias: "Leaving: turn off everything iPhone notification"
   trigger:
     platform: event
     event_type: ios.notification_action_fired
