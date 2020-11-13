@@ -24,8 +24,8 @@ push:
       actions:
         - identifier: "OFF"
           title: "Off"
-        - identifier: HALF
-          title: Half
+        # - identifier: HALF
+        #   title: Half
         - identifier: TOTAL
           title: Total
 
