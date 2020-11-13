@@ -79,10 +79,10 @@
         light: >
           {{
             {'ALL': 'all',
-             'BEDROOM': 'light.bedroom',
-             'LIVING_ROOM': 'light.living_room',
-             'HALL': 'light.hallway',
-             'BATHROOM': 'light.bathroom',
+             'BEDROOM': 'light.bedroom_lights',
+             'LIVING_ROOM': 'light.living_room_lights',
+             'HALL': 'light.hallway_lights',
+             'BATHROOM': 'light.bathroom_lights',
             }[wait.trigger.event.data.actionName] }}
     - service: "{{ iphone }}"
       data:
@@ -107,7 +107,7 @@
               entity_id: "{{ light }}"
         - conditions: "{{ option == 'ON' }}"
           sequence:
-            service: light.turn_on
+            service: script.turn_on_lights
             data:
               entity_id: "{{ light }}"
         - conditions: "{{ option == 'FIFTY' }}"
