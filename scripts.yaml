@@ -251,7 +251,7 @@ flash_bedroom_30_times:
       data:
         entity_id: light.bedroom
 turn_on_lights:
-  alias: Turn on lights with Adaptive Lighting
+  alias: lights with Adaptive Lighting
   icon: mdi:lamp
   fields:
     entity_id:
@@ -284,3 +284,16 @@ turn_off_tv:
       data: {}
       entity_id: media_player.tv
   mode: single
+# turn_on_lights:
+#   alias: Turn on lights with Adaptive Lighting
+#   icon: mdi:lamp
+#   fields:
+#     entity_id:
+#       description: entity_id of light
+#       example: light.bedroom_lights
+#   sequence:
+#     service: adaptive_lighting.apply
+#     data:
+#       entity_id: switch.adaptive_lighting_living_room
+#       lights: "{{ entity_id }}"
+#       turn_on_lights: true
