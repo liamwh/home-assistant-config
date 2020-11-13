@@ -3,6 +3,9 @@
   country: !secret country_code
   workdays: [mon, tue, thu, fri]
 
+- platform: ping
+  host: Liams-iPhone.pad
+
 - platform: template
   sensors:
     motion_detected:
@@ -60,4 +63,7 @@
     no_one_home:
       friendly_name: No one is home
       value_template: >
-        {{ not is_state("person.liam", "home")}}
+        {{
+        not is_state("person.liam", "home")
+        and not is_state("binary_sensor.ping_liams_iphone_pad", "on")
+        }}
