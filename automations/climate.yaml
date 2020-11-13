@@ -1,5 +1,5 @@
 ---
-- alias: "Climate: turn off the heating at 22:00"
+- alias: "Climate: turn off the heating at 22:00 if no one is home"
   trigger:
     platform: time
     at: "22:00"
