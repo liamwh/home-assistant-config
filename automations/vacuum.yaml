@@ -8,8 +8,8 @@
   action:
     service: notify.all_iphones
     data:
-      title: "Robot"
-      message: "Robot started to clean!"
+      title: "Vacuum"
+      message: "Vacuum started to clean!"
 
 - alias: "Vacuum: stopped cleaning"
   trigger:
@@ -20,7 +20,7 @@
   action:
     - service: notify.all_iphones
       data:
-        title: "Robot"
+        title: "Vacuum"
         message: "Cleanup successful after {{ state_attr('vacuum.xiaomi_vacuum_cleaner', 'cleaning_time') }} minutes."
     - service: input_boolean.turn_on
       entity_id: input_boolean.cleaned_today
@@ -36,7 +36,7 @@
   action:
     service: notify.all_iphones
     data:
-      title: "Robot"
+      title: "Vacuum"
       message: "Vacuum will go today, make sure to leave the doors open and leave nothing on the floor!"
 
 - alias: "Vacuum: cleanup if nobody is home"
