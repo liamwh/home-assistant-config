@@ -5,3 +5,4 @@
   username: !secret tv_username
   password: !secret tv_password
   mac: !secret tv_mac_wireless
+  favorite_channels_only: true
