@@ -1,0 +1,42 @@
+---
+- alias: "Night mode: automatically turn off when alarm turns off or at 7:30AM"
+  trigger:
+    - platform: time
+      at: "07:30"
+    - platform: state
+      entity_id: input_boolean.alarm_clock
+      from: "on"
+      to: "off"
+  condition:
+    condition: state
+    entity_id: input_boolean.alarm_clock
+    state: "off"
+  action:
+    entity_id: input_select.sleep_mode
+    service: input_select.select_option
+    data:
+      option: "off"
+
+- alias: "Night mode: set low temperature when sleep mode turns on"
+  trigger:
+    platform: state
+    entity_id: input_select.sleep_mode
+    to: "on"
+  action:
+    service: script.set_low_temperature
+
+- alias: "Night mode: set high temperature when sleep mode turns off"
+  trigger:
+    platform: state
+    entity_id: input_select.sleep_mode
+    to: "off"
+  action:
+    service: script.set_high_temperature
+
+- alias: "Night mode: Turn on lights when sleep mode turns off"
+  trigger:
+    platform: state
+    entity_id: input_select.sleep_mode
+    to: "off"
+  action:
+    service: script.turn_on_lights
