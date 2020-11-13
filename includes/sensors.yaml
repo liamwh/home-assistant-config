@@ -63,12 +63,12 @@
       icon_template: >
         mdi:leak-off
 
-    cgm_trans_expire:
-      friendly_name: "G6 Transmitter Expires on: "
-      value_template: >
-        {{ (state_attr('input_datetime.cgm_trans_start', 'timestamp') + 7776000) | timestamp_custom('%B %-d, %Y')}} // {{state_attr('input_datetime.cgm_trans_start', 'timestamp') | timestamp_custom('%-I:%M %p') }}
-      icon_template: >
-        mdi:leak-off
+    # cgm_trans_expire:
+    #   friendly_name: "G6 Transmitter Expires on: "
+    #   value_template: >
+    #     {{ (state_attr('input_datetime.cgm_trans_start', 'timestamp') + 7776000) | timestamp_custom('%B %-d, %Y')}} // {{state_attr('input_datetime.cgm_trans_start', 'timestamp') | timestamp_custom('%-I:%M %p') }}
+    #   icon_template: >
+    #     mdi:leak-off
 
     # Calculate HbA1C % based off 90 day BG averge sensor above
     # NOTE: These calculations are based on HbA1C from mmol/L values.
@@ -90,22 +90,22 @@
 
     # The Dexcom G6 Transmitters have a life of 90 days before they’re “expired” in the Dexcom App.
     # This template Counts Down from 90 Days.
-    cgm_trans_expire_days:
-      friendly_name: "G6 Transmitter Expires in: "
-      value_template: >
-        {% set days =  (( as_timestamp(strptime(states.input_datetime.cgm_trans_start.state, "%Y-%m-%dT%H:%M:%S")) + 7776000 - as_timestamp(now()) )/ (3600*24)) | round(1) | int %}
-        {%- if days < 1 -%}
-        TODAY!
-        {%- else -%}
-        {%- if days < 2 -%}
-        Tomorrow...
-        {%- endif -%}
-        {%- if days > 1 -%}
-        {{ days }} Days
-        {%- endif -%}
-        {%- endif -%}
-      icon_template: >
-        mdi:leak-off
+    # cgm_trans_expire_days:
+    #   friendly_name: "G6 Transmitter Expires in: "
+    #   value_template: >
+    #     {% set days =  (( as_timestamp(strptime(states.input_datetime.cgm_trans_start.state, "%Y-%m-%dT%H:%M:%S")) + 7776000 - as_timestamp(now()) )/ (3600*24)) | round(1) | int %}
+    #     {%- if days < 1 -%}
+    #     TODAY!
+    #     {%- else -%}
+    #     {%- if days < 2 -%}
+    #     Tomorrow...
+    #     {%- endif -%}
+    #     {%- if days > 1 -%}
+    #     {{ days }} Days
+    #     {%- endif -%}
+    #     {%- endif -%}
+    #   icon_template: >
+    #     mdi:leak-off
 
     half_hour_before_alarm:
       friendly_name: Half an hour before alarm
