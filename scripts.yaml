@@ -258,20 +258,35 @@ turn_on_lights:
       description: entity_id of light
       example: light.bedroom_lights
   sequence:
-    service: adaptive_lighting.apply
-    data:
-      entity_id:
-        - switch.adaptive_lighting_bedroom
-        - switch.adaptive_lighting_living_room
-        - switch.adaptive_lighting_hallway
-        - switch.adaptive_lighting_bathroom
-      lights:
-        - light.hallway_lights
-        - light.bedroom_lights
-        - light.corner_lamp
-        - light.standing_lamp
-        - light.bathroom_lights
-      turn_on_lights: true
+    - service: adaptive_lighting.apply
+      data:
+        entity_id:
+          - switch.adaptive_lighting_bedroom
+          - switch.adaptive_lighting_living_room
+          - switch.adaptive_lighting_hallway
+          - switch.adaptive_lighting_bathroom
+        lights:
+          - light.hallway_lights
+          - light.bedroom_lights
+          - light.corner_lamp
+          - light.standing_lamp
+          - light.bathroom_lights
+        turn_on_lights: true
+    - service: script.toggle_tv_ambilight
+
+toggle_tv_ambilight:
+  alias: Toggle TV ambilight
+  sequence:
+    - condition: not
+      conditions:
+        - condition: state
+          entity_id: light.tv_ambilight
+          state: unavailable
+    - service: light.toggle
+      data: {}
+      entity_id: light.tv_ambilight
+  mode: single
+
 turn_off_tv:
   alias: Turn off TV
   sequence:
@@ -297,3 +312,31 @@ turn_off_tv:
 #       entity_id: switch.adaptive_lighting_living_room
 #       lights: "{{ entity_id }}"
 #       turn_on_lights: true
+switch_music_from_iphone_to_tv:
+  alias: Switch music to TV
+  mode: restart
+  sequence:
+    # Send iPhone notification
+    - service: notify.mobile_app_liams_iphone
+      data:
+        title: "Arriving"
+        message: "Switching music from phone to TV. Take out your Airpods!"
+    # Turn on the TV
+    - service: media_player.turn_on
+      entity_id: media_player.tv
+    # Open Spotify on TV
+    - service: media_player.select_source
+      entity_id: media_player.tv
+      data:
+        source: "\U0001F4F1 Spotify"
+    # Set Spotify to play on TV
+    - service: media_player.select_source
+      entity_id: media_player.spotify
+      data:
+        source: Living Room TV
+    # Wait until Spotify gets paused from taking out AirPods
+    - wait_template: "{{ not is_state('media_player.spotify', 'playing') }}"
+      timeout: "00:00:10"
+    # Play spotify again on TV
+    - service: media_player.media_play
+      entity_id: media_player.spotify
