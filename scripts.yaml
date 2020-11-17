@@ -52,6 +52,7 @@ turn_off_everything:
         transition: 4
         entity_id: light.all_the_lights
     - service: script.turn_off_tv
+    - service: script.turn_off_tv_ambilight
   mode: single
 going_to_sleep:
   alias: Going to sleep
@@ -174,82 +175,18 @@ flash_bedroom:
   sequence:
     - service: light.turn_on
       data:
-        entity_id: light.bedroom
+        entity_id: light.bedroom_lights
         rgb_color:
           - 0
           - 191
           - 255
         brightness: 255
+        transition: no
     - delay: 1
     - service: light.turn_off
       data:
-        entity_id: light.bedroom
-flash_bedroom_30_times:
-  alias: Flash bedroom on 30 times
-  sequence:
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: script.flash_bedroom
-    - wait_template: "{{ is_state('script.flash_bedroom', 'off') }}"
-    - service: light.turn_on
-      data:
-        entity_id: light.bedroom
+        entity_id: light.bedroom_lights
+        transition: no
 turn_on_lights:
   alias: lights with Adaptive Lighting
   icon: mdi:lamp
@@ -265,24 +202,41 @@ turn_on_lights:
           - switch.adaptive_lighting_living_room
           - switch.adaptive_lighting_hallway
           - switch.adaptive_lighting_bathroom
+          - switch.adaptive_lighting_cabinet
+          - switch.adaptive_lighting_java_lamp
         lights:
           - light.hallway_lights
+          - light.cabinet_lights
           - light.bedroom_lights
           - light.corner_lamp
           - light.standing_lamp
           - light.bathroom_lights
+          - light.java_lamp
         turn_on_lights: true
-    - service: script.toggle_tv_ambilight
+    - service: script.turn_on_tv_ambilight
 
-toggle_tv_ambilight:
-  alias: Toggle TV ambilight
+turn_off_tv_ambilight:
+  alias: Turn off TV ambilight
   sequence:
     - condition: not
       conditions:
         - condition: state
           entity_id: light.tv_ambilight
           state: unavailable
-    - service: light.toggle
+    - service: light.turn_off
+      data: {}
+      entity_id: light.tv_ambilight
+  mode: single
+
+turn_on_tv_ambilight:
+  alias: Turn on TV ambilight
+  sequence:
+    - condition: not
+      conditions:
+        - condition: state
+          entity_id: light.tv_ambilight
+          state: unavailable
+    - service: light.turn_on
       data: {}
       entity_id: light.tv_ambilight
   mode: single
@@ -309,7 +263,7 @@ turn_off_tv:
 #   sequence:
 #     service: adaptive_lighting.apply
 #     data:
-#       entity_id: switch.adaptive_lighting_living_room
+#       entity_id: switch.adaptive_lighting_living_room # Make this line dynamic
 #       lights: "{{ entity_id }}"
 #       turn_on_lights: true
 switch_music_from_iphone_to_tv:
