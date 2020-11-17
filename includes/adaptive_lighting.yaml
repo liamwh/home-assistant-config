@@ -3,6 +3,7 @@
   lights:
     - light.corner_lamp
     - light.standing_lamp
+    - light.table_lamp
   min_brightness: 70
   prefer_rgb_color: true
   detect_non_ha_changes: true
@@ -16,7 +17,7 @@
   prefer_rgb_color: true
   detect_non_ha_changes: true
   interval: 30
-  sunrise_time: "07:30:00"
+  sunrise_time: "07:00:00"
 
 - name: hallway
   lights:
@@ -25,11 +26,23 @@
   prefer_rgb_color: true
   detect_non_ha_changes: true
   interval: 30
+  sleep_brightness: 3
 
-- name: bathroom
+- name: cabinet
   lights:
-    - light.bathroom_lights
+    - light.cabinet_lights
   min_brightness: 70
-  prefer_rgb_color: false
+  prefer_rgb_color: true
+  detect_non_ha_changes: true
+  interval: 30
+  sleep_brightness: 3
+
+- name: java lamp
+  lights:
+    - light.java_map
+  min_brightness: 50
+  max_brightness: 70
+  sleep_brightness: 20
+  prefer_rgb_color: true
   detect_non_ha_changes: true
   interval: 30
