@@ -19,6 +19,15 @@ push:
           authenticationRequired: true
           destructive: true
 
+    - name: Flashing lights
+      identifier: flashing_lights
+      actions:
+        - title: Turn off flashing lights
+          identifier: TURN_OFF_FLASHING_LIGHTS
+          activationMode: background
+          authenticationRequired: true
+          destructive: true
+
     - name: Set sleep mode
       identifier: set_sleep_mode
       actions:
