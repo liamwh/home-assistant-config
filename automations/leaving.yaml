@@ -54,7 +54,7 @@
           push:
             category: turn_off_everything
 
-- alias: "Leaving: turn off everything iPhone notification"
+- alias: "Leaving: Turn off everything iOS notification action"
   trigger:
     platform: event
     event_type: ios.notification_action_fired

@@ -61,7 +61,7 @@
       actionName: Set lights
   action:
     - variables:
-        iphone: "notify.notify" #TODO: Use regex on source device to limit to specific iPhone
+        iphone: "notify.notify" #TODO: Use regex on source device to limit to origin device iPhone
     - service: "{{ iphone }}"
       data:
         message: "Apple Watch: set lights"
@@ -167,7 +167,8 @@
         iphone: "notify.notify"
     - service: "{{ iphone }}"
       data:
-        message: "Apple Watch: vacuum"
+        title: "Vacuum"
+        message: "Where?"
         data:
           push:
             category: vacuum_locations

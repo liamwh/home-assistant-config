@@ -1,5 +1,6 @@
 ---
-- alias: "BG: Below 4, flash bedroom lights"
+- alias: "BG: Flash bedroom lights if BG below 4"
+  mode: restart
   trigger:
     platform: numeric_state
     entity_id: sensor.dexcom_liamwoodleigh_glucose_value
@@ -9,5 +10,31 @@
     entity_id: person.liam
     state: home
   action:
-    service: script.turn_on
-    entity_id: script.flash_bedroom_30_times
+    - service: notify.mobile_app_liams_iphone
+      data:
+        message: "LOW BG! Turn off flashing lights?"
+        data:
+          push:
+            category: flashing_lights
+    - repeat:
+        while:
+          - condition: numeric_state
+            entity_id: sensor.dexcom_liamwoodleigh_glucose_value
+            below: 12
+        sequence:
+          - delay: "00:00:01"
+          - service: script.flash_bedroom
+
+- alias: "BG: Disable flashing lights after iOS notification action"
+  trigger:
+    platform: event
+    event_type: ios.notification_action_fired
+    event_data:
+      actionName: TURN_OFF_FLASHING_LIGHTS
+  action:
+    - service: automation.turn_off
+      entity_id: automation.bg_flash_bedroom_lights_if_below_4
+    - service: automation.turn_on
+      entity_id: automation.bg_flash_bedroom_lights_if_below_4
+    - service: light.turn_off
+      entity_id: light.bedroom_lights

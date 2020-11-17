@@ -13,6 +13,8 @@
       - switch.adaptive_lighting_sleep_mode_bedroom
       - switch.adaptive_lighting_sleep_mode_hallway
       - switch.adaptive_lighting_sleep_mode_bathroom
+      - switch.adaptive_lighting_sleep_mode_java_lamp
+      - switch.adaptive_lighting_sleep_mode_hallway
 
 - alias: "Adaptive lighting: reset manual_control after 1 hour"
   mode: parallel
@@ -34,7 +36,7 @@
         manual_control: false
     - service: notify.notify
       data:
-        title: "Adaptive Lighting: manual_control reset"
+        title: "Adaptive Lighting: reset manual_control"
         message: "{{ light }} is reset to not 'manually controlled'"
 
 - alias: "Adaptive lighting: notify manual_control"

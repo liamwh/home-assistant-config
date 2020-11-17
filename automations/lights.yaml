@@ -1,23 +1,4 @@
 ---
-- alias: "Lights: Workday Nightlight"
-  description: ""
-  trigger:
-    - type: motion
-      platform: device
-      device_id: 48d7ced70bd011eba87c3ff9365e8b47
-      entity_id: binary_sensor.motion_sensor_motion
-      domain: binary_sensor
-  condition:
-    - condition: time
-      after: "22:00"
-      weekday:
-        - mon
-        - wed
-        - thu
-        - sun
-  action:
-    - scene: scene.bathroom_nightlight
-  mode: single
 - alias: "Lights: Turn off bathroom after 15 minutes"
   description: ""
   trigger:
@@ -47,23 +28,39 @@
     data:
       entity_id: light.hallway_lights
   mode: single
-- alias: "Lights: Turn on bathroom & hallway with motion"
+- alias: "Lights: Turn on bathroom lights when door opens"
   description: ""
   trigger:
-    - type: motion
+    - type: opened
       platform: device
-      device_id: 48d7ced70bd011eba87c3ff9365e8b47
-      entity_id: binary_sensor.motion_sensor_motion
+      device_id: f71438264bf00faabf9df480352d3b25
+      entity_id: binary_sensor.bathroom_door_sensor
       domain: binary_sensor
   condition: []
   action:
-    service: adaptive_lighting.apply
-    data:
-      entity_id:
-        - switch.adaptive_lighting_hallway
-        - switch.adaptive_lighting_bathroom
-      lights:
-        - light.hallway_lights
-        - light.bathroom_lights
-      turn_on_lights: true
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: binary_sensor.workday_sensor
+              state: "off"
+          sequence:
+            - scene: scene.bathroom_energize
+        - conditions:
+            - condition: state
+              entity_id: binary_sensor.workday_sensor
+              state: "on"
+            - condition: time
+              after: "19:30:00"
+          sequence:
+            - scene: scene.bathroom_relax
+        - conditions:
+            - condition: state
+              entity_id: binary_sensor.workday_sensor
+              state: "on"
+            - condition: time
+              after: "22:30:00"
+          sequence:
+            - scene: scene.bathroom_nightlight
+      default:
+        - scene: scene.bathroom_energize
   mode: single

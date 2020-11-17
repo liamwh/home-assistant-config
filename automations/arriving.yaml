@@ -1,5 +1,5 @@
 ---
-- alias: "Arriving: switch music from iPhone to speakers"
+- alias: "Arriving: switch music from iPhone to soundbar"
   trigger:
     platform: state
     entity_id: binary_sensor.front_door_sensor
@@ -12,5 +12,23 @@
       state: "off"
     - "{{ is_state_attr('media_player.spotify', 'source', 'Liam’s iPhone') }}" # And Liam's iPhone is selected as the spotify source
     - "{{ is_state('media_player.spotify', 'playing') }}" # And Spotify is playing
+    - condition: state
+      entity_id: binary_sensor.motion_detected_in_last_5_minutes
+      state: "off"
   action:
     - service: script.switch_music_from_iphone_to_tv
+
+- alias: "Arriving: Turn on lights and heating"
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.front_door_sensor
+      to: "on"
+  condition:
+    - condition: state
+      entity_id: binary_sensor.motion_detected_in_last_5_minutes
+      state: "off"
+  action:
+    - service: script.arriving
+      data: {}
+  mode: single
