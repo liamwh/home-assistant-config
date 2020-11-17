@@ -44,32 +44,32 @@ views:
               - entities:
                   - light.hallway_entrance
                   - light.hallway_spot
-                  - type: custom:fold-entity-row
-                    head:
-                      color_picker: true
-                      entity: light.cabinet_lights
-                      name: Cabinet
-                      type: custom:slider-entity-row
-                      icon: mdi:wardrobe
-                    entities:
-                      - light.cabinet_left
-                      - light.cabinet_middle
-                      - light.cabinet_right
                   - entity: scene.bathroom_nightlight
                     name: "Scene: Nightlight"
                     icon: mdi:script-outline
                 type: custom:fold-entity-row
                 head:
-                  entity: light.hallway
+                  entity: light.hallway_lights
                   name: Hallway
                   icon: mdi:hanger
                   type: custom:slider-entity-row
+              - type: custom:fold-entity-row
+                head:
+                  color_picker: true
+                  entity: light.cabinet_lights
+                  name: Cabinet
+                  type: custom:slider-entity-row
+                  icon: mdi:wardrobe
+                entities:
+                  - light.cabinet_left
+                  - light.cabinet_middle
+                  - light.cabinet_right
               - entities:
                   - light.bedroom_ceiling
                   - light.bedside_lamp
                 type: custom:fold-entity-row
                 head:
-                  entity: light.bedroom
+                  entity: light.bedroom_lights
                   icon: mdi:bed-double
                   type: custom:slider-entity-row
                   name: Bedroom
@@ -82,7 +82,7 @@ views:
                     icon: mdi:script-outline
                 type: custom:fold-entity-row
                 head:
-                  entity: light.bathroom
+                  entity: light.bathroom_lights
                   name: Bathroom
                   icon: mdi:shower
                   type: custom:slider-entity-row
@@ -520,11 +520,6 @@ views:
       - template: automation_template
         type: custom:decluttering-card
         variables:
-          - name: Door
-          - slug: door
-      - template: automation_template
-        type: custom:decluttering-card
-        variables:
           - name: Leaving
           - slug: leaving
       - template: automation_template
@@ -540,7 +535,7 @@ views:
       - template: automation_template
         type: custom:decluttering-card
         variables:
-          - name: BG
+          - name: Blood Glucose
           - slug: bg
       - template: automation_template
         type: custom:decluttering-card
@@ -555,11 +550,6 @@ views:
       - template: automation_template
         type: custom:decluttering-card
         variables:
-          - name: Plant
-          - slug: plant
-      - template: automation_template
-        type: custom:decluttering-card
-        variables:
           - name: Vacuum
           - slug: vacuum
       - template: automation_template
@@ -567,3 +557,14 @@ views:
         variables:
           - name: Apple Watch
           - slug: apple_watch
+  - icon: mdi:test-tube
+    path: tests
+    title: Tests
+    badges: []
+    cards:
+      - show_header_toggle: false
+        title: Tests
+        type: entities
+        entities:
+          - entity: input_boolean.wake_up_with_spotify
+          - entity: input_boolean.demo_wake_up_with_spotify
