@@ -210,10 +210,10 @@ turn_on_lights:
           - light.bedroom_lights
           - light.corner_lamp
           - light.standing_lamp
+          - light.table_lamp
           - light.bathroom_lights
           - light.java_lamp
         turn_on_lights: true
-    - service: script.turn_on_tv_ambilight
 
 turn_off_tv_ambilight:
   alias: Turn off TV ambilight

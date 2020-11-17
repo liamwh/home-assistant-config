@@ -4,6 +4,7 @@
     - light.corner_lamp
     - light.standing_lamp
     - light.table_lamp
+    - light.tv_ambilight
   min_brightness: 70
   prefer_rgb_color: true
   detect_non_ha_changes: true
