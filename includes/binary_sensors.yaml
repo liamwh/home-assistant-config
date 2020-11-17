@@ -3,6 +3,11 @@
   country: !secret country_code
   workdays: [mon, tue, thu, fri]
 
+- platform: workday
+  name: day before workday sensor
+  country: !secret country_code
+  workdays: [sun, mon, wed, thu]
+
 - platform: ping
   host: Liams-iPhone.pad
 
