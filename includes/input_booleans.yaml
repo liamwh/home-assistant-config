@@ -13,9 +13,21 @@ automatic_temperature:
   icon: mdi:thermometer
 wake_up_with_spotify:
   name: Start wake up with Spotify
-  initial: "off"
+  initial: false
   icon: mdi:music
 wake_up_light:
   name: Start wake up light
-  initial: "off"
+  initial: false
   icon: mdi:weather-sunset-up
+demo_wake_up_with_spotify:
+  name: Demo - Start wake up with Spotify
+  initial: false
+  icon: mdi:music
+start_spotify:
+  name: Start Spotify
+  initial: false
+  icon: mdi:music
+start_tv_spotify:
+  name: Start TV to Spotify
+  initial: false
+  icon: mdi:music

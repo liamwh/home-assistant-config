@@ -9,7 +9,7 @@ wake_up_with_spotify:
   class: WakeUpWithSpotify
   speaker: media_player.kef_ls50
   spotify_source: "LS50 Wireless"
-  playlist: "spotify:playlist:6rPTm9dYftKcFAfwyRqmDZ"
+  playlist: "spotify:playlist:5w3OFqHAkNiOgsEH560a9G"
   total_time: 900
   final_volume: 0.3
   input_boolean: input_boolean.wake_up_with_spotify
@@ -28,7 +28,7 @@ import hassapi as hass
 
 DEFAULT_SPEAKER = "media_player.living_room_tv"
 DEFAULT_SPOTIFY_SOURCE = "Living Room TV"
-DEFAULT_PLAYLIST = "0CEjl8h9im31fUWsTa8cXG"
+DEFAULT_PLAYLIST = "spotify:playlist:5w3OFqHAkNiOgsEH560a9G"
 DEFAULT_TOTAL_TIME = 300
 DEFAULT_FINAL_VOLUME = 0.3
 DEFAULT_INPUT_BOOLEAN = "input_boolean.wake_up_with_spotify"
