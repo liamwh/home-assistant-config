@@ -266,8 +266,8 @@ turn_off_tv:
 #       entity_id: switch.adaptive_lighting_living_room # Make this line dynamic
 #       lights: "{{ entity_id }}"
 #       turn_on_lights: true
-switch_music_from_iphone_to_tv:
-  alias: Switch music to TV
+switch_music_from_iphone_to_soundbar:
+  alias: Switch music to soundbar
   mode: restart
   sequence:
     # Send iPhone notification
