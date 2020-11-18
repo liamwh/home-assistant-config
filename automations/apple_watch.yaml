@@ -192,7 +192,7 @@
       actionName: PLAY_PAUSE_SPOTIFY
   action:
     - service: media_player.media_play_pause
-      entity_id: media
+      entity_id: media_player.spotify
 - alias: "Apple Watch: set temperature"
   mode: parallel
   trigger:

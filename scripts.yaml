@@ -293,4 +293,5 @@ switch_music_from_iphone_to_tv:
       timeout: "00:00:10"
     # Play spotify again on TV
     - service: media_player.media_play_pause
-      entity_id: media_player.spotify
+      data:
+        entity_id: media_player.spotify
