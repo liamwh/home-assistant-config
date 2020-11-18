@@ -20,7 +20,7 @@
           push:
             category: turn_on_heating
 
-- alias: "Climate: turn on the heating 30 min before waking up"
+- alias: "Climate: turn on the heating 30 min before alarm"
   trigger:
     platform: template
     value_template: >
