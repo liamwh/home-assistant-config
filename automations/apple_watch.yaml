@@ -175,7 +175,7 @@
     - service: script.vacuum_command
       data:
         option: "{{ location }}"
-- alias: "Apple Watch: Play spotify after notification action"
+- alias: "Apple Watch: Play/Pause spotify"
   trigger:
     platform: event
     event_type: ios.notification_action_fired
