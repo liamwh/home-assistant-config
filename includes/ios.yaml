@@ -121,10 +121,10 @@ push:
           title: Stop and return
 
 actions:
-  - name: Spotify
+  - name: Play/pause Spotify
     background_color: "#000000"
     label:
-      text: Play/Pause Spotify
+      text: Play/pause Spotify
       color: "#ff0000"
     icon:
       icon: play-pause
@@ -151,7 +151,7 @@ actions:
   - name: Temperature report
     background_color: "#000000"
     label:
-      text: Report
+      text: Temp Report
       color: "#ff0000"
     icon:
       icon: temperature-celsius
@@ -160,7 +160,7 @@ actions:
   - name: Set temperature
     background_color: "#000000"
     label:
-      text: Set temperature
+      text: Set temp
       color: "#ff0000"
     icon:
       icon: temperature-celsius

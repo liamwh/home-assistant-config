@@ -180,7 +180,7 @@
     platform: event
     event_type: ios.notification_action_fired
     event_data:
-      actionName: PLAY_PAUSE_SPOTIFY
+      actionName: Play/pause Spotify
   action:
     - service: media_player.media_play_pause
       entity_id: media_player.spotify
