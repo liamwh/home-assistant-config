@@ -184,7 +184,15 @@
     - service: script.vacuum_command
       data:
         option: "{{ location }}"
-
+- alias: "Apple Watchs: Play spotify after notification action"
+  trigger:
+    platform: event
+    event_type: ios.notification_action_fired
+    event_data:
+      actionName: PLAY_PAUSE_SPOTIFY
+  action:
+    - service: media_player.media_play_pause
+      entity_id: media
 - alias: "Apple Watch: set temperature"
   mode: parallel
   trigger:

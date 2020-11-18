@@ -292,5 +292,5 @@ switch_music_from_iphone_to_tv:
     - wait_template: "{{ not is_state('media_player.spotify', 'playing') }}"
       timeout: "00:00:10"
     # Play spotify again on TV
-    - service: media_player.media_play
+    - service: media_player.media_play_pause
       entity_id: media_player.spotify

@@ -28,6 +28,15 @@ push:
           authenticationRequired: true
           destructive: true
 
+    - name: Spotify
+      identifier: spotify
+      actions:
+        - title: Play/pause spotify
+          identifier: PLAY_PAUSE_SPOTIFY
+          activationMode: background
+          authenticationRequired: true
+          destructive: true
+
     - name: Set sleep mode
       identifier: set_sleep_mode
       actions:
