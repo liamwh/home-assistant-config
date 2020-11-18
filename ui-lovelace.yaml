@@ -496,6 +496,7 @@ views:
             - entity_id: automation.alarm_clock_*
             - entity_id: automation.apple_watch*
             - entity_id: automation.arriving_*
+            - entity_id: automation.security_*
             - entity_id: automation.climate_*
             - entity_id: automation.bg_*
             - entity_id: automation.frontend_*
@@ -522,6 +523,11 @@ views:
         variables:
           - name: Leaving
           - slug: leaving
+      - template: automation_template
+        type: custom:decluttering-card
+        variables:
+          - name: Security
+          - slug: security_
       - template: automation_template
         type: custom:decluttering-card
         variables:
