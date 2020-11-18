@@ -9,7 +9,7 @@
       before: "23:00:00"
     - condition: state
       entity_id: input_boolean.guest_mode
-      state: "off"
+      state: false
     - "{{ is_state_attr('media_player.spotify', 'source', 'Liam’s iPhone') }}" # And Liam's iPhone is selected as the spotify source
     - "{{ is_state('media_player.spotify', 'playing') }}" # And Spotify is playing
     - condition: state
