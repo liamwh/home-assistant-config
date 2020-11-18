@@ -121,6 +121,15 @@ push:
           title: Stop and return
 
 actions:
+  - name: Spotify
+    background_color: "#000000"
+    label:
+      text: Play/Pause Spotify
+      color: "#ff0000"
+    icon:
+      icon: play-pause
+      color: "#ffffff"
+
   - name: Play TV
     background_color: "#000000"
     label:
