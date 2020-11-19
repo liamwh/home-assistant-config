@@ -274,7 +274,9 @@ switch_music_from_iphone_to_soundbar:
     - service: notify.mobile_app_liams_iphone
       data:
         title: "Arriving"
-        message: "Switching music from phone to TV. Take out your Airpods!"
+        message: "Switching music from phone to TV. Take out your Airpods & press play when ready!"
+        push:
+          category: Spotify
     # Turn on the TV
     - service: media_player.turn_on
       entity_id: media_player.tv
@@ -288,10 +290,3 @@ switch_music_from_iphone_to_soundbar:
       entity_id: media_player.spotify
       data:
         source: Living Room TV
-    # Wait until Spotify gets paused from taking out AirPods
-    - wait_template: "{{ not is_state('media_player.spotify', 'playing') }}"
-      timeout: "00:00:10"
-    # Play spotify again on TV
-    - service: media_player.media_play_pause
-      data:
-        entity_id: media_player.spotify

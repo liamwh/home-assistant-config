@@ -22,7 +22,7 @@
       actionName: Set sleep mode
   action:
     - variables:
-        iphone: notify.notify
+        iphone: "notify.mobile_app_{{ trigger.event.data.sourceDeviceID.replace('-', '_') }}"
     - service: "{{ iphone }}"
       data:
         message: "Apple Watch: set sleep mode."
@@ -52,7 +52,7 @@
       actionName: Set lights
   action:
     - variables:
-        iphone: "notify.notify" #TODO: Use regex on source device to limit to origin device iPhone
+        iphone: "notify.mobile_app_{{ trigger.event.data.sourceDeviceID.replace('-', '_') }}"
     - service: "{{ iphone }}"
       data:
         message: "Apple Watch: set lights"
@@ -72,8 +72,9 @@
             {'ALL': 'all',
              'BEDROOM': 'light.bedroom_lights',
              'LIVING_ROOM': 'light.living_room_lights',
-             'HALL': 'light.hallway_lights',
+             'HALLWAY': 'light.hallway_lights',
              'BATHROOM': 'light.bathroom_lights',
+             'BATHROOM': 'light.cabinet_lights',
             }[wait.trigger.event.data.actionName] }}
     - service: "{{ iphone }}"
       data:
@@ -141,7 +142,7 @@
       actionName: Temperature report
   action:
     - variables:
-        iphone: "notify.notify"
+        iphone: "notify.mobile_app_{{ trigger.event.data.sourceDeviceID.replace('-', '_') }}"
     - service: "{{ iphone }}"
       data:
         title: "Temperature"
@@ -155,7 +156,7 @@
       actionName: Vacuum
   action:
     - variables:
-        iphone: "notify.notify"
+        iphone: "notify.mobile_app_{{ trigger.event.data.sourceDeviceID.replace('-', '_') }}"
     - service: "{{ iphone }}"
       data:
         title: "Vacuum"
@@ -177,10 +178,14 @@
         option: "{{ location }}"
 - alias: "Apple Watch: Play/Pause spotify"
   trigger:
-    platform: event
-    event_type: ios.notification_action_fired
-    event_data:
-      actionName: Play/pause Spotify
+    - platform: event
+      event_type: ios.notification_action_fired
+      event_data:
+        actionName: PLAY_PAUSE_SPOTIFY
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: PLAY_PAUSE_SPOTIFY
   action:
     - service: media_player.media_play_pause
       entity_id: media_player.spotify
@@ -193,7 +198,7 @@
       actionName: Set temperature
   action:
     - variables:
-        iphone: "notify.notify"
+        iphone: "notify.mobile_app_{{ trigger.event.data.sourceDeviceID.replace('-', '_') }}"
     - service: "{{ iphone }}"
       data:
         message: "Apple Watch: set temperature"

@@ -40,19 +40,16 @@ push:
     - name: Spotify
       identifier: spotify
       actions:
-        - title: Play/pause spotify
+        - title: ⏯️ Spotify
           identifier: PLAY_PAUSE_SPOTIFY
           activationMode: background
           authenticationRequired: true
-          destructive: true
 
     - name: Set sleep mode
       identifier: set_sleep_mode
       actions:
         - identifier: "OFF"
           title: "Off"
-        # - identifier: HALF
-        #   title: Half
         - identifier: TOTAL
           title: Total
 
@@ -69,6 +66,8 @@ push:
           title: Bathroom
         - identifier: HALLWAY
           title: Hallway
+        - identifier: CABINET
+          title: Cabinet
 
     - name: Set temperature
       identifier: set_temperature
@@ -121,11 +120,11 @@ push:
           title: Stop and return
 
 actions:
-  - name: Play/pause Spotify
+  - name: PLAY_PAUSE_SPOTIFY
     background_color: "#000000"
     label:
-      text: Play/pause Spotify
-      color: "#ff0000"
+      text: Spotify
+      color: "#1DB954"
     icon:
       icon: play-pause
       color: "#ffffff"
@@ -133,7 +132,7 @@ actions:
   - name: Play TV
     background_color: "#000000"
     label:
-      text: Play/pause TV
+      text: TV
       color: "#ff0000"
     icon:
       icon: play-pause
