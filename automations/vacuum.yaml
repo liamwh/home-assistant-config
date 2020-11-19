@@ -48,9 +48,6 @@
       from: home
       to: not_home
   condition:
-    - condition: state
-      entity_id: binary_sensor.openclose_guest_room
-      state: "on"
     - condition: time
       after: "13:00:00"
       before: "22:00:00"

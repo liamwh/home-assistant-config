@@ -8,6 +8,11 @@
   country: !secret country_code
   workdays: [sun, mon, wed, thu]
 
+- platform: workday
+  name: vacuum day
+  country: !secret country_code
+  workdays: [mon, wed, thu, sun]
+
 - platform: ping
   host: Liams-iPhone.pad
 
@@ -64,12 +69,6 @@
         {% set tv_on = is_state("media_player.tv", "on") %}
         {% set heating_on = is_state("sensor.thermostat_tado_mode", "on") %}
         {{ light_on or tv_on or heating_on}}
-
-    vacuum_day:
-      friendly_name: Vacuum day today
-      value_template: >
-        {% set _ = states("sensor.date") %}
-        {{ as_timestamp(now()) | timestamp_custom("%a") in ("Mon", "Wed", "Sun") }}
 
     no_one_home:
       friendly_name: No one is home
