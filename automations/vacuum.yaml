@@ -89,3 +89,25 @@
     entity_id: vacuum.xiaomi_vacuum_cleaner
     data:
       fan_speed: Standard
+
+- alias: "Vacuum: enable input boolean on vacuum days"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.vacuum_day
+      to: "on"
+    - platform: homeassistant
+      event: start
+  condition:
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state: "off"
+    - condition: state
+      entity_id: input_boolean.vacation_mode
+      state: "off"
+    - condition: state
+      entity_id: binary_sensor.vacuum_day
+      state: "on"
+  action:
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.vacuum_day

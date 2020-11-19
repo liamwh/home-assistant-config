@@ -4,7 +4,12 @@ cleaned_today:
   icon: mdi:broom
 guest_mode:
   name: Guest mode
+  initial: false
   icon: mdi:human-male-female
+vacation_mode:
+  name: Vacation mode
+  initial: false
+  icon: mdi:wallet-travel
 alarm_clock:
   name: Alarm clock is on
   icon: mdi:alarm
@@ -31,3 +36,7 @@ start_tv_spotify:
   name: Start TV to Spotify
   initial: false
   icon: mdi:music
+vacuum_day:
+  initial: false
+  name: Vacuum day today?
+  icon: mdi:check-circle

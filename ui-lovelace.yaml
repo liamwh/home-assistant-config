@@ -322,8 +322,9 @@ views:
             entity: vacuum.xiaomi_vacuum_cleaner
             name: Vacuum
           - entities:
+              - entity: input_boolean.vacuum_day
               - entity: input_boolean.cleaned_today
-              - entity: binary_sensor.vacuum_day
+                name: Vacuum cleaned already today?
             show_header_toggle: false
             type: entities
           - type: custom:xiaomi-vacuum-map-card
