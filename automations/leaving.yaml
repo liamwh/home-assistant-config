@@ -53,15 +53,14 @@
         data:
           push:
             category: turn_off_everything
-
-- alias: "Leaving: Turn off everything iOS notification action"
-  trigger:
-    platform: event
-    event_type: ios.notification_action_fired
-    event_data:
-      actionName: TURN_OFF_EVERYTHING
-  action:
-    service: script.leaving
+    - wait_for_trigger:
+        platform: event
+        event_type: ios.notification_action_fired
+        event_data:
+          categoryName: TURN_OFF_EVERYTHING
+      timeout: "00:00:20"
+      continue_on_timeout: false
+    - service: script.leaving
 # - alias: "Leaving: downstairs Aqara Wireless Mini Switch"
 #   trigger:
 #     platform: event
