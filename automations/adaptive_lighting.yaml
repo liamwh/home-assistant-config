@@ -55,4 +55,4 @@
     - service: notify.notify
       data:
         title: "Adaptive Lighting: manual_control"
-        message: "{{ light }} is now 'manually controlled', context={{ trigger.event.context }}"
+        message: "{{ light }} is now manually controlled."
