@@ -32,9 +32,6 @@
   entities:
     - light.hallway_spot
     - light.hallway_entrance
-    - light.cabinet_left
-    - light.cabinet_middle
-    - light.cabinet_right
 
 - platform: group
   name: All the lights
@@ -42,7 +39,10 @@
     - light.hallway_lights
     - light.bathroom_lights
     - light.bedroom_lights
-    - light.living_room_lights
+    - light.corner_lamp
+    - light.table_lamp
+    - light.standing_lamp
+    - light.java_lamp
 
 - platform: group
   name: Cabinet lights
