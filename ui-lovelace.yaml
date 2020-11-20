@@ -34,6 +34,9 @@ views:
                   - entity: scene.living_room_chill
                     name: "Scene: Chill"
                     icon: mdi:script-outline
+                  - entity: scene.living_room_energize
+                    name: "Scene: Energize"
+                    icon: mdi:script-outline
                 type: custom:fold-entity-row
                 head:
                   color_picker: true
