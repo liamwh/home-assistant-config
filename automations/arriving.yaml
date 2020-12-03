@@ -3,7 +3,7 @@
   description: ""
   trigger:
     platform: state
-    entity_id: binary_sensor.front_door_sensor
+    entity_id: binary_sensor.openclose_front_door
     to: "on"
   condition:
     - condition: time
@@ -24,7 +24,7 @@
   description: ""
   trigger:
     - platform: state
-      entity_id: binary_sensor.front_door_sensor
+      entity_id: binary_sensor.openclose_front_door
       to: "on"
   condition:
     - condition: state

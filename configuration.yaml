@@ -11,7 +11,6 @@ input_boolean: !include includes/input_booleans.yaml
 input_select: !include includes/input_selects.yaml
 input_datetime: !include includes/input_datetimes.yaml
 input_number: !include includes/input_numbers.yaml
-
 automation: !include automations.yaml
 automation old: !include_dir_merge_list automations
 binary_sensor: !include includes/binary_sensors.yaml

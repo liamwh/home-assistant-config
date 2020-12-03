@@ -6,9 +6,9 @@
     entity_id: sensor.dexcom_liamwoodleigh_glucose_value
     below: "4"
   condition:
-    condition: state
-    entity_id: person.liam
-    state: home
+    - condition: state
+      entity_id: person.liam
+      state: home
   action:
     - service: notify.mobile_app_liams_iphone
       data:
@@ -20,7 +20,7 @@
         while:
           - condition: numeric_state
             entity_id: sensor.dexcom_liamwoodleigh_glucose_value
-            below: 12
+            below: 4
         sequence:
           - delay: "00:00:01"
           - service: script.flash_bedroom
@@ -34,7 +34,21 @@
   action:
     - service: automation.turn_off
       entity_id: automation.bg_flash_bedroom_lights_if_below_4
-    - service: automation.turn_on
-      entity_id: automation.bg_flash_bedroom_lights_if_below_4
     - service: light.turn_off
       entity_id: light.bedroom_lights
+    - service: notify.notify
+      data:
+        title: "Blood Glucose"
+        message: "Turned off automation and turned off lights"
+    - wait_template: "{{ sensor.dexcom_liamwoodleigh_glucose_value > 4 }}"
+      timeout: "01:00:00"
+    - service: notify.notify
+      data:
+        title: "Blood Glucose"
+        message: "BG above 4, re-enabling automation"
+    - service: automation.turn_on
+      entity_id: automation.bg_flash_bedroom_lights_if_below_4
+    - service: notify.notify
+      data:
+        title: "Blood Glucose"
+        message: "Automation turned on/re-enabled."

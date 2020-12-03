@@ -13,6 +13,18 @@ decluttering_templates:
       sort: entity_id
       type: custom:auto-entities
 
+  entity_template:
+    card:
+      card:
+        show_header_toggle: false
+        title: "[[name]]"
+        type: entities
+      filter:
+        include:
+          - entity_id: "[[include_domain]].[[slug]]*"
+      sort: entity_id
+      type: custom:auto-entities
+
 views:
   - theme: dark-mode
     title: home
@@ -204,33 +216,45 @@ views:
               - cards:
                   - color: auto
                     icon: '[[[ if (entity.state == "on") return "mdi:door-open"; else return  "mdi:door" ]]]'
-                    entity: binary_sensor.front_door_sensor
+                    entity: binary_sensor.openclose_front_door
                     name: '[[[ if (entity.state == "on") return "Front door open"; else return  "Front door closed" ]]]'
                     styles:
                       card:
                         - font-size: 12px
                         - font-weight: bold
                         - height: 70px
-                    # tap_action:
-                    #   action: call-service
-                    #   haptic: success
-                    #   service: input_boolean.toggle
-                    #   service_data:
-                    #     entity_id: input_boolean.alarm_clock
                     type: custom:button-card
                   - color: auto
                     icon: '[[[ if (entity.state == "on") return "mdi:door-open"; else return  "mdi:door" ]]]'
-                    entity: binary_sensor.bathroom_door_sensor
+                    entity: binary_sensor.openclose_bathroom_door
                     name: '[[[ if (entity.state == "on") return "Bathroom door open"; else return  "Bathroom door closed" ]]]'
                     styles:
                       card:
                         - font-size: 12px
                         - font-weight: bold
                         - height: 70px
-                    # tap_action:
-                    #   action: call-service
-                    #   haptic: success
-                    #   service: script.leaving
+                    type: custom:button-card
+                type: horizontal-stack
+              - cards:
+                  - color: auto
+                    icon: '[[[ if (entity.state == "on") return "mdi:shower-head"; else return  "mdi:shower" ]]]'
+                    entity: binary_sensor.someone_showering
+                    name: '[[[ if (entity.state == "on") return "Shower occupied"; else return  "No one showering" ]]]'
+                    styles:
+                      card:
+                        - font-size: 12px
+                        - font-weight: bold
+                        - height: 70px
+                    type: custom:button-card
+                  - color: auto
+                    icon: '[[[ if (entity.state == "on") return "mdi:door-open"; else return  "mdi:door" ]]]'
+                    entity: binary_sensor.openclose_bedroom_door
+                    name: '[[[ if (entity.state == "on") return "Bedroom door open"; else return  "Bedroom door closed" ]]]'
+                    styles:
+                      card:
+                        - font-size: 12px
+                        - font-weight: bold
+                        - height: 70px
                     type: custom:button-card
                 type: horizontal-stack
             type: vertical-stack
@@ -319,6 +343,14 @@ views:
                   labels: true
                   state: true
                 type: "custom:mini-graph-card"
+              - entities:
+                  - entity: sensor.temperature_sensor_bathroom_humidity
+                  - entity: binary_sensor.temperature_sensor_bathroom_humidity_trend
+                  - entity: sensor.temperature_sensor_bathroom_humidity_derivative
+                  - entity: sensor.temperature_sensor_bathroom_humidity_stats
+                  - entity: binary_sensor.someone_showering
+                title: Shower occupied
+                type: entities
       - type: vertical-stack
         cards:
           - type: custom:xiaomi-vacuum-card
@@ -547,11 +579,11 @@ views:
         variables:
           - name: Blood Glucose
           - slug: bg
-      - template: automation_template
-        type: custom:decluttering-card
-        variables:
-          - name: Adaptive Lighting
-          - slug: adaptive_lighting
+      # - template: automation_template
+      #   type: custom:decluttering-card
+      #   variables:
+      #     - name: Adaptive Lighting
+      #     - slug: adaptive_lighting
       - template: automation_template
         type: custom:decluttering-card
         variables:
@@ -567,6 +599,35 @@ views:
         variables:
           - name: Apple Watch
           - slug: apple_watch
+  - icon: mdi:clipboard-list
+    path: entities
+    title: entities
+    badges: []
+    cards:
+      - template: entity_template
+        type: custom:decluttering-card
+        variables:
+          - name: Light Levels
+          - slug: .*?light_level*
+          - include_domain: sensor
+      - template: entity_template
+        type: custom:decluttering-card
+        variables:
+          - name: Motion
+          - slug: motion*
+          - include_domain: binary_sensor
+      - template: entity_template
+        type: custom:decluttering-card
+        variables:
+          - name: Charge
+          - slug: .*?battery*
+          - include_domain: sensor
+      - template: entity_template
+        type: custom:decluttering-card
+        variables:
+          - name: Temperature
+          - slug: .*?temperature*|temperature*
+          - include_domain: sensor
   - icon: mdi:test-tube
     path: tests
     title: Tests
@@ -578,3 +639,21 @@ views:
         entities:
           - entity: input_boolean.wake_up_with_spotify
           - entity: input_boolean.demo_wake_up_with_spotify
+      - entities:
+          - entity: binary_sensor.activity_in_bathroom
+          - entity: binary_sensor.activity_in_hallway
+          - entity: binary_sensor.activity_in_kitchen
+          - entity: binary_sensor.activity_in_bedroom
+          - entity: binary_sensor.activity_in_living_room
+          - type: divider
+          - entity: binary_sensor.openclose_front_door
+          - entity: binary_sensor.openclose_bathroom_door
+          - entity: binary_sensor.openclose_bedroom_door
+          - type: divider
+          - entity: binary_sensor.motion_detected
+          - entity: binary_sensor.motion_detected_in_last_hour
+          - entity: binary_sensor.someone_showering
+          - entity: binary_sensor.someone_in_the_house_in_last_hour
+        show_header_toggle: false
+        title: Activity in the house
+        type: entities

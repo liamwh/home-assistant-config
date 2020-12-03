@@ -1,0 +1,22 @@
+---
+- id: "1607011852490"
+  alias: "Afvalbeheer: Remind me to take out waste at 20:30"
+  description: ""
+  trigger:
+    - platform: time
+      at: "20:30:00"
+  condition:
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: sensor.mijnafvalwijzer_morgen
+          state: restafval
+        - condition: state
+          entity_id: sensor.mijnafvalwijzer_morgen
+          state: papier
+  action:
+    - service: notify.notify
+      data:
+        title: "Afvalbeheer"
+        message: "Take out the trash: {{ states('sensor.mijnafvalwijzer_morgen') }}"
+  mode: single

@@ -146,7 +146,7 @@
     - service: "{{ iphone }}"
       data:
         title: "Temperature"
-        message: "Living Room: {{ states('sensor.thermostat_temperature') }}°C\nHall: {{ states('sensor.motion_sensor_temperature') }}°C\nOutside: {{ state_attr('weather.home', 'temperature') }}°C and {{ states('weather.home') }}"
+        message: "Living Room: {{ states('sensor.thermostat_temperature') }}°C\nHall: {{ states('sensor.motion_sensor_hallway_temperature') }}°C\nOutside: {{ state_attr('weather.home', 'temperature') }}°C and {{ states('weather.home') }}"
 - alias: "Apple Watch: send vacuum cleaner"
   mode: parallel
   trigger:

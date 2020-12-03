@@ -103,11 +103,6 @@ leaving:
   sequence:
     - service: script.set_low_temperature
     - service: script.turn_off_everything
-arriving:
-  alias: Arriving home
-  sequence:
-    - service: script.set_high_temperature
-    - service: script.turn_on_lights
 vacuum_command:
   alias: Vacuum living room
   icon: mdi:robot-vacuum
@@ -187,33 +182,33 @@ flash_bedroom:
       data:
         entity_id: light.bedroom_lights
         transition: no
-turn_on_lights:
-  alias: lights with Adaptive Lighting
-  icon: mdi:lamp
-  fields:
-    entity_id:
-      description: entity_id of light
-      example: light.bedroom_lights
-  sequence:
-    - service: adaptive_lighting.apply
-      data:
-        entity_id:
-          - switch.adaptive_lighting_bedroom
-          - switch.adaptive_lighting_living_room
-          - switch.adaptive_lighting_hallway
-          - switch.adaptive_lighting_bathroom
-          - switch.adaptive_lighting_cabinet
-          - switch.adaptive_lighting_java_lamp
-        lights:
-          - light.hallway_lights
-          - light.cabinet_lights
-          - light.bedroom_lights
-          - light.corner_lamp
-          - light.standing_lamp
-          - light.table_lamp
-          - light.bathroom_lights
-          - light.java_lamp
-        turn_on_lights: true
+# turn_on_lights:
+#   alias: lights with Adaptive Lighting
+#   icon: mdi:lamp
+#   fields:
+#     entity_id:
+#       description: entity_id of light
+#       example: light.bedroom_lights
+#   sequence:
+#     - service: adaptive_lighting.apply
+#       data:
+#         entity_id:
+#           - switch.adaptive_lighting_bedroom
+#           - switch.adaptive_lighting_living_room
+#           - switch.adaptive_lighting_hallway
+#           - switch.adaptive_lighting_bathroom
+#           - switch.adaptive_lighting_cabinet
+#           - switch.adaptive_lighting_java_lamp
+#         lights:
+#           - light.hallway_lights
+#           - light.cabinet_lights
+#           - light.bedroom_lights
+#           - light.corner_lamp
+#           - light.standing_lamp
+#           - light.table_lamp
+#           - light.bathroom_lights
+#           - light.java_lamp
+#         turn_on_lights: true
 
 turn_off_tv_ambilight:
   alias: Turn off TV ambilight
@@ -266,6 +261,20 @@ turn_off_tv:
 #       entity_id: switch.adaptive_lighting_living_room # Make this line dynamic
 #       lights: "{{ entity_id }}"
 #       turn_on_lights: true
+turn_on_lights:
+  alias: Turn on lights
+  icon: mdi:lamp
+  fields:
+    entity_id:
+      description: entity_id of light
+      example: light.bedroom_lights
+  sequence:
+    service: light.turn_on
+    data:
+      entity_id:
+        - light.living_room_lights
+        - light.hallway_lights
+        - light.kitchen_lights
 switch_music_from_iphone_to_soundbar:
   alias: Switch music to soundbar
   mode: restart
@@ -290,3 +299,8 @@ switch_music_from_iphone_to_soundbar:
       entity_id: media_player.spotify
       data:
         source: Living Room TV
+arriving:
+  alias: Arriving home
+  sequence:
+    - service: script.set_high_temperature
+    - service: script.turn_on_lights

@@ -40,3 +40,16 @@
     to: "off"
   action:
     service: script.turn_on_lights
+
+- alias: "Night mode: enable on when no motion in house"
+  description: "When there is no activity in the house for more than an hour enable sleep mode."
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_living_room
+    to: "off"
+    for: "01:00:00"
+  action:
+    entity_id: input_select.sleep_mode
+    service: input_select.select_option
+    data:
+      option: "total"

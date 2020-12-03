@@ -8,11 +8,16 @@
 - platform: group
   name: Living Room Lights
   entities:
-    - light.tv_ambilight
     - light.corner_lamp
     - light.table_lamp
     - light.standing_lamp
     - light.java_lamp
+
+- platform: group
+  name: Living Room Lights and ambilight
+  entities:
+    - light.living_room_lights
+    - light.tv_ambilight
 
 - platform: group
   name: Bedroom lights
@@ -39,6 +44,7 @@
     - light.hallway_lights
     - light.bathroom_lights
     - light.bedroom_lights
+    - light.cabinet_lights
     - light.corner_lamp
     - light.table_lamp
     - light.standing_lamp
@@ -50,3 +56,10 @@
     - light.cabinet_left
     - light.cabinet_middle
     - light.cabinet_right
+
+- platform: group
+  name: Kitchen Lights
+  entities:
+    - light.cabinet_lights
+    - light.spot_light
+    - light.standing_lamp

@@ -1,15 +1,17 @@
 ---
-- name: living room
+- name: Living room
   lights:
-    - light.corner_lamp
     - light.standing_lamp
     - light.table_lamp
   min_brightness: 70
+  sleep_brightness: 10
   prefer_rgb_color: true
   detect_non_ha_changes: true
   interval: 30
+  sunset_time: "20:00:00"
+  sunrise_time: "07:00:00"
 
-- name: bedroom
+- name: Bedroom
   lights:
     - light.bedroom_lights
   sleep_brightness: 20
@@ -18,32 +20,50 @@
   detect_non_ha_changes: true
   interval: 30
   sunrise_time: "07:00:00"
+  sunset_time: "20:00:00"
 
-- name: hallway
+- name: Bathroom
+  lights:
+    - light.bathroom_lights
+  sleep_brightness: 20
+  min_brightness: 70
+  prefer_rgb_color: false
+  detect_non_ha_changes: true
+  interval: 30
+  sunrise_time: "07:00:00"
+  sunset_time: "20:00:00"
+
+- name: Hallway
   lights:
     - light.hallway_lights
   min_brightness: 70
+  sleep_brightness: 10
   prefer_rgb_color: true
   detect_non_ha_changes: true
   interval: 30
-  sleep_brightness: 3
   sunset_time: "20:00:00"
+  sunrise_time: "07:00:00"
 
-- name: cabinet
+- name: Cabinet
   lights:
     - light.cabinet_lights
   min_brightness: 70
   prefer_rgb_color: true
   detect_non_ha_changes: true
   interval: 30
-  sleep_brightness: 3
+  sleep_brightness: 10
+  sunrise_time: "07:00:00"
+  sunset_time: "20:00:00"
 
-- name: java lamp
+- name: Office Lights
   lights:
     - light.java_map
+    - light.corner_lamp
   min_brightness: 50
   max_brightness: 60
   sleep_brightness: 20
   prefer_rgb_color: true
   detect_non_ha_changes: true
   interval: 30
+  sunset_time: "20:00:00"
+  sunrise_time: "07:00:00"
