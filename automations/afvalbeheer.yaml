@@ -18,5 +18,5 @@
     - service: notify.notify
       data:
         title: "Afvalbeheer"
-        message: "Take out the trash: {{ states('sensor.mijnafvalwijzer_morgen') }}"
+        message: "Reminder to take out the {{ states('sensor.mijnafvalwijzer_morgen') }}"
   mode: single
