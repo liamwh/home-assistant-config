@@ -18,7 +18,6 @@
       state: "off"
   action:
     - service: script.switch_music_from_iphone_to_soundbar
-      data: {}
 
 - alias: "Arriving: Turn on lights and heating"
   description: ""

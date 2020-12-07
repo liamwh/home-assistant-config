@@ -60,7 +60,7 @@ going_to_sleep:
     - service: input_select.select_option
       data:
         entity_id: input_select.sleep_mode
-        option: total
+        option: "on"
       entity_id: input_select.sleep_mode
     - service: script.turn_off_everything
 next_colors:
@@ -198,7 +198,7 @@ flash_bedroom:
 #           - switch.adaptive_lighting_hallway
 #           - switch.adaptive_lighting_bathroom
 #           - switch.adaptive_lighting_cabinet
-#           - switch.adaptive_lighting_java_lamp
+#           - switch.adaptive_lighting_office_lights
 #         lights:
 #           - light.hallway_lights
 #           - light.cabinet_lights
@@ -277,28 +277,33 @@ turn_on_lights:
         - light.kitchen_lights
 switch_music_from_iphone_to_soundbar:
   alias: Switch music to soundbar
-  mode: restart
+  mode: single
   sequence:
     # Send iPhone notification
-    - service: notify.mobile_app_liams_iphone
+    - service: notify.notify
       data:
         title: "Arriving"
         message: "Switching music from phone to TV. Take out your Airpods & press play when ready!"
-        push:
-          category: Spotify
+        data:
+          push:
+            category: spotify
+
     # Turn on the TV
     - service: media_player.turn_on
       entity_id: media_player.tv
+
     # Open Spotify on TV
     - service: media_player.select_source
       entity_id: media_player.tv
       data:
         source: "\U0001F4F1 Spotify"
+
     # Set Spotify to play on TV
     - service: media_player.select_source
       entity_id: media_player.spotify
       data:
         source: Living Room TV
+
 arriving:
   alias: Arriving home
   sequence:
