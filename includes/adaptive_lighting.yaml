@@ -48,22 +48,32 @@
   lights:
     - light.cabinet_lights
   min_brightness: 70
+  sleep_brightness: 10
   prefer_rgb_color: true
   detect_non_ha_changes: true
   interval: 30
-  sleep_brightness: 10
   sunrise_time: "07:00:00"
   sunset_time: "20:00:00"
 
 - name: Office Lights
   lights:
-    - light.java_map
-    - light.corner_lamp
+    - light.office_lights
+  sleep_brightness: 20
   min_brightness: 50
   max_brightness: 60
-  sleep_brightness: 20
   prefer_rgb_color: true
   detect_non_ha_changes: true
   interval: 30
   sunset_time: "20:00:00"
   sunrise_time: "07:00:00"
+
+- name: Bathroom Lights
+  lights:
+    - light.bathroom_lights
+  min_brightness: 100
+  sleep_brightness: 20
+  prefer_rgb_color: false
+  detect_non_ha_changes: true
+  interval: 30
+  sunset_time: "22:00:00"
+  sunrise_time: "06:30:00"

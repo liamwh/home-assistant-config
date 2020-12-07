@@ -61,5 +61,11 @@
   name: Kitchen Lights
   entities:
     - light.cabinet_lights
-    - light.spot_light
+    - light.hallway_spot
     - light.standing_lamp
+
+- platform: group
+  name: Office Lights
+  entities:
+    - light.java_lamp
+    - light.corner_lamp
