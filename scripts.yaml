@@ -1,3 +1,4 @@
+---
 message_blood_sugar:
   alias: Message blood sugar
   sequence:
@@ -176,12 +177,12 @@ flash_bedroom:
           - 191
           - 255
         brightness: 255
-        transition: no
+        transition: false
     - delay: 1
     - service: light.turn_off
       data:
         entity_id: light.bedroom_lights
-        transition: no
+        transition: false
 # turn_on_lights:
 #   alias: lights with Adaptive Lighting
 #   icon: mdi:lamp

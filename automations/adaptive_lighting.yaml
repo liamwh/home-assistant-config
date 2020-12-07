@@ -1,3 +1,4 @@
+---
 - alias: "Adaptive lighting: toggle 'sleep mode'"
   trigger:
     - platform: state
