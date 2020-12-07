@@ -343,14 +343,6 @@ views:
                   labels: true
                   state: true
                 type: "custom:mini-graph-card"
-              - entities:
-                  - entity: sensor.temperature_sensor_bathroom_humidity
-                  - entity: binary_sensor.temperature_sensor_bathroom_humidity_trend
-                  - entity: sensor.temperature_sensor_bathroom_humidity_derivative
-                  - entity: sensor.temperature_sensor_bathroom_humidity_stats
-                  - entity: binary_sensor.someone_showering
-                title: Shower occupied
-                type: entities
       - type: vertical-stack
         cards:
           - type: custom:xiaomi-vacuum-card
@@ -579,11 +571,11 @@ views:
         variables:
           - name: Blood Glucose
           - slug: bg
-      # - template: automation_template
-      #   type: custom:decluttering-card
-      #   variables:
-      #     - name: Adaptive Lighting
-      #     - slug: adaptive_lighting
+      - template: automation_template
+        type: custom:decluttering-card
+        variables:
+          - name: Adaptive Lighting
+          - slug: adaptive_lighting
       - template: automation_template
         type: custom:decluttering-card
         variables:
@@ -646,14 +638,28 @@ views:
           - entity: binary_sensor.activity_in_bedroom
           - entity: binary_sensor.activity_in_living_room
           - type: divider
+            style:
+              height: 1px
+              background-color: var(-divider-color)
           - entity: binary_sensor.openclose_front_door
           - entity: binary_sensor.openclose_bathroom_door
           - entity: binary_sensor.openclose_bedroom_door
           - type: divider
+            style:
+              height: 1px
+              background-color: var(-divider-color)
           - entity: binary_sensor.motion_detected
           - entity: binary_sensor.motion_detected_in_last_hour
           - entity: binary_sensor.someone_showering
           - entity: binary_sensor.someone_in_the_house_in_last_hour
         show_header_toggle: false
         title: Activity in the house
+        type: entities
+      - entities:
+          - entity: sensor.temperature_sensor_bathroom_humidity
+          - entity: binary_sensor.temperature_sensor_bathroom_humidity_trend
+          - entity: sensor.temperature_sensor_bathroom_humidity_derivative
+          - entity: sensor.temperature_sensor_bathroom_humidity_stats
+          - entity: binary_sensor.someone_showering
+        title: Shower occupied
         type: entities
