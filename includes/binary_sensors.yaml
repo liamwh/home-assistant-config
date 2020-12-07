@@ -22,7 +22,7 @@
       friendly_name: Someone is showering
       value_template: >
         {% set humidity = states("sensor.temperature_sensor_bathroom_humidity") | float(0) %}
-        {% set treshold = 1.05 * state_attr("sensor.humidity_bathroom_stats", "median") | float(0) %}
+        {% set treshold = 1.05 * state_attr("sensor.temperature_sensor_bathroom_humidity_stats", "median") | float(0) %}
         {% set derivative = states("sensor.temperature_sensor_bathroom_humidity_derivative") | float(0) %}
         {{ humidity > treshold and derivative > 0.25 }}
 
@@ -64,6 +64,13 @@
       value_template: >
         {{ is_state("binary_sensor.motion_sensor_bathroom", "on")
             or is_state("binary_sensor.someone_showering", "on") }}
+      delay_off: "00:03:00"
+
+    activity_outside_bedroom:
+      friendly_name: Activity anywhere outside the bedroom
+      value_template: >
+        {{ is_state("binary_sensor.motion_sensor_kitchen", "on")
+            or is_state("binary_sensor.motion_sensor_living_room", "on") }}
       delay_off: "00:03:00"
 
     activity_in_bedroom:

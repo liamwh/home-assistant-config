@@ -1,7 +1,7 @@
 ---
 sleep_mode:
   options:
-    - total # everyone is sleeping
-    # - half # one person is awake and one person is sleeping
+    - "on" # everyone is sleeping
     - "off" # everyone is awake
+    # - half # one person is awake and one person is sleeping
   icon: mdi:bed-king
