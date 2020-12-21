@@ -198,7 +198,7 @@ views:
                   - color: auto
                     icon: '[[[ if (entity.state == "True") return "mdi:weather-windy"; else return  "mdi:checkbox-marked-circle-outline" ]]]'
                     entity: sensor.thermostat_open_window
-                    name: '[[[ if (entity.state == "True") return "Window(s) open"; else return  "No wind detected" ]]]'
+                    name: '[[[ if (entity.state == "True") return "Window(s) open"; else return  "No open window detected" ]]]'
                     styles:
                       card:
                         - font-size: 12px
@@ -608,7 +608,19 @@ views:
       - template: entity_template
         type: custom:decluttering-card
         variables:
-          - name: Charge
+          - name: Doors
+          - slug: openclose*
+          - include_domain: binary_sensor
+      - template: entity_template
+        type: custom:decluttering-card
+        variables:
+          - name: Doors
+          - slug: openclose*
+          - include_domain: binary_sensor
+      - template: entity_template
+        type: custom:decluttering-card
+        variables:
+          - name: Battery
           - slug: .*?battery*
           - include_domain: sensor
       - template: entity_template
@@ -660,26 +672,3 @@ views:
           - entity: binary_sensor.someone_showering
         title: Shower occupied
         type: entities
-      - type: horizontal-stack
-        title: Doors
-        cards:
-          - color: auto
-            icon: '[[[ if (entity.state == "on") return "mdi:door-open"; else return  "mdi:door" ]]]'
-            entity: binary_sensor.openclose_front_door
-            name: '[[[ if (entity.state == "on") return "Front door open"; else return  "Front door closed" ]]]'
-            styles:
-              card:
-                - font-size: 12px
-                - font-weight: bold
-                - height: 70px
-            type: custom:button-card
-          - color: auto
-            icon: '[[[ if (entity.state == "on") return "mdi:door-open"; else return  "mdi:door" ]]]'
-            entity: binary_sensor.openclose_bathroom_door
-            name: '[[[ if (entity.state == "on") return "Bathroom door open"; else return  "Bathroom door closed" ]]]'
-            styles:
-              card:
-                - font-size: 12px
-                - font-weight: bold
-                - height: 70px
-            type: custom:button-card
