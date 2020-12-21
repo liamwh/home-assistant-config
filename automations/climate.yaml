@@ -33,3 +33,38 @@
     state: "on"
   action:
     service: script.set_high_temperature
+
+- alias: "Climate: Window open disable heating prompt"
+  trigger:
+    platform: state
+    entity_id: sensor.thermostat_open_window
+    to: "True"
+  condition:
+    - condition: state
+      entity_id: sensor.thermostat_power
+      state: "ON"
+  action:
+    - service: climate.turn_off
+      data:
+        entity_id: climate.living_room
+    - service: notify.all_iphones
+      data:
+        title: "Window open"
+        message: |+
+          Turned off heating! 🥶
+          Turn on again?
+        data:
+          push:
+            category: turn_on_heating
+
+- alias: "Climate: turn on heating after iOS notification action"
+  mode: single
+  trigger:
+    - platform: event
+      event_type: ios.notification_action_fired
+      event_data:
+        actionName: TURN_ON_HEATING
+  action:
+    - service: climate.turn_on
+      data:
+        entity_id: climate.living_room

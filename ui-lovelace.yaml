@@ -196,18 +196,28 @@ views:
                         entity_id: input_boolean.alarm_clock
                     type: custom:button-card
                   - color: auto
-                    icon: mdi:clock-time-seven-outline
-                    entity: input_datetime.alarm_clock
-                    name: >
-                      [[[
-                        return 'Alarm set for: ' + states['input_datetime.alarm_clock'].state;
-                      ]]]
+                    icon: '[[[ if (entity.state == "True") return "mdi:weather-windy"; else return  "mdi:checkbox-marked-circle-outline" ]]]'
+                    entity: sensor.thermostat_open_window
+                    name: '[[[ if (entity.state == "True") return "Window(s) open"; else return  "No wind detected" ]]]'
                     styles:
                       card:
                         - font-size: 12px
                         - font-weight: bold
                         - height: 70px
                     type: custom:button-card
+                  # - color: auto
+                  #   icon: mdi:clock-time-seven-outline
+                  #   entity: input_datetime.alarm_clock
+                  #   name: >
+                  #     [[[
+                  #       return 'Alarm set for: ' + states['input_datetime.alarm_clock'].state;
+                  #     ]]]
+                  #   styles:
+                  #     card:
+                  #       - font-size: 12px
+                  #       - font-weight: bold
+                  #       - height: 70px
+                  #   type: custom:button-card
                 type: horizontal-stack
               - cards:
                   - color: auto
