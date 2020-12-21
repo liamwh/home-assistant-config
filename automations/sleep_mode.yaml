@@ -33,14 +33,6 @@
   action:
     service: script.set_high_temperature
 
-- alias: "Night mode: Turn on lights when sleep mode turns off"
-  trigger:
-    platform: state
-    entity_id: input_select.sleep_mode
-    to: "off"
-  action:
-    service: script.turn_on_lights
-
 - alias: "Night mode: enable on when no motion in house"
   description: "When there is no activity in the house for more than an hour enable sleep mode."
   trigger:
