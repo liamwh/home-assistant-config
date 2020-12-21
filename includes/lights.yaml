@@ -44,10 +44,9 @@
     - light.hallway_lights
     - light.bathroom_lights
     - light.bedroom_lights
-    - light.cabinet_lights
+    - light.kitchen_lights
     - light.corner_lamp
     - light.table_lamp
-    - light.standing_lamp
     - light.java_lamp
 
 - platform: group
@@ -62,7 +61,6 @@
   entities:
     - light.cabinet_lights
     - light.hallway_spot
-    - light.standing_lamp
 
 - platform: group
   name: Office Lights

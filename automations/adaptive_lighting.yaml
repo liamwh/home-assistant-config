@@ -15,7 +15,6 @@
       - switch.adaptive_lighting_sleep_mode_hallway
       - switch.adaptive_lighting_sleep_mode_bathroom
       - switch.adaptive_lighting_sleep_mode_office_lights
-      - switch.adaptive_lighting_sleep_mode_hallway
 
 - alias: "Adaptive lighting: reset manual_control after 1 hour"
   mode: parallel
@@ -26,6 +25,10 @@
   variables:
     light: "{{ trigger.event.data.entity_id }}"
     switch: "{{ trigger.entity_id }}"
+  condition:
+    - condition: state
+      entity_id: input_boolean.automatic_lights
+      state: "on"
   action:
     - delay: "01:00:00"
     - condition: template
@@ -38,7 +41,7 @@
     - service: notify.notify
       data:
         title: "Adaptive Lighting: reset manual_control"
-        message: "{{ light }} is reset to not 'manually controlled'"
+        message: "{{ light }} is reset to *not* 'manually controlled'"
 
 - alias: "Adaptive lighting: notify manual_control"
   mode: parallel

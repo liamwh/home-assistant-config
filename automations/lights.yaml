@@ -8,38 +8,48 @@
       entity_id: binary_sensor.openclose_bathroom_door
       domain: binary_sensor
   action:
-    - choose:
-        - conditions:
-            - condition: state
-              entity_id: binary_sensor.workday_sensor
-              state: "off"
-          sequence:
-            - scene: scene.bathroom_energize
-        - conditions:
-            - condition: state
-              entity_id: binary_sensor.workday_sensor
-              state: "on"
-            - condition: time
-              after: "19:30:00"
-          sequence:
-            - scene: scene.bathroom_relax
-        - conditions:
-            - condition: state
-              entity_id: binary_sensor.workday_sensor
-              state: "on"
-            - condition: time
-              after: "22:30:00"
-          sequence:
-            - scene: scene.bathroom_nightlight
-      default:
-        - scene: scene.bathroom_energize
+    # - choose:
+    #     - conditions:
+    #         - condition: state
+    #           entity_id: binary_sensor.workday_sensor
+    #           state: "off"
+    #       sequence:
+    #         - scene: scene.bathroom_energize
+    #     - conditions:
+    #         - condition: state
+    #           entity_id: binary_sensor.workday_sensor
+    #           state: "on"
+    #         - condition: time
+    #           after: "19:30:00"
+    #       sequence:
+    #         - scene: scene.bathroom_relax
+    #     - conditions:
+    #         - condition: state
+    #           entity_id: binary_sensor.workday_sensor
+    #           state: "on"
+    #         - condition: time
+    #           after: "22:30:00"
+    #       sequence:
+    #         - scene: scene.bathroom_nightlight
+    #   default:
+    #     - scene: scene.bathroom_energize
+    - service: light.turn_on
+      data: {}
+      entity_id: light.bathroom_lights
   mode: single
 
 - alias: "Light: toggle bathroom (based on presence)"
   trigger:
     platform: state
     entity_id: binary_sensor.activity_in_bathroom
-  condition: "{{ not is_state('light.bathroom_lights', trigger.to_state.state) }}"
+  condition:
+    condition: and
+    conditions:
+      - condition: template
+        value_template: "{{ not is_state('light.bathroom_lights', trigger.to_state.state) }}"
+      - condition: state
+        entity_id: input_boolean.automatic_lights
+        state: "on"
   action:
     service: light.turn_{{ trigger.to_state.state }}
     data:
@@ -50,16 +60,50 @@
   trigger:
     platform: state
     entity_id: binary_sensor.activity_in_kitchen
+  condition:
+    condition: and
+    conditions:
+      - condition: template
+        value_template: "{{ not is_state('light.kitchen_lights', trigger.to_state.state) }}"
+      - condition: state
+        entity_id: input_boolean.automatic_lights
+        state: "on"
   action:
     - service: light.turn_{{ trigger.to_state.state }}
       data:
         entity_id: light.kitchen_lights
         transition: 1
 
+- alias: "Light: toggle living room (based on presence)"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.activity_in_living_room
+  condition:
+    condition: and
+    conditions:
+      - condition: template
+        value_template: "{{ not is_state('light.living_room_lights', trigger.to_state.state) }}"
+      - condition: state
+        entity_id: input_boolean.automatic_lights
+        state: "on"
+  action:
+    - service: light.turn_{{ trigger.to_state.state }}
+      data:
+        entity_id: light.living_room_lights
+        transition: 1
+
 - alias: "Light: toggle hallway (based on presence)"
   trigger:
     platform: state
     entity_id: binary_sensor.activity_in_hallway
+  condition:
+    condition: and
+    conditions:
+      - condition: template
+        value_template: "{{ not is_state('light.kitchen_lights', trigger.to_state.state) }}"
+      - condition: state
+        entity_id: input_boolean.automatic_lights
+        state: "on"
   action:
     - service: light.turn_{{ trigger.to_state.state }}
       data:
@@ -70,7 +114,17 @@
   trigger:
     platform: state
     entity_id: binary_sensor.activity_in_bedroom
-  condition: "{{ not is_state('light.bedroom_lights', trigger.to_state.state) }}"
+  condition:
+    condition: and
+    conditions:
+      - condition: template
+        value_template: "{{ not is_state('light.bedroom_lights', trigger.to_state.state) }}"
+      - condition: state
+        entity_id: input_boolean.automatic_lights
+        state: "on"
+      - condition: state
+        entity_id: input_select.sleep_mode
+        state: "off"
   action:
     service: light.turn_{{ trigger.to_state.state }}
     data:
@@ -82,7 +136,10 @@
     platform: state
     entity_id: binary_sensor.motion_sensor_bathroom
     to: "on"
-  condition: "{{ not is_state('light.bathroom_lights', 'on') }}"
+  condition:
+    - condition: state
+      entity_id: input_boolean.automatic_lights
+      state: "on"
   action:
     service: light.turn_on
     data:
@@ -94,6 +151,10 @@
     platform: state
     entity_id: binary_sensor.motion_sensor_kitchen
     to: "on"
+  condition:
+    - condition: state
+      entity_id: input_boolean.automatic_lights
+      state: "on"
   action:
     - service: light.turn_on
       data:
@@ -105,6 +166,10 @@
     platform: state
     entity_id: binary_sensor.motion_sensor_hallway
     to: "on"
+  condition:
+    - condition: state
+      entity_id: input_boolean.automatic_lights
+      state: "on"
   action:
     - service: light.turn_on
       data:
@@ -116,8 +181,30 @@
     platform: state
     entity_id: binary_sensor.motion_sensor_bedroom
     to: "on"
+  condition:
+    - condition: state
+      entity_id: input_boolean.automatic_lights
+      state: "on"
+    - condition: state
+      entity_id: input_boolean.sleep_mode
+      state: "off"
   action:
     service: light.turn_on
     data:
       entity_id: light.bedroom_lights
+      transition: 1
+
+- alias: "Light: turn on living room if motion (backup automation)"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_living_room
+    to: "on"
+  condition:
+    - condition: state
+      entity_id: input_boolean.automatic_lights
+      state: "on"
+  action:
+    service: light.turn_on
+    data:
+      entity_id: light.living_room_lights
       transition: 1

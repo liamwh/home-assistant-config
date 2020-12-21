@@ -16,6 +16,10 @@ alarm_clock:
 automatic_temperature:
   name: Automatic temperature
   icon: mdi:thermometer
+automatic_lights:
+  name: Automatic Lights
+  icon: mdi:lightbulb-group
+  initial: true
 wake_up_with_spotify:
   name: Start wake up with Spotify
   initial: false
