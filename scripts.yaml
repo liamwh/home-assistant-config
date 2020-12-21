@@ -47,6 +47,7 @@ increase_brightness:
           \ 10\n{% endif %}\n"
 turn_off_everything:
   alias: Turn off everything
+  mode: single
   sequence:
     - service: light.turn_off
       data:
@@ -54,7 +55,7 @@ turn_off_everything:
         entity_id: light.all_the_lights
     - service: script.turn_off_tv
     - service: script.turn_off_tv_ambilight
-  mode: single
+
 going_to_sleep:
   alias: Going to sleep
   sequence:
