@@ -133,7 +133,7 @@ actions:
     background_color: "#000000"
     label:
       text: TV
-      color: "#ff0000"
+      color: "#ffffff"
     icon:
       icon: play-pause
       color: "#ffffff"
@@ -142,7 +142,7 @@ actions:
     background_color: "#000000"
     label:
       text: Set sleep mode
-      color: "#ff0000"
+      color: "#ffffff"
     icon:
       icon: sleep
       color: "#ffffff"
@@ -150,8 +150,8 @@ actions:
   - name: Temperature report
     background_color: "#000000"
     label:
-      text: Temp Report
-      color: "#ff0000"
+      text: Temp report
+      color: "#ffffff"
     icon:
       icon: temperature-celsius
       color: "#ffffff"
@@ -160,7 +160,7 @@ actions:
     background_color: "#000000"
     label:
       text: Set temp
-      color: "#ff0000"
+      color: "#ffffff"
     icon:
       icon: temperature-celsius
       color: "#ffffff"
@@ -169,7 +169,7 @@ actions:
     background_color: "#000000"
     label:
       text: Set lights
-      color: "#ff0000"
+      color: "#ffffff"
     icon:
       icon: lamp
       color: "#ffffff"
@@ -178,7 +178,16 @@ actions:
     background_color: "#000000"
     label:
       text: Vacuum
-      color: "#ff0000"
+      color: "#ffffff"
     icon:
       icon: robot-vacuum
+      color: "#ffffff"
+
+  - name: Afvalbeheer
+    background_color: "#000000"
+    label:
+      text: Afvalbeheer
+      color: "#ffffff"
+    icon:
+      icon: trash-can-outline
       color: "#ffffff"

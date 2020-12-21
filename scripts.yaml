@@ -311,3 +311,12 @@ arriving:
   sequence:
     - service: script.set_high_temperature
     - service: script.turn_on_lights
+
+trash_notification:
+  sequence:
+    - service: notify.notify
+      data:
+        title: "Afvalbeheer"
+        message: |+
+          Vandaag: {{ states('sensor.mijnafvalwijzer_vandaag') }}
+          Morgen: {{ states('sensor.mijnafvalwijzer_morgen') }}

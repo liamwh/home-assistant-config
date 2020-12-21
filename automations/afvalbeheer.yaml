@@ -1,10 +1,14 @@
 ---
 - id: "1607011852490"
-  alias: "Afvalbeheer: Remind me to take out waste at 20:30"
+  alias: "Afvalbeheer: Take out waste reminder"
   description: ""
   trigger:
     - platform: time
       at: "20:30:00"
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: Afvalbeheer
   condition:
     - condition: or
       conditions:
@@ -15,8 +19,6 @@
           entity_id: sensor.mijnafvalwijzer_morgen
           state: papier
   action:
-    - service: notify.notify
-      data:
-        title: "Afvalbeheer"
-        message: "Reminder to take out the {{ states('sensor.mijnafvalwijzer_morgen') }}"
+    - service: script.trash_notification
+      data: {}
   mode: single
