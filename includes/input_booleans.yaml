@@ -44,3 +44,7 @@ vacuum_day:
   initial: false
   name: Vacuum day today?
   icon: mdi:check-circle
+flash_lights_if_low_bg:
+  initial: true
+  name: Flash lights if low BG
+  icon: mdi:warning

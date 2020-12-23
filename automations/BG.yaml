@@ -1,14 +1,19 @@
 ---
 - alias: "BG: Flash bedroom lights if BG below 4"
-  mode: restart
+  mode: single
   trigger:
     platform: numeric_state
     entity_id: sensor.dexcom_liamwoodleigh_glucose_value
     below: "4"
   condition:
-    - condition: state
-      entity_id: person.liam
-      state: home
+    - condition: and
+      conditions:
+        - condition: state
+          entity_id: person.liam
+          state: home
+        - condition: state
+          entity_id: input_boolean.flash_lights_if_low_bg
+          state: "on"
   action:
     - service: notify.mobile_app_liams_iphone
       data:
@@ -21,6 +26,9 @@
           - condition: numeric_state
             entity_id: sensor.dexcom_liamwoodleigh_glucose_value
             below: 4
+          - condition: state
+            entity_id: input_boolean.flash_lights_if_low_bg
+            state: "on"
         sequence:
           - delay: "00:00:01"
           - service: script.flash_bedroom
@@ -32,22 +40,43 @@
     event_data:
       actionName: TURN_OFF_FLASHING_LIGHTS
   action:
+    # Turn off input boolean used for condition of other automation
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.flash_lights_if_low_bg
+
+    # Turn off automation
     - service: automation.turn_off
-      entity_id: automation.bg_flash_bedroom_lights_if_below_4
+      entity_id: automation.bg_flash_bedroom_lights_if_bg_below_4
+
+    # Turn off script
+    - service: script.turn_off
+      entity_id: script.flash_bedroom
+
+    # Turn off bedroom lights
     - service: light.turn_off
       entity_id: light.bedroom_lights
+
+    # Notify of status
     - service: notify.notify
       data:
         title: "Blood Glucose"
         message: "Turned off automation and turned off lights"
+
+    # Wait until BG above 4 or 1 hour has passed
     - wait_template: "{{ sensor.dexcom_liamwoodleigh_glucose_value > 4 }}"
       timeout: "01:00:00"
+
+    # Notify of status
     - service: notify.notify
       data:
         title: "Blood Glucose"
         message: "BG above 4, re-enabling automation"
-    - service: automation.turn_on
-      entity_id: automation.bg_flash_bedroom_lights_if_below_4
+
+    # Turn on boolean
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.flash_lights_if_low_bg
+
+    # Notify of status
     - service: notify.notify
       data:
         title: "Blood Glucose"
