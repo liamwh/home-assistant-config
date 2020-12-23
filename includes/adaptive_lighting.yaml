@@ -27,7 +27,7 @@
 - name: Bathroom
   lights:
     - light.bathroom_lights
-  sleep_brightness: 8
+  sleep_brightness: 5
   min_brightness: 70
   prefer_rgb_color: false
   detect_non_ha_changes: true
