@@ -205,25 +205,18 @@ views:
                         - font-weight: bold
                         - height: 70px
                     type: custom:button-card
-                  # - color: auto
-                  #   icon: mdi:clock-time-seven-outline
-                  #   entity: input_datetime.alarm_clock
-                  #   name: >
-                  #     [[[
-                  #       return 'Alarm set for: ' + states['input_datetime.alarm_clock'].state;
-                  #     ]]]
-                  #   styles:
-                  #     card:
-                  #       - font-size: 12px
-                  #       - font-weight: bold
-                  #       - height: 70px
-                  #   type: custom:button-card
                 type: horizontal-stack
               - cards:
                   - color: auto
-                    icon: '[[[ if (entity.state == "on") return "mdi:shower-head"; else return  "mdi:shower" ]]]'
-                    entity: binary_sensor.someone_showering
-                    name: '[[[ if (entity.state == "on") return "Shower occupied"; else return  "No one showering" ]]]'
+                    icon: '[[[ if (entity.state == "on") return "mdi:fireplace"; else return  "mdi:cancel" ]]]'
+                    entity: input_boolean.automatic_temperature
+                    name: '[[[ if (entity.state == "on") return "Automatic heating enabled"; else return  "Automatic heating disabled" ]]]'
+                    tap_action:
+                      action: call-service
+                      haptic: success
+                      service: input_boolean.toggle
+                      service_data:
+                        entity_id: input_boolean.automatic_temperature
                     styles:
                       card:
                         - font-size: 12px
@@ -233,7 +226,7 @@ views:
                   - color: auto
                     icon: '[[[ if (entity.state == "on") return "mdi:head-lightbulb"; else return  "mdi:lightbulb-off" ]]]'
                     entity: input_boolean.automatic_lights
-                    name: '[[[ if (entity.state == "on") return "Automatic Lights Enabled"; else return  "Automatic Lights Disabled" ]]]'
+                    name: '[[[ if (entity.state == "on") return "Automatic lights enabled"; else return  "Automatic lights disabled" ]]]'
                     tap_action:
                       action: call-service
                       haptic: success
@@ -556,6 +549,11 @@ views:
       - template: automation_template
         type: custom:decluttering-card
         variables:
+          - name: Alarm Clock
+          - slug: alarm_clock
+      - template: automation_template
+        type: custom:decluttering-card
+        variables:
           - name: Night Mode
           - slug: night_mode
       - template: automation_template
@@ -614,15 +612,15 @@ views:
       - template: entity_template
         type: custom:decluttering-card
         variables:
-          - name: Doors
-          - slug: openclose*
-          - include_domain: binary_sensor
-      - template: entity_template
-        type: custom:decluttering-card
-        variables:
           - name: Battery
           - slug: .*?battery*
           - include_domain: sensor
+      - template: entity_template
+        type: custom:decluttering-card
+        variables:
+          - name: Vibration
+          - slug: vibration*
+          - include_domain: binary_sensor
       - template: entity_template
         type: custom:decluttering-card
         variables:
