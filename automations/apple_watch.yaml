@@ -218,8 +218,10 @@
       data:
         entity_id: climate.living_room
         temperature: "{{ temperature }}"
+
 - alias: "Apple Watch: Take out waste reminder"
   description: ""
+  mode: single
   trigger:
     - platform: time
       at: "20:30:00"
@@ -239,4 +241,33 @@
   action:
     - service: script.trash_notification
       data: {}
+
+- alias: "Apple Watch: Dishwasher finished notification"
   mode: single
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.vibration_sensor_dishwasher
+      to: "off"
+      for: "00:10:00"
+  action:
+    - service: notify.all_iphones
+      data:
+        title: "Dishwasher done! 🧼"
+        message: |+
+          Dishes are clean!
+
+- alias: "Apple Watch: Washing machine finished notification"
+  mode: single
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.vibration_sensor_washing_machine
+      to: "off"
+      for: "00:01:00"
+  action:
+    - service: notify.all_iphones
+      data:
+        title: "Washing done! 👕"
+        message: |+
+          Get clothes out of the washing machine!
