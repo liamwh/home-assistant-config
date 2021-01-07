@@ -320,3 +320,15 @@ trash_notification:
         message: |+
           Vandaag: {{ states('sensor.mijnafvalwijzer_vandaag') }}
           Morgen: {{ states('sensor.mijnafvalwijzer_morgen') }}
+
+automatic_lights_on:
+  sequence:
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.automatic_lights
+
+automatic_lights_off:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.automatic_lights
