@@ -1,16 +1,29 @@
 ---
-- alias: "Night mode: automatically turn off when alarm turns off or at 7:30AM"
+- alias: "Night mode: turn off when alarm turns off"
   trigger:
-    - platform: time
-      at: "07:30"
     - platform: state
       entity_id: input_boolean.alarm_clock
       from: "on"
       to: "off"
+  action:
+    entity_id: input_select.sleep_mode
+    service: input_select.select_option
+    data:
+      option: "off"
+
+- alias: "Night mode: turn off at 7:30AM if alarm is on and vacation mode is off"
+  trigger:
+    - platform: time
+      at: "07:30"
   condition:
-    condition: state
-    entity_id: input_boolean.alarm_clock
-    state: "off"
+    - condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.alarm_clock
+          state: "on"
+        - condition: state
+          entity_id: input_boolean.vacation_mode
+          state: "off"
   action:
     entity_id: input_select.sleep_mode
     service: input_select.select_option

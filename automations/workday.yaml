@@ -1,0 +1,13 @@
+---
+- alias: "Workday: enable alarm clock on workdays"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.workday_sensor
+    to: "on"
+  condition:
+    condition: state
+    entity_id: input_boolean.vacation_mode
+    state: "off"
+  action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.alarm_clock
