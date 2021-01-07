@@ -58,7 +58,7 @@
         event_type: ios.notification_action_fired
         event_data:
           categoryName: TURN_OFF_EVERYTHING
-      timeout: "00:05:00"
+      timeout: "00:20:00"
       continue_on_timeout: false
     - service: script.leaving
     - service: notify.all_iphones
