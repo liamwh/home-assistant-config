@@ -8,35 +8,10 @@
       entity_id: binary_sensor.openclose_bathroom_door
       domain: binary_sensor
   action:
-    # - choose:
-    #     - conditions:
-    #         - condition: state
-    #           entity_id: binary_sensor.workday_sensor
-    #           state: "off"
-    #       sequence:
-    #         - scene: scene.bathroom_energize
-    #     - conditions:
-    #         - condition: state
-    #           entity_id: binary_sensor.workday_sensor
-    #           state: "on"
-    #         - condition: time
-    #           after: "19:30:00"
-    #       sequence:
-    #         - scene: scene.bathroom_relax
-    #     - conditions:
-    #         - condition: state
-    #           entity_id: binary_sensor.workday_sensor
-    #           state: "on"
-    #         - condition: time
-    #           after: "22:30:00"
-    #       sequence:
-    #         - scene: scene.bathroom_nightlight
-    #   default:
-    #     - scene: scene.bathroom_energize
     - service: light.turn_on
-      data: {}
-      entity_id: light.bathroom_lights
-  mode: single
+      data:
+        entity_id: light.bathroom_lights
+        transition: 1
 
 - alias: "Light: toggle bathroom (based on presence)"
   trigger:

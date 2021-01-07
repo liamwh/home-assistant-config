@@ -66,4 +66,3 @@
   name: Office Lights
   entities:
     - light.java_lamp
-    - light.corner_lamp

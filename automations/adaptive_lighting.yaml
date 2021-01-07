@@ -14,7 +14,7 @@
       - switch.adaptive_lighting_sleep_mode_bedroom
       - switch.adaptive_lighting_sleep_mode_hallway
       - switch.adaptive_lighting_sleep_mode_bathroom
-      - switch.adaptive_lighting_sleep_mode_office_lights
+      - switch.adaptive_lighting_sleep_mode_office
 
 - alias: "Adaptive lighting: reset manual_control after 1 hour"
   mode: parallel
