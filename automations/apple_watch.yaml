@@ -189,6 +189,7 @@
   action:
     - service: media_player.media_play_pause
       entity_id: media_player.spotify
+
 - alias: "Apple Watch: set temperature"
   mode: parallel
   trigger:
@@ -249,7 +250,7 @@
     - platform: state
       entity_id: binary_sensor.vibration_sensor_dishwasher
       to: "off"
-      for: "00:10:00"
+      for: "00:15:00"
   action:
     - service: notify.all_iphones
       data:
@@ -264,7 +265,7 @@
     - platform: state
       entity_id: binary_sensor.vibration_sensor_washing_machine
       to: "off"
-      for: "00:01:00"
+      for: "00:15:00"
   action:
     - service: notify.all_iphones
       data:
