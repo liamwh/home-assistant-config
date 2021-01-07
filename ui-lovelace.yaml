@@ -240,6 +240,54 @@ views:
                         - height: 70px
                     type: custom:button-card
                 type: horizontal-stack
+              - cards:
+                  - color: auto
+                    icon: "mdi:refresh"
+                    entity: input_boolean.automatic_temperature
+                    name: "Resync lights with sun"
+                    tap_action:
+                      action: call-service
+                      haptic: success
+                      service: adaptive_lighting.set_manual_control
+                      service_data:
+                        entity_id:
+                          - switch.adaptive_lighting_hallway
+                          - switch.adaptive_lighting_cabinet
+                          - switch.adaptive_lighting_living_room
+                          - switch.adaptive_lighting_office
+                          - switch.adaptive_lighting_bedroom
+                        lights:
+                          - light.standing_lamp
+                          - light.table_lamp
+                          - light.bedroom_lights
+                          - light.bathroom_lights
+                          - light.hallway_lights
+                          - light.cabinet_lights
+                          - light.office_lights
+                        manual_control: false
+                    styles:
+                      card:
+                        - font-size: 12px
+                        - font-weight: bold
+                        - height: 70px
+                    type: custom:button-card
+                  - color: auto
+                    icon: '[[[ if (entity.state == "on") return "mdi:airplane-takeoff"; else return  "mdi:airplane-off" ]]]'
+                    entity: input_boolean.vacation_mode
+                    name: '[[[ if (entity.state == "on") return "Vacation mode enabled"; else return  "Vacation mode disabled" ]]]'
+                    tap_action:
+                      action: call-service
+                      haptic: success
+                      service: input_boolean.toggle
+                      service_data:
+                        entity_id: input_boolean.vacation_mode
+                    styles:
+                      card:
+                        - font-size: 12px
+                        - font-weight: bold
+                        - height: 70px
+                    type: custom:button-card
+                type: horizontal-stack
             type: vertical-stack
       - type: vertical-stack
         cards:
