@@ -6,7 +6,7 @@
 [![HA Community](https://img.shields.io/badge/HA%20community-forum-orange)](https://community.home-assistant.io/u/liamwh/summary)
 [![Yaml Lint](https://github.com/liamwh/home-assistant-config/workflows/Yaml%20Lint/badge.svg)](https://github.com/liamwh/home-assistant-config/actions?query=workflow%3A%22Yaml+Lint%22)
 
-Hi, welcome to my Home Assistant Configuration repository containing the code I use to automate and control my home. I intend to thoroughly document this configuration in the near future so it can potentially be of use to you. 😄
+Hi, welcome to my Home Assistant Configuration repository containing the code I use to automate and control my home. I hope to document this configuration in the near future (automatically of course) so it can be of more use to you! 😄
 
 ### My home page:
 
