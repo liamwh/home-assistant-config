@@ -100,5 +100,5 @@
   action:
     service: notify.notify
     data:
-      title: "Blood Glucose"
-      message: "BG: {{ states('sensor.dexcom_liamwoodleigh_glucose_value') }}\nTrend: {{ states('sensor.dexcom_liamwoodleigh_glucose_trend') }}\nConsider bolusing! 💉"
+      title: "Blood Glucose 💉"
+      message: "BG: {{ states('sensor.dexcom_liamwoodleigh_glucose_value') }}\nTrend: {{ states('sensor.dexcom_liamwoodleigh_glucose_trend') }}"
