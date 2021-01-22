@@ -12,3 +12,4 @@ secrets.yaml
 *.log
 
 HomeAssistant.code-workspace
+html5_push_registrations.conf
