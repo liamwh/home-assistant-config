@@ -53,7 +53,7 @@
   lights:
     - light.cabinet_lights
   min_brightness: 75
-  sleep_brightness: 10
+  sleep_brightness: 5
   prefer_rgb_color: true
   detect_non_ha_changes: true
   interval: 30
