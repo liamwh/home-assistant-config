@@ -13,8 +13,8 @@
   country: !secret country_code
   workdays: [mon, wed, thu, sun]
 
-- platform: ping
-  host: Liams-iPhone.pad
+# - platform: ping
+#   host: Liams-iPhone.pad
 
 - platform: template
   sensors:
