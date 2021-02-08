@@ -279,7 +279,6 @@
         - 0.329
       effect: none
       entity_id:
-        - light.tv_ambilight
         - light.corner_lamp
         - light.table_lamp
         - light.standing_lamp
