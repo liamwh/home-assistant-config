@@ -45,9 +45,7 @@
     - light.bathroom_lights
     - light.bedroom_lights
     - light.kitchen_lights
-    - light.corner_lamp
-    - light.table_lamp
-    - light.java_lamp
+    - light.living_room_lights
 
 - platform: group
   name: Cabinet lights
