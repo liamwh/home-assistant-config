@@ -342,6 +342,7 @@ views:
                 show:
                   graph: line
                   labels: true
+                  average: true
                 type: "custom:mini-graph-card"
                 unit: mmol/L
               - aggregate_func: avg
@@ -575,6 +576,7 @@ views:
             - entity_id: automation.system_*
             - entity_id: automation.utilities_*
             - entity_id: automation.vacuum_*
+            - entity_id: automation.hacs_*
           include:
             - domain: automation
         sort: entity_id
@@ -629,6 +631,11 @@ views:
         variables:
           - name: Vacuum
           - slug: vacuum
+      - template: automation_template
+        type: custom:decluttering-card
+        variables:
+          - name: HACS
+          - slug: hacs
       - template: automation_template
         type: custom:decluttering-card
         variables:
