@@ -182,3 +182,13 @@
     data:
       entity_id: light.living_room_lights
       transition: 1
+
+- alias: "Light: turn on light automation when sleep mode turns off"
+  trigger:
+    platform: state
+    entity_id: input_select.sleep_mode
+    to: "off"
+  action:
+    service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.automatic_lights
