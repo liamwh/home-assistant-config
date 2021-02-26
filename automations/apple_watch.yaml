@@ -263,9 +263,8 @@
   description: ""
   trigger:
     - platform: state
-      entity_id: binary_sensor.vibration_sensor_washing_machine
+      entity_id: binary_sensor.washing_machine
       to: "off"
-      for: "00:15:00"
   action:
     - service: notify.all_iphones
       data:

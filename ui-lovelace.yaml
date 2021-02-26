@@ -151,18 +151,13 @@ views:
                 type: horizontal-stack
               - cards:
                   - color: auto
-                    icon: mdi:home-map-marker
-                    entity: binary_sensor.no_one_home
-                    name: '[[[ if (entity.state == "on") return "Arrive Home"; else return  "You are home" ]]]'
+                    entity: binary_sensor.washing_machine
+                    name: '[[[ if (entity.state == "on") return "Washing machine on"; else return  "Washing machine off" ]]]'
                     styles:
                       card:
                         - font-size: 12px
                         - font-weight: bold
                         - height: 70px
-                    tap_action:
-                      action: call-service
-                      haptic: success
-                      service: script.arriving
                     type: custom:button-card
                   - color: auto
                     icon: mdi:home-export-outline

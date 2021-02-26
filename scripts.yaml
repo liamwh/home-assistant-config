@@ -335,6 +335,7 @@ automatic_lights_off:
 
 waking_up:
   sequence:
-    - service: input_boolean.turn_off
+    - service: input_select.select_option
       data:
-        entity_id: input_boolean.sleep_mode
+        entity_id: input_select.sleep_mode
+        option: "off"
