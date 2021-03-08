@@ -1,0 +1,6 @@
+---
+discovery: true
+switch:
+  - host: !secret hs100-01-ip
+  - host: !secret hs100-02-ip
+  - host: !secret hs110-01-ip

@@ -32,6 +32,7 @@ intent_script: !include includes/intent_script.yaml
 adaptive_lighting: !include includes/adaptive_lighting.yaml
 recorder: !include includes/recorder.yaml
 proxmoxve: !include includes/proxmoxve.yaml
+tplink: !include includes/tplink.yaml
 discovery:
 
 frontend:
