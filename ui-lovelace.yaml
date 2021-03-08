@@ -192,7 +192,7 @@ views:
                     type: custom:button-card
                   - color: auto
                     icon: '[[[ if (entity.state == "True") return "mdi:weather-windy"; else return  "mdi:checkbox-marked-circle-outline" ]]]'
-                    entity: sensor.thermostat_open_window
+                    entity: binary_sensor.living_room_open_window
                     name: '[[[ if (entity.state == "True") return "Window(s) open"; else return  "No open window detected" ]]]'
                     styles:
                       card:
@@ -294,7 +294,7 @@ views:
               controls: true
               mute: false
               play_stop: true
-              volume: false
+              volume: true
             icon: mdi:television
           - type: custom:mini-media-player
             artwork: cover
