@@ -37,7 +37,7 @@
 - alias: "Climate: Window open disable heating prompt"
   trigger:
     platform: state
-    entity_id: sensor.thermostat_open_window
+    entity_id: binary_sensor.living_room_open_window
     to: "True"
   condition:
     - condition: state

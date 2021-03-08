@@ -55,6 +55,7 @@ turn_off_everything:
         entity_id: light.all_the_lights
     - service: script.turn_off_tv
     - service: script.turn_off_tv_ambilight
+    - service: script.set_low_temperature
 
 going_to_sleep:
   alias: Going to sleep
@@ -339,3 +340,90 @@ waking_up:
       data:
         entity_id: input_select.sleep_mode
         option: "off"
+
+# TV Scripts
+tv_click_center:
+  sequence:
+    - service: androidtv.adb_command
+      target:
+        entity_id: media_player.tv
+      data:
+        command: "sendevent /dev/input/event1 1 352 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 352 0 && sendevent /dev/input/event1 0 0 0"
+
+tv_click_quick_settings:
+  sequence:
+    - service: androidtv.adb_command
+      target:
+        entity_id: media_player.tv
+      data:
+        command: "sendevent /dev/input/event1 1 641 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 641 0 && sendevent /dev/input/event1 0 0 0"
+
+tv_click_right:
+  sequence:
+    - service: androidtv.adb_command
+      target:
+        entity_id: media_player.tv
+      data:
+        command: "sendevent /dev/input/event1 1 106 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 106 0 && sendevent /dev/input/event1 0 0 0"
+
+tv_click_down:
+  sequence:
+    - service: androidtv.adb_command
+      target:
+        entity_id: media_player.tv
+      data:
+        command: "sendevent /dev/input/event1 1 108 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 108 0 && sendevent /dev/input/event1 0 0 0"
+
+tv_wakeup_soundbar:
+  sequence:
+    - service: script.tv_click_quick_settings
+    - delay: 1
+    - service: script.tv_click_down
+    - delay: 1
+    - service: script.tv_click_center
+    - delay: 1
+    - service: script.tv_click_right
+    - delay: 1
+    - service: script.tv_click_down
+    - delay: 1
+    - service: script.tv_click_down
+    - delay: 1
+    - service: script.tv_click_center
+# tv_wakeup_soundbar:
+#   sequence:
+#     # Open quick settings settings
+#     - service: androidtv.adb_command
+#       target:
+#         entity_id: media_player.tv
+#       data:
+#         command: "sendevent /dev/input/event1 1 641 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 641 0 && sendevent /dev/input/event1 0 0 0"
+#     # Clicker center to open frequent settings
+#     - service: androidtv.adb_command
+#       target:
+#         entity_id: media_player.tv
+#       data:
+#         command: "sendevent /dev/input/event1 1 352 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 352 0 && sendevent /dev/input/event1 0 0 0"
+#     # Press right
+#     - service: androidtv.adb_command
+#       target:
+#         entity_id: media_player.tv
+#       data:
+#         command: "sendevent /dev/input/event1 1 106 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 106 0 && sendevent /dev/input/event1 0 0 0"
+#     # Press down once
+#     - service: androidtv.adb_command
+#       target:
+#         entity_id: media_player.tv
+#       data:
+#         command: "sendevent /dev/input/event1 1 108 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 108 0 && sendevent /dev/input/event1 0 0 0"
+#     # Press down second time
+#     - service: androidtv.adb_command
+#       target:
+#         entity_id: media_player.tv
+#       data:
+#         command: "sendevent /dev/input/event1 1 108 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 108 0 && sendevent /dev/input/event1 0 0 0"
+#     # Press center button
+#     - service: androidtv.adb_command
+#       target:
+#         entity_id: media_player.tv
+#       data:
+#         command: "sendevent /dev/input/event1 1 352 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 352 0 && sendevent /dev/input/event1 0 0 0"
