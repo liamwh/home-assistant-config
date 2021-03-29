@@ -10,7 +10,7 @@
   detect_non_ha_changes: true
   interval: 30
   sunrise_time: "07:00:00"
-  sunset_time: "18:30:00"
+  sunset_time: "20:30:00"
   take_over_control: true
 
 - name: Bedroom
@@ -22,7 +22,7 @@
   detect_non_ha_changes: true
   interval: 30
   sunrise_time: "07:00:00"
-  sunset_time: "18:30:00"
+  sunset_time: "20:30:00"
   take_over_control: true
 
 - name: Bathroom
@@ -45,7 +45,7 @@
   prefer_rgb_color: true
   detect_non_ha_changes: true
   interval: 30
-  sunset_time: "18:30:00"
+  sunset_time: "20:30:00"
   sunrise_time: "07:00:00"
   take_over_control: true
 
@@ -58,7 +58,7 @@
   detect_non_ha_changes: true
   interval: 30
   sunrise_time: "07:00:00"
-  sunset_time: "18:30:00"
+  sunset_time: "20:30:00"
   take_over_control: true
 
 - name: Office
@@ -69,6 +69,6 @@
   prefer_rgb_color: true
   detect_non_ha_changes: true
   interval: 30
-  sunset_time: "18:30:00"
+  sunset_time: "20:30:00"
   sunrise_time: "07:00:00"
   take_over_control: true
