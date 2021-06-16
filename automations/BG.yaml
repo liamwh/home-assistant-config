@@ -139,4 +139,4 @@
     service: notify.notify
     data:
       title: "Blood Glucose 💉"
-      message: "BG: {{ states('sensor.dexcom_liamwoodleigh_glucose_value') }}\nTrend: {{ states('sensor.dexcom_liamwoodleigh_glucose_trend') }}"
+      message: "BG: {{ states('sensor.dexcom_liamwoodleigh_glucose_value') }}\nTrend: {{ states('sensor.dexcom_liamwoodleigh_glucose_trend') }}\nETH/EUR: {{ states('sensor.cryptoinfo_ethereum_eur')}}"

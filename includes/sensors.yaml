@@ -156,3 +156,9 @@
     - precipitation_forecast_total
     - rainlast24hour
     - rainlasthour
+
+- platform: cryptoinfo
+  cryptocurrency_name: "ethereum"
+  currency_name: "eur"
+  update_frequency: 10
+  icon: "mdi:ethereum"

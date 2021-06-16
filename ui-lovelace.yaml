@@ -361,6 +361,11 @@ views:
                   labels: true
                   state: true
                 type: "custom:mini-graph-card"
+          - type: entities
+            entities:
+              - entity: sensor.cryptoinfo_ethereum_eur
+                name: ETH / EUR
+                icon: "mdi:ethereum"
       - type: vertical-stack
         cards:
           - type: custom:xiaomi-vacuum-card

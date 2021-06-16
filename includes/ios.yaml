@@ -4,8 +4,8 @@ push:
     - name: Turn off everything
       identifier: turn_off_everything
       actions:
-        - identifier: TURN_OFF_EVERYTHING
-          title: Turn off everything
+        - title: Turn off everything
+          identifier: TURN_OFF_EVERYTHING
           activationMode: background
           authenticationRequired: false
           destructive: true
