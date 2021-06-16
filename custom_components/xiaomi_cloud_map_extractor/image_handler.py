@@ -30,6 +30,10 @@ class ImageHandler:
         COLOR_NO_MOPPING_ZONES_OUTLINE: (163, 130, 211),
         COLOR_CHARGER: (0x66, 0xfe, 0xda, 0x7f),
         COLOR_ROBO: (75, 235, 149),
+        COLOR_OBSTACLE: (0, 0, 0, 128),
+        COLOR_IGNORED_OBSTACLE: (0, 0, 0, 128),
+        COLOR_OBSTACLE_WITH_PHOTO: (0, 0, 0, 128),
+        COLOR_IGNORED_OBSTACLE_WITH_PHOTO: (0, 0, 0, 128),
         COLOR_UNKNOWN: (0, 0, 0),
         COLOR_SCAN: (0xDF, 0xDF, 0xDF),
         COLOR_ROOM_1: (240, 178, 122),
@@ -129,16 +133,16 @@ class ImageHandler:
         return room_number
 
     @staticmethod
-    def draw_path(image, path, colors):
-        ImageHandler.__draw_path__(image, path, ImageHandler.__get_color__(COLOR_PATH, colors))
+    def draw_path(image, path, colors, scale):
+        ImageHandler.__draw_path__(image, path, ImageHandler.__get_color__(COLOR_PATH, colors), scale)
 
     @staticmethod
-    def draw_goto_path(image, path, colors):
-        ImageHandler.__draw_path__(image, path, ImageHandler.__get_color__(COLOR_GOTO_PATH, colors))
+    def draw_goto_path(image, path, colors, scale):
+        ImageHandler.__draw_path__(image, path, ImageHandler.__get_color__(COLOR_GOTO_PATH, colors), scale)
 
     @staticmethod
-    def draw_predicted_path(image, path, colors):
-        ImageHandler.__draw_path__(image, path, ImageHandler.__get_color__(COLOR_PREDICTED_PATH, colors))
+    def draw_predicted_path(image, path, colors, scale):
+        ImageHandler.__draw_path__(image, path, ImageHandler.__get_color__(COLOR_PREDICTED_PATH, colors), scale)
 
     @staticmethod
     def draw_no_go_areas(image, areas, colors):
@@ -167,13 +171,44 @@ class ImageHandler:
                                     ImageHandler.__get_color__(COLOR_ZONES_OUTLINE, colors))
 
     @staticmethod
-    def draw_charger(image, charger, radius, colors):
+    def draw_charger(image, charger, sizes, colors):
         color = ImageHandler.__get_color__(COLOR_CHARGER, colors)
+        radius = sizes[CONF_SIZE_CHARGER_RADIUS]
         ImageHandler.__draw_circle__(image, charger, radius, color, color)
 
     @staticmethod
-    def draw_vacuum_position(image, vacuum_position, radius, colors):
+    def draw_obstacles(image, obstacles, sizes, colors):
+        color = ImageHandler.__get_color__(COLOR_OBSTACLE, colors)
+        radius = sizes[CONF_SIZE_OBSTACLE_RADIUS]
+        ImageHandler.draw_all_obstacles(image, obstacles, radius, color)
+
+    @staticmethod
+    def draw_ignored_obstacles(image, obstacles, sizes, colors):
+        color = ImageHandler.__get_color__(COLOR_IGNORED_OBSTACLE, colors)
+        radius = sizes[CONF_SIZE_IGNORED_OBSTACLE_RADIUS]
+        ImageHandler.draw_all_obstacles(image, obstacles, radius, color)
+
+    @staticmethod
+    def draw_obstacles_with_photo(image, obstacles, sizes, colors):
+        color = ImageHandler.__get_color__(COLOR_OBSTACLE_WITH_PHOTO, colors)
+        radius = sizes[CONF_SIZE_OBSTACLE_WITH_PHOTO_RADIUS]
+        ImageHandler.draw_all_obstacles(image, obstacles, radius, color)
+
+    @staticmethod
+    def draw_ignored_obstacles_with_photo(image, obstacles, sizes, colors):
+        color = ImageHandler.__get_color__(COLOR_IGNORED_OBSTACLE_WITH_PHOTO, colors)
+        radius = sizes[CONF_SIZE_IGNORED_OBSTACLE_WITH_PHOTO_RADIUS]
+        ImageHandler.draw_all_obstacles(image, obstacles, radius, color)
+
+    @staticmethod
+    def draw_all_obstacles(image, obstacles, radius, color):
+        for obstacle in obstacles:
+            ImageHandler.__draw_circle__(image, obstacle, radius, color, color)
+
+    @staticmethod
+    def draw_vacuum_position(image, vacuum_position, sizes, colors):
         color = ImageHandler.__get_color__(COLOR_ROBO, colors)
+        radius = sizes[CONF_SIZE_VACUUM_RADIUS]
         ImageHandler.__draw_circle__(image, vacuum_position, radius, color, color)
 
     @staticmethod
@@ -214,7 +249,7 @@ class ImageHandler:
         ImageHandler.__draw_on_new_layer__(image, draw_func)
 
     @staticmethod
-    def __draw_path__(image, path, color):
+    def __draw_path__(image, path, color, scale):
         if len(path.path) < 2:
             return
 
@@ -222,10 +257,10 @@ class ImageHandler:
             s = path.path[0].to_img(image.dimensions)
             for point in path.path[1:]:
                 e = point.to_img(image.dimensions)
-                draw.line([s.x, s.y, e.x, e.y], fill=color)
+                draw.line([s.x * scale, s.y * scale, e.x * scale, e.y * scale], width=int(scale), fill=color)
                 s = e
 
-        ImageHandler.__draw_on_new_layer__(image, draw_func)
+        ImageHandler.__draw_on_new_layer__(image, draw_func, scale)
 
     @staticmethod
     def __draw_text__(image, text, x, y, color, font_file=None, font_size=None):
@@ -253,8 +288,14 @@ class ImageHandler:
         return ImageHandler.COLORS[default_name]
 
     @staticmethod
-    def __draw_on_new_layer__(image, draw_function: Callable):
-        layer = Image.new("RGBA", image.data.size, (255, 255, 255, 0))
+    def __draw_on_new_layer__(image, draw_function: Callable, scale=1):
+        if scale == 1:
+            size = image.data.size
+        else:
+            size = [int(image.data.size[0] * scale), int(image.data.size[1] * scale)]
+        layer = Image.new("RGBA", size, (255, 255, 255, 0))
         draw = ImageDraw.Draw(layer, "RGBA")
         draw_function(draw)
+        if scale != 1:
+            layer = layer.resize(image.data.size, resample=Image.BOX)
         image.data = Image.alpha_composite(image.data, layer)
