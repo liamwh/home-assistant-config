@@ -1,0 +1,24 @@
+---
+- platform: group
+  name: all_iphones
+  services:
+    - service: mobile_app_liams_iphone
+
+- platform: group
+  name: liam
+  services:
+    - service: mobile_app_liams_iphone
+    - service: chrome
+
+- platform: group
+  name: all
+  services:
+    - service: mobile_app_liams_iphone
+    - service: tv
+    - service: chrome
+
+- platform: html5
+  name: chrome
+  vapid_pub_key: !secret firebase_public_key
+  vapid_prv_key: !secret firebase_private_key
+  vapid_email: !secret firebase_service_account

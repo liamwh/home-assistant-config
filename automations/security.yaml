@@ -1,0 +1,50 @@
+---
+- alias: "Security: motion detected but I am not home"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_detected
+    from: "off"
+    to: "on"
+  condition:
+    - condition: state
+      entity_id: group.people
+      state: not_home
+    - condition: state
+      entity_id: vacuum.xiaomi_vacuum_cleaner
+      state: "docked"
+  action:
+    - service: notify.all_iphones
+      data:
+        message: "Security: motion is detected, but I am not home."
+        data:
+          push:
+            category: sound_alarm
+    - wait_for_trigger:
+        platform: event
+        event_type: ios.notification_action_fired
+        event_data:
+          actionName: SOUND_ALARM
+      timeout: "01:00:00"
+      continue_on_timeout: false
+    - service: light.turn_on
+      entity_id: all
+      data:
+        flash: long
+        color_name: red
+
+- alias: "Security: front door open for more than 5 minutes"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.openclose_front_door
+    from: "off"
+    to: "on"
+    for: "00:05:00"
+  condition:
+    condition: state
+    entity_id: input_boolean.guest_mode
+    state: "off"
+  action:
+    service: notify.all_iphones
+    data:
+      title: "Security"
+      message: "The front door has been open for more than 5 minutes."

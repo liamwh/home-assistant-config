@@ -1,0 +1,67 @@
+---
+- alias: "Leaving: automatically turn off everything after 1 hour"
+  initial_state: "on"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.someone_in_the_house_in_last_hour
+      from: "on"
+      to: "off"
+      for: "00:01:00"
+    - platform: time_pattern
+      hours: "/1"
+  condition:
+    - condition: state
+      entity_id:
+        - binary_sensor.no_one_home
+        - binary_sensor.anything_on
+      state: "on"
+    - condition: state
+      entity_id:
+        - binary_sensor.someone_in_the_house_in_last_hour
+        - input_boolean.guest_mode
+      state: "off"
+  action:
+    - service: script.leaving
+    - service: notify.all_iphones
+      data:
+        title: "No one home"
+        message: "Everything automatically turned off!"
+
+- alias: "Leaving: ask to turn off everything after 5 minutes"
+  initial_state: "on"
+  trigger:
+    - platform: state
+      entity_id: person.liam
+      from: "home"
+  condition:
+    - condition: state
+      entity_id:
+        - binary_sensor.no_one_home
+        - binary_sensor.anything_on
+      state: "on"
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state: "off"
+  action:
+    - delay: "00:05:00" # something still needs to be on in 5 min
+    - condition: state
+      entity_id: binary_sensor.no_one_home
+      state: "on"
+    - service: notify.mobile_app_liams_iphone
+      data:
+        message: "No one is home, turn off everything?"
+        data:
+          push:
+            category: turn_off_everything
+    - wait_for_trigger:
+        platform: event
+        event_type: ios.notification_action_fired
+        event_data:
+          categoryName: TURN_OFF_EVERYTHING
+      timeout: "00:20:00"
+      continue_on_timeout: false
+    - service: script.leaving
+    - service: notify.all_iphones
+      data:
+        title: "No one home"
+        message: "Turned off everyhing!"

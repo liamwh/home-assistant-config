@@ -1,0 +1,456 @@
+---
+message_blood_sugar:
+  alias: Message blood sugar
+  sequence:
+    - service: notify.mobile_app_liams_iphone
+      data:
+        message:
+          "BG: {{ states('sensor.dexcom_liamwoodleigh_glucose_value') }}. Trend:
+          {{ states('sensor.dexcom_liamwoodleigh_glucose_trend') }}"
+white_lights_living_room:
+  alias: Set white lights in the living room
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.living_room
+        color_temp: 366
+    - service: input_select.select_option
+      entity_id: input_select.last_script_living_room
+      data:
+        option: script.white_lights_living_room
+white_lights_bedroom:
+  alias: Set white lights in the bedroom
+  sequence:
+    - data:
+        color_temp: 366
+        entity_id:
+          - light.bedroom
+      service: light.turn_on
+    - service: input_select.select_option
+      entity_id: input_select.last_script_bedroom
+      data:
+        option: script.white_lights_bedroom
+increase_brightness:
+  alias: Increase the brightness of a group of lights
+  fields:
+    group:
+      description: The group to apply the light increase to.
+      example: light.living_room
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: "{{ group }}"
+        brightness:
+          "{% set b = state_attr(group, 'brightness') %} {% if b == None %}\n\
+          \  10\n{% elif b < 20 %}\n  128\n{% elif b < 140 %}\n  255\n{% else %}\n \
+          \ 10\n{% endif %}\n"
+turn_off_everything:
+  alias: Turn off everything
+  mode: single
+  sequence:
+    - service: light.turn_off
+      data:
+        transition: 4
+        entity_id: light.all_the_lights
+    - service: script.turn_off_tv
+    - service: script.turn_off_tv_ambilight
+    - service: script.set_low_temperature
+
+going_to_sleep:
+  alias: Going to sleep
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.sleep_mode
+        option: "on"
+      entity_id: input_select.sleep_mode
+    - service: script.turn_off_everything
+next_colors:
+  alias: Change the colors of lights
+  fields:
+    input_select:
+      description: The input select that lists script names.
+      example: input_select.last_script_living_room
+  sequence:
+    - service: input_select.select_next
+      data:
+        entity_id: "{{ input_select }}"
+    - service: "{{ states(input_select) }}"
+start_netflix:
+  alias: Start Netflix
+  sequence:
+    - entity_id: media_player.tv
+      service: media_player.turn_on
+    - data:
+        source: Netflix
+      entity_id: media_player.living_room_tv
+      service: media_player.select_source
+  mode: single
+set_low_temperature:
+  alias: Set low temperature
+  sequence:
+    - service: climate.set_temperature
+      entity_id: climate.living_room
+      data:
+        temperature: '{{ states("input_number.temperature_low") }}'
+set_high_temperature:
+  alias: Set high temperature
+  sequence:
+    - service: climate.set_temperature
+      entity_id: climate.living_room
+      data:
+        temperature: '{{ states("input_number.temperature_high") }}'
+leaving:
+  alias: Leaving the house
+  sequence:
+    - service: script.set_low_temperature
+    - service: script.turn_off_everything
+vacuum_command:
+  alias: Vacuum living room
+  icon: mdi:robot-vacuum
+  fields:
+    option:
+      description:
+        all, stop, living_room, bedroom, hallway, kitchen, dining_area
+        or bathroom
+      example: living_room
+  sequence:
+    choose:
+      - conditions: "{{ option == 'all' }}"
+        sequence:
+          service: vacuum.start
+          entity_id: vacuum.xiaomi_vacuum_cleaner
+      - conditions: "{{ option == 'stop' }}"
+        sequence:
+          service: vacuum.return_to_base
+          entity_id: vacuum.xiaomi_vacuum_cleaner
+      - conditions: "{{ option == 'living_room' }}"
+        sequence:
+          service: xiaomi_miio.vacuum_clean_segment
+          data:
+            entity_id: vacuum.xiaomi_vacuum_cleaner
+            segments: 18
+      - conditions: "{{ option == 'bedroom' }}"
+        sequence:
+          service: xiaomi_miio.vacuum_clean_segment
+          data:
+            entity_id: vacuum.xiaomi_vacuum_cleaner
+            segments: 17
+      - conditions: "{{ option == 'hallway' }}"
+        sequence:
+          service: xiaomi_miio.vacuum_clean_segment
+          data:
+            entity_id: vacuum.xiaomi_vacuum_cleaner
+            segments: 19
+      - conditions: "{{ option == 'kitchen' }}"
+        sequence:
+          service: xiaomi_miio.vacuum_clean_segment
+          data:
+            entity_id: vacuum.xiaomi_vacuum_cleaner
+            segments: 20
+      - conditions: "{{ option == 'dining_area' }}"
+        sequence:
+          service: xiaomi_miio.vacuum_clean_segment
+          data:
+            entity_id: vacuum.xiaomi_vacuum_cleaner
+            segments: 21
+      - conditions: "{{ option == 'bathroom' }}"
+        sequence:
+          service: xiaomi_miio.vacuum_clean_segment
+          data:
+            entity_id: vacuum.xiaomi_vacuum_cleaner
+            segments: 16
+show_home_assistant_on_kitchen_hub:
+  alias: Show Home Assistant
+  sequence:
+    - data:
+        dashboard_path: lovelace
+        entity_id: media_player.kitchen_hub
+        view_path: home
+      service: cast.show_lovelace_view
+flash_bedroom:
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.bedroom_lights
+        rgb_color:
+          - 0
+          - 191
+          - 255
+        brightness: 255
+        transition: false
+    - delay: 1
+    - service: light.turn_off
+      data:
+        entity_id: light.bedroom_lights
+        transition: false
+# turn_on_lights:
+#   alias: lights with Adaptive Lighting
+#   icon: mdi:lamp
+#   fields:
+#     entity_id:
+#       description: entity_id of light
+#       example: light.bedroom_lights
+#   sequence:
+#     - service: adaptive_lighting.apply
+#       data:
+#         entity_id:
+#           - switch.adaptive_lighting_bedroom
+#           - switch.adaptive_lighting_living_room
+#           - switch.adaptive_lighting_hallway
+#           - switch.adaptive_lighting_bathroom
+#           - switch.adaptive_lighting_cabinet
+#           - switch.adaptive_lighting_office_lights
+#         lights:
+#           - light.hallway_lights
+#           - light.cabinet_lights
+#           - light.bedroom_lights
+#           - light.corner_lamp
+#           - light.standing_lamp
+#           - light.table_lamp
+#           - light.bathroom_lights
+#           - light.java_lamp
+#         turn_on_lights: true
+
+turn_off_tv_ambilight:
+  alias: Turn off TV ambilight
+  sequence:
+    - condition: not
+      conditions:
+        - condition: state
+          entity_id: light.tv_ambilight
+          state: unavailable
+    - service: light.turn_off
+      data: {}
+      entity_id: light.tv_ambilight
+  mode: single
+
+turn_on_tv_ambilight:
+  alias: Turn on TV ambilight
+  sequence:
+    - condition: not
+      conditions:
+        - condition: state
+          entity_id: light.tv_ambilight
+          state: unavailable
+    - service: light.turn_on
+      data: {}
+      entity_id: light.tv_ambilight
+  mode: single
+
+turn_off_tv:
+  alias: Turn off TV
+  sequence:
+    - condition: not
+      conditions:
+        - condition: state
+          entity_id: media_player.tv
+          state: unavailable
+    - service: media_player.turn_off
+      data: {}
+      entity_id: media_player.tv
+  mode: single
+# turn_on_lights:
+#   alias: Turn on lights with Adaptive Lighting
+#   icon: mdi:lamp
+#   fields:
+#     entity_id:
+#       description: entity_id of light
+#       example: light.bedroom_lights
+#   sequence:
+#     service: adaptive_lighting.apply
+#     data:
+#       entity_id: switch.adaptive_lighting_living_room # Make this line dynamic
+#       lights: "{{ entity_id }}"
+#       turn_on_lights: true
+turn_on_lights:
+  alias: Turn on lights
+  icon: mdi:lamp
+  fields:
+    entity_id:
+      description: entity_id of light
+      example: light.bedroom_lights
+  sequence:
+    service: light.turn_on
+    data:
+      entity_id:
+        - light.living_room_lights
+        - light.hallway_lights
+        - light.kitchen_lights
+
+# switch_music_from_iphone_to_soundbar:
+#   alias: Switch music to soundbar
+#   mode: single
+#   sequence:
+#     # Send iPhone notification
+#     - service: notify.mobile_app_liams_iphone
+#       data:
+#         title: "Arriving"
+#         message: "Switching music from phone to TV. Take out your Airpods & press play when ready!"
+#         data:
+#           push:
+#             category: spotify
+
+#     # Turn on the TV
+#     - service: media_player.turn_on
+#       entity_id: media_player.tv
+
+#     # Open Spotify on TV
+#     - service: media_player.select_source
+#       entity_id: media_player.tv
+#       data:
+#         source: "\U0001F4F1 Spotify"
+
+#     # Set Spotify to play on TV
+#     - service: media_player.select_source
+#       entity_id: media_player.spotify
+#       data:
+#         source: Living Room TV
+
+arriving:
+  alias: Arriving home
+  sequence:
+    - service: script.set_high_temperature
+    - service: script.turn_on_lights
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.vacation_mode
+
+trash_notification:
+  sequence:
+    - service: notify.mobile_app_liams_iphone
+      data:
+        title: "Afvalbeheer"
+        message: |+
+          Vandaag: {{ states('sensor.mijnafvalwijzer_vandaag') }}
+          Morgen: {{ states('sensor.mijnafvalwijzer_morgen') }}
+
+light_automation_on:
+  sequence:
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.automatic_lights
+
+light_automation_off:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.automatic_lights
+
+waking_up:
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.sleep_mode
+        option: "off"
+
+disable_tv_mode:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.tv_mode
+
+enable_tv_mode:
+  sequence:
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.tv_mode
+
+bedroom_chill_on:
+  sequence:
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.bedroom_chill
+
+bedroom_chill_off:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.bedroom_chill
+
+# TV Scripts
+tv_click_center:
+  sequence:
+    - service: androidtv.adb_command
+      target:
+        entity_id: media_player.tv
+      data:
+        command: "sendevent /dev/input/event1 1 352 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 352 0 && sendevent /dev/input/event1 0 0 0"
+
+tv_click_quick_settings:
+  sequence:
+    - service: androidtv.adb_command
+      target:
+        entity_id: media_player.tv
+      data:
+        command: "sendevent /dev/input/event1 1 641 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 641 0 && sendevent /dev/input/event1 0 0 0"
+
+tv_click_right:
+  sequence:
+    - service: androidtv.adb_command
+      target:
+        entity_id: media_player.tv
+      data:
+        command: "sendevent /dev/input/event1 1 106 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 106 0 && sendevent /dev/input/event1 0 0 0"
+
+tv_click_down:
+  sequence:
+    - service: androidtv.adb_command
+      target:
+        entity_id: media_player.tv
+      data:
+        command: "sendevent /dev/input/event1 1 108 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 108 0 && sendevent /dev/input/event1 0 0 0"
+
+tv_wakeup_soundbar:
+  sequence:
+    - service: script.tv_click_quick_settings
+    - delay: 1
+    - service: script.tv_click_down
+    - delay: 1
+    - service: script.tv_click_center
+    - delay: 1
+    - service: script.tv_click_right
+    - delay: 1
+    - service: script.tv_click_down
+    - delay: 1
+    - service: script.tv_click_down
+    - delay: 1
+    - service: script.tv_click_center
+# tv_wakeup_soundbar:
+#   sequence:
+#     # Open quick settings settings
+#     - service: androidtv.adb_command
+#       target:
+#         entity_id: media_player.tv
+#       data:
+#         command: "sendevent /dev/input/event1 1 641 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 641 0 && sendevent /dev/input/event1 0 0 0"
+#     # Clicker center to open frequent settings
+#     - service: androidtv.adb_command
+#       target:
+#         entity_id: media_player.tv
+#       data:
+#         command: "sendevent /dev/input/event1 1 352 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 352 0 && sendevent /dev/input/event1 0 0 0"
+#     # Press right
+#     - service: androidtv.adb_command
+#       target:
+#         entity_id: media_player.tv
+#       data:
+#         command: "sendevent /dev/input/event1 1 106 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 106 0 && sendevent /dev/input/event1 0 0 0"
+#     # Press down once
+#     - service: androidtv.adb_command
+#       target:
+#         entity_id: media_player.tv
+#       data:
+#         command: "sendevent /dev/input/event1 1 108 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 108 0 && sendevent /dev/input/event1 0 0 0"
+#     # Press down second time
+#     - service: androidtv.adb_command
+#       target:
+#         entity_id: media_player.tv
+#       data:
+#         command: "sendevent /dev/input/event1 1 108 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 108 0 && sendevent /dev/input/event1 0 0 0"
+#     # Press center button
+#     - service: androidtv.adb_command
+#       target:
+#         entity_id: media_player.tv
+#       data:
+#         command: "sendevent /dev/input/event1 1 352 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 352 0 && sendevent /dev/input/event1 0 0 0"

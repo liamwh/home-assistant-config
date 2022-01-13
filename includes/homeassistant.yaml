@@ -1,0 +1,20 @@
+---
+latitude: !secret latitude_home
+longitude: !secret longitude_home
+elevation: 0
+unit_system: metric
+time_zone: Europe/Amsterdam
+name: Home
+customize:
+  switch.vacuum_mode:
+    friendly_name: Vacuum
+  sensor.temperature_mean:
+    icon: mdi:temperature-celsius
+  light.automatic_lights:
+    icon: mdi:robot
+  light.living_room:
+    icon: mdi:sofa
+  light.bedroom_lights:
+    icon: mdi:bed-king
+  light.toilet:
+    icon: mdi:emoticon-poop

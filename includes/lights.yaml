@@ -1,0 +1,75 @@
+---
+# - platform: philips_ambilight
+#   name: TV Ambilight
+#   host: !secret tv_ip
+#   username: !secret tv_username
+#   password: !secret tv_password
+
+- platform: group
+  name: Living Room Lights
+  entities:
+    - light.corner_lamp
+    - light.table_lamp
+    - light.java_lamp
+    - light.elements
+
+- platform: group
+  name: Living Room Lights and ambilight
+  entities:
+    - light.living_room_lights
+    # - light.tv_ambilight
+
+- platform: group
+  name: Living Room Lights without elements
+  entities:
+    - light.corner_lamp
+    - light.table_lamp
+    - light.java_lamp
+
+- platform: group
+  name: Bedroom lights
+  entities:
+    - light.bedroom_ceiling
+    - light.bedside_lamp
+
+- platform: group
+  name: Bathroom Lights
+  entities:
+    - light.bathroom_shower
+    - light.bathroom_mirror
+    - light.bathroom_toilet
+
+- platform: group
+  name: Hallway lights
+  entities:
+    - light.hallway_spot
+    - light.hallway_entrance
+
+- platform: group
+  name: All the lights
+  entities:
+    - light.hallway_lights
+    - light.bathroom_lights
+    - light.bedroom_lights
+    - light.kitchen_lights
+    - light.living_room_lights
+
+- platform: group
+  name: Cabinet lights
+  entities:
+    - light.cabinet_left
+    - light.cabinet_middle
+    - light.cabinet_right
+
+- platform: group
+  name: Kitchen Lights
+  entities:
+    - light.bench_upper_strip
+    - light.bench_lower_strip
+    - light.standing_lamp
+
+
+- platform: group
+  name: Office Lights
+  entities:
+    - light.java_lamp

@@ -1,0 +1,62 @@
+---
+- alias: "Adaptive lighting: toggle 'sleep mode'"
+  trigger:
+    - platform: state
+      entity_id: input_select.sleep_mode
+    - platform: homeassistant
+      event: start # in case the states aren't properly restored
+  variables:
+    sleep_mode: "{{ states('input_select.sleep_mode') }}"
+  action:
+    service: "switch.turn_{{ sleep_mode }}"
+    entity_id:
+      - switch.adaptive_lighting_sleep_mode_living_room
+      - switch.adaptive_lighting_sleep_mode_bedroom
+      - switch.adaptive_lighting_sleep_mode_kitchen
+      - switch.adaptive_lighting_sleep_mode_hallway
+      - switch.adaptive_lighting_sleep_mode_bathroom
+      - switch.adaptive_lighting_sleep_mode_office
+
+- alias: "Adaptive lighting: reset manual_control after 1 hour"
+  mode: parallel
+  max: 200
+  trigger:
+    - platform: event
+      event_type: adaptive_lighting.manual_control
+  variables:
+    light: "{{ trigger.event.data.entity_id }}"
+    switch: "{{ trigger.entity_id }}"
+  action:
+    - delay: "01:00:00"
+    - condition: template
+      value_template: "{{ light in state_attr('switch', 'manual_control') }}"
+    - condition: state
+      entity_id: input_boolean.automatic_lights
+      state: "on"
+    - service: adaptive_lighting.set_manual_control
+      data:
+        entity_id: "{{ switch }}"
+        lights: "{{ light }}"
+        manual_control: false
+    - service: notify.mobile_app_liams_iphone
+      data:
+        title: "Adaptive Lighting: reset manual_control"
+        message: "{{ light }} is reset to *not* 'manually controlled'"
+
+- alias: "Adaptive lighting: notify manual_control"
+  mode: single
+  max_exceeded: info
+  trigger:
+    - platform: event
+      event_type: adaptive_lighting.manual_control
+  variables:
+    light: "{{ trigger.event.data.entity_id }}"
+  action:
+    - service: system_log.write
+      data:
+        message: "{{ light }} is manually controlled"
+        level: error
+    - service: notify.mobile_app_liams_iphone
+      data:
+        title: "Adaptive Lighting: manual_control"
+        message: "{{ light }} is now manually controlled."

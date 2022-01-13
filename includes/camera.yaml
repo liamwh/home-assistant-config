@@ -1,0 +1,53 @@
+---
+- platform: xiaomi_cloud_map_extractor
+  host: !secret vacuum_ip
+  token: !secret vacuum_token
+  username: !secret xiaomi_username
+  password: !secret xiaomi_password
+  country: de
+  draw:
+    - charger
+    - vacuum_position
+  map_transformation:
+    trim:
+      top: 25
+      bottom: 26
+      left: 25
+      right: 25
+  attributes:
+    - calibration_points
+    - charger
+    - goto
+    - goto_path
+    - goto_predicted_path
+    - image
+    - is_empty
+    - map_name
+    - no_go_areas
+    - no_mopping_areas
+    - obstacles
+    - path
+    - room_numbers
+    - rooms
+    - vacuum_position
+    - vacuum_room
+    - walls
+    - zones
+  colors:
+    color_map_outside: [0, 0, 0, 100] # 100 alpha, so invisible
+    color_map_wall: [0, 0, 0]
+    color_map_wall_v2: [0, 0, 0] # Solid black
+    color_grey_wall: [0, 0, 0, 100]
+    color_virtual_walls: [0, 0, 0, 100]
+    color_unknown: [0, 0, 0]
+    color_robo: [55, 122, 65]
+    color_charger: [55, 122, 65, 80]
+
+  room_colors:
+    16: [105, 105, 105, 20]
+    17: [105, 105, 105, 20]
+    18: [105, 105, 105, 20]
+    19: [105, 105, 105, 20]
+    20: [105, 105, 105, 20]
+    21: [105, 105, 105, 20] # Dining space
+    22: [105, 105, 105, 20] # Bathroom

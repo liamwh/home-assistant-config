@@ -1,0 +1,163 @@
+---
+- platform: rest
+  name: liam_cgm
+  resource: !secret cgm_json_url
+  value_template: >
+    sgv:{{value_json[0].sgv}}, trend:{{value_json[0].trend}}, direction:{{value_json[0].direction}}, time:{{ ( (as_timestamp(now()) - as_timestamp(value_json[0].dateString) ) / 60) | round(0) }}
+
+- platform: github
+  access_token: !secret github_access_token
+  repositories:
+    - path: "liamwh/home-assistant-config"
+    - path: "liamwh/liamwh.com"
+
+- platform: template
+  sensors:
+    liam_cgm_sgv:
+      value_template: >
+        {{ (states('sensor.liam_cgm') | regex_findall_index("sgv:(\d+)") | int) / 18 }}
+      unit_of_measurement: "mmol/L"
+    liam_cgm_trend:
+      value_template: >
+        {{ states('sensor.liam_cgm') | regex_findall_index("trend:(\d+)") }}
+    liam_cgm_direction:
+      value_template: >
+        {{ states('sensor.liam_cgm') | regex_findall_index("direction:(\w+)") }}
+    liam_cgm_time:
+      value_template: >
+        {{ states('sensor.liam_cgm') | regex_findall_index("time:(\d+)") }}
+
+    # Format the Date and Time of the dexcom sensor start to “January 1, 2000 // 1:00 AM” format.
+    cgm_sensor_start:
+      friendly_name: "G6 Sensor Started: "
+      value_template: >
+        {{ state_attr('input_datetime.cgm_sensor_start', 'timestamp') | timestamp_custom('%B %-d, %Y')}} // {{state_attr('input_datetime.cgm_sensor_start', 'timestamp') | timestamp_custom('%-I:%M %p') }}
+      icon_template: >
+        mdi:leak
+
+    # Do the same formatting of the date and time for sensor expiry.
+    cgm_sensor_expire:
+      friendly_name: "G6 Sensor Expires on: "
+      value_template: >
+        {{ (state_attr('input_datetime.cgm_sensor_start', 'timestamp') + 864000) | timestamp_custom('%B %-d, %Y')}} // {{state_attr('input_datetime.cgm_sensor_start', 'timestamp') | timestamp_custom('%-I:%M %p') }}
+      icon_template: >
+        mdi:leak-off
+
+    liams_hba1c_value:
+      unique_id: sensor.glucose_avg_90d
+      value_template: >
+        {% set a = ( states("sensor.glucose_avg_90d") | float + 2.59 ) %}
+        {% set a1c = (a / 1.59) %}
+        {{a1c}}
+
+    cgm_trans_start:
+      friendly_name: "G6 Transmitter Started: "
+      value_template: >
+        {{ state_attr('input_datetime.cgm_trans_start', 'timestamp') | timestamp_custom('%B %-d, %Y')}} // {{state_attr('input_datetime.cgm_trans_start', 'timestamp') | timestamp_custom('%-I:%M %p') }}
+      icon_template: >
+        mdi:leak
+
+    timestamp_start_of_today:
+      value_template: >
+        {{ as_timestamp(now().replace(hour=0).replace(minute=0).replace(second=0)) }}
+      unit_of_measurement: "s"
+
+    half_hour_before_alarm:
+      friendly_name: Half an hour before alarm
+      value_template: >
+        {% set t_alarm = state_attr("input_datetime.alarm_clock", "timestamp") | int %}
+        {% set t_start = states("sensor.timestamp_start_of_today") | int %}
+        {% set half_hour_before_alarm = t_alarm + t_start - 60 * 30 %}
+        {{ half_hour_before_alarm | timestamp_custom("%H:%M", True) }}
+
+    ten_minutes_before_alarm:
+      friendly_name: Ten minutes before alarm
+      value_template: >
+        {% set t_alarm = state_attr("input_datetime.alarm_clock", "timestamp") | int %}
+        {% set t_start = states("sensor.timestamp_start_of_today") | int %}
+        {% set before_alarm = t_alarm + t_start - 60 * 10 %}
+        {{ before_alarm | timestamp_custom("%H:%M", True) }}
+
+# Average out BG over 90 days (aka eAG value)
+- platform: average
+  name: "Glucose Avg 90d"
+  duration:
+    days: 90
+  entities:
+    - sensor.dexcom_liamwoodleigh_glucose_value
+
+- platform: average
+  name: "Glucose Avg 30d"
+  duration:
+    days: 30
+  entities:
+    - sensor.dexcom_liamwoodleigh_glucose_value
+
+- platform: time_date
+  display_options:
+    - "time"
+    - "date"
+    - "date_time"
+    - "date_time_utc"
+    - "date_time_iso"
+    - "time_date"
+    - "time_utc"
+    - "beat"
+
+- platform: afvalbeheer
+  wastecollector: mijnafvalwijzer
+  resources:
+    - restafval
+    - papier
+  postcode: !secret home_postcode
+  streetnumber: !secret home_number
+  upcomingsensor: 1
+
+- platform: statistics
+  name: Temperature Sensor Bathroom Humidity Stats
+  entity_id: sensor.temperature_sensor_bathroom_humidity
+  sampling_size: 86400 # make sure all data points of the last 24hrs are included
+  max_age: "24:00:00"
+
+- platform: derivative
+  source: sensor.temperature_sensor_bathroom_humidity
+  name: Temperature Sensor Bathroom Humidity Derivative
+  unit_time: min
+  time_window: "00:10:00"
+
+- platform: buienradar
+  name: "Buienradar"
+  latitude: !secret latitude_home
+  longitude: !secret longitude_home
+  timeframe: 120
+  monitored_conditions:
+    - stationname
+    - barometerfc
+    - barometerfcname
+    - conditioncode
+    - condition
+    - conditiondetailed
+    - conditionexact
+    - symbol
+    - feeltemperature
+    - humidity
+    - temperature
+    - groundtemperature
+    - windspeed
+    - windforce
+    - winddirection
+    - windazimuth
+    - pressure
+    - visibility
+    - windgust
+    - precipitation
+    - irradiance
+    - precipitation_forecast_average
+    - precipitation_forecast_total
+    - rainlast24hour
+    - rainlasthour
+
+- platform: cryptoinfo
+  cryptocurrency_name: "ethereum"
+  currency_name: "eur"
+  update_frequency: 10

@@ -1,0 +1,273 @@
+---
+- alias: "Apple Watch: Play or Pause the TV"
+  trigger:
+    platform: event
+    event_type: ios.action_fired
+    event_data:
+      actionName: Play TV
+  condition:
+    condition: state
+    entity_id: media_player.tv
+    state: "on"
+  action:
+    service: media_player.media_play_pause
+    entity_id: media_player.tv
+
+- alias: "Apple Watch: set sleep mode"
+  mode: parallel
+  trigger:
+    platform: event
+    event_type: ios.action_fired
+    event_data:
+      actionName: Set sleep mode
+  action:
+    - variables:
+        iphone: "notify.mobile_app_{{ trigger.event.data.sourceDeviceID.replace('-', '_') }}"
+    - service: "{{ iphone }}"
+      data:
+        message: "Apple Watch: set sleep mode."
+        data:
+          push:
+            category: set_sleep_mode
+    - wait_for_trigger:
+        platform: event
+        event_type: ios.notification_action_fired
+        event_data:
+          categoryName: set_sleep_mode
+      timeout: "00:00:20"
+      continue_on_timeout: false
+    - variables:
+        event: "{{ wait.trigger.event.data.actionName.lower() }}"
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.sleep_mode
+        option: "{{ event }}"
+
+- alias: "Apple Watch: set lights"
+  mode: parallel
+  trigger:
+    platform: event
+    event_type: ios.action_fired
+    event_data:
+      actionName: Set lights
+  action:
+    - variables:
+        iphone: "notify.mobile_app_{{ trigger.event.data.sourceDeviceID.replace('-', '_') }}"
+    - service: "{{ iphone }}"
+      data:
+        message: "Apple Watch: set lights"
+        data:
+          push:
+            category: set_lights
+    - wait_for_trigger:
+        platform: event
+        event_type: ios.notification_action_fired
+        event_data:
+          categoryName: set_lights
+      timeout: "00:00:20"
+      continue_on_timeout: false
+    - variables:
+        light: >
+          {{
+            {'ALL': 'all',
+             'BEDROOM': 'light.bedroom_lights',
+             'LIVING_ROOM': 'light.living_room_lights',
+             'HALLWAY': 'light.hallway_lights',
+             'BATHROOM': 'light.bathroom_lights',
+             'BATHROOM': 'light.cabinet_lights',
+            }[wait.trigger.event.data.actionName] }}
+    - service: "{{ iphone }}"
+      data:
+        message: "Apple Watch: choose option"
+        data:
+          push:
+            category: light_options
+    - wait_for_trigger:
+        platform: event
+        event_type: ios.notification_action_fired
+        event_data:
+          categoryName: light_options
+      timeout: "00:00:20"
+      continue_on_timeout: false
+    - variables:
+        option: "{{ wait.trigger.event.data.actionName }}"
+    - choose:
+        - conditions: "{{ option == 'OFF' }}"
+          sequence:
+            service: light.turn_off
+            data:
+              entity_id: "{{ light }}"
+        - conditions: "{{ option == 'ON' }}"
+          sequence:
+            service: script.turn_on_lights
+            data:
+              entity_id: "{{ light }}"
+        - conditions: "{{ option == 'FIFTY' }}"
+          sequence:
+            service: light.turn_on
+            data:
+              entity_id: "{{ light }}"
+              brightness_pct: 50
+        - conditions: "{{ option == 'HUNDRED' }}"
+          sequence:
+            service: light.turn_on
+            data:
+              entity_id: "{{ light }}"
+              brightness_pct: 100
+        - conditions: "{{ option == 'ONE' }}"
+          sequence:
+            service: light.turn_on
+            data:
+              entity_id: "{{ light }}"
+              brightness_pct: 1
+        # - conditions: "{{ option == 'WHITE' and light == 'light.living_room'}}"
+        #   sequence:
+        #     service: script.white_lights_living_room
+        # - conditions: "{{ option == 'WHITE' and light == 'light.bedroom_lights'}}"
+        #   sequence:
+        #     service: script.white_lights_living_room
+        # - conditions: "{{ option == 'COZY' and light == 'light.living_room'}}"
+        #   sequence:
+        #     service: script.cozy_lights_living_room
+        # - conditions: "{{ option == 'COZY' and light == 'light.bedroom_lights'}}"
+        #   sequence:
+        #     service: script.cozy_lights_bedroom
+
+- alias: "Apple Watch: temperature report"
+  mode: parallel
+  trigger:
+    platform: event
+    event_type: ios.action_fired
+    event_data:
+      actionName: Temperature report
+  action:
+    - variables:
+        iphone: "notify.mobile_app_{{ trigger.event.data.sourceDeviceID.replace('-', '_') }}"
+    - service: "{{ iphone }}"
+      data:
+        title: "Temperature"
+        message: "Living Room: {{ states('sensor.thermostat_temperature') }}°C\nHall: {{ states('sensor.motion_sensor_hallway_temperature') }}°C\nOutside: {{ state_attr('weather.home', 'temperature') }}°C and {{ states('weather.home') }}"
+- alias: "Apple Watch: send vacuum cleaner"
+  mode: parallel
+  trigger:
+    platform: event
+    event_type: ios.action_fired
+    event_data:
+      actionName: Vacuum
+  action:
+    - variables:
+        iphone: "notify.mobile_app_{{ trigger.event.data.sourceDeviceID.replace('-', '_') }}"
+    - service: "{{ iphone }}"
+      data:
+        title: "Vacuum"
+        message: "Where?"
+        data:
+          push:
+            category: vacuum_locations
+    - wait_for_trigger:
+        platform: event
+        event_type: ios.notification_action_fired
+        event_data:
+          categoryName: vacuum_locations
+      timeout: "00:00:20"
+      continue_on_timeout: false
+    - variables:
+        location: "{{ wait.trigger.event.data.actionName.lower() }}"
+    - service: script.vacuum_command
+      data:
+        option: "{{ location }}"
+- alias: "Apple Watch: Play/Pause spotify"
+  trigger:
+    - platform: event
+      event_type: ios.notification_action_fired
+      event_data:
+        actionName: PLAY_PAUSE_SPOTIFY
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: PLAY_PAUSE_SPOTIFY
+  action:
+    - service: media_player.media_play_pause
+      entity_id: media_player.spotify
+
+- alias: "Apple Watch: set temperature"
+  mode: parallel
+  trigger:
+    platform: event
+    event_type: ios.action_fired
+    event_data:
+      actionName: Set temperature
+  action:
+    - variables:
+        iphone: "notify.mobile_app_{{ trigger.event.data.sourceDeviceID.replace('-', '_') }}"
+    - service: "{{ iphone }}"
+      data:
+        message: "Apple Watch: set temperature"
+        data:
+          push:
+            category: set_temperature
+    - wait_for_trigger:
+        platform: event
+        event_type: ios.notification_action_fired
+        event_data:
+          categoryName: set_temperature
+      timeout: "00:00:20"
+      continue_on_timeout: false
+    - variables:
+        temperature: "{{ wait.trigger.event.data.actionName.split('T')[1] | int }}"
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.living_room
+        temperature: "{{ temperature }}"
+
+- alias: "Apple Watch: Take out waste reminder"
+  description: ""
+  mode: single
+  trigger:
+    - platform: time
+      at: "20:30:00"
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: Afvalbeheer
+  condition:
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: sensor.mijnafvalwijzer_morgen
+          state: restafval
+        - condition: state
+          entity_id: sensor.mijnafvalwijzer_morgen
+          state: papier
+  action:
+    - service: script.trash_notification
+      data: {}
+
+- alias: "Apple Watch: Dishwasher finished notification"
+  mode: single
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.vibration_sensor_dishwasher
+      to: "off"
+      for: "00:15:00"
+  action:
+    - service: notify.all_iphones
+      data:
+        title: "Dishwasher done! 🧼"
+        message: |+
+          Dishes are clean!
+
+- alias: "Apple Watch: Washing machine finished notification"
+  mode: single
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.washing_machine
+      to: "off"
+  action:
+    - service: notify.all_iphones
+      data:
+        title: "Washing done! 👕"
+        message: |+
+          Get clothes out of the washing machine!

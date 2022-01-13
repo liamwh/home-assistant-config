@@ -1,0 +1,22 @@
+---
+sleep_mode:
+  name: Sleep mode
+  options:
+    - "on" # everyone is sleeping
+    - "off" # everyone is awake
+    - half # one person is awake and one person is sleeping
+  initial: "off"
+  icon: mdi:bed-king
+
+theme:
+  name: Theme
+  options:
+    - blue-red
+    - dark-blue
+    - dark-green
+    - light-blue
+    - light-green
+    - orange
+    - red
+  initial: "blue-red"
+  icon: mdi:format-color-fill

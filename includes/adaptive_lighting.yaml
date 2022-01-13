@@ -1,0 +1,86 @@
+---
+- name: Living room
+  lights:
+    - light.standing_lamp
+    - light.table_lamp
+    - light.corner_lamp
+  min_brightness: 75
+  sleep_brightness: 10
+  prefer_rgb_color: true
+  detect_non_ha_changes: true
+  interval: 30
+  sunrise_time: "07:00:00"
+  sunset_time: "20:30:00"
+  take_over_control: true
+
+- name: Bedroom
+  lights:
+    - light.bedroom_lights
+  sleep_brightness: 20
+  min_brightness: 75
+  prefer_rgb_color: true
+  detect_non_ha_changes: true
+  interval: 30
+  sunrise_time: "07:00:00"
+  sunset_time: "20:30:00"
+  take_over_control: true
+
+- name: Bathroom
+  lights:
+    - light.bathroom_lights
+  min_brightness: 100
+  sleep_brightness: 5
+  prefer_rgb_color: false
+  detect_non_ha_changes: true
+  interval: 30
+  sunset_time: "22:00:00"
+  sunrise_time: "06:30:00"
+  take_over_control: true
+
+- name: Hallway
+  lights:
+    - light.hallway_lights
+  min_brightness: 75
+  sleep_brightness: 10
+  prefer_rgb_color: true
+  detect_non_ha_changes: true
+  interval: 30
+  sunset_time: "20:30:00"
+  sunrise_time: "07:00:00"
+  take_over_control: true
+
+- name: Cabinet
+  lights:
+    - light.cabinet_lights
+  min_brightness: 75
+  sleep_brightness: 5
+  prefer_rgb_color: true
+  detect_non_ha_changes: true
+  interval: 30
+  sunrise_time: "07:00:00"
+  sunset_time: "20:30:00"
+  take_over_control: true
+
+- name: Office
+  lights:
+    - light.office_lights
+  sleep_brightness: 20
+  max_brightness: 35
+  prefer_rgb_color: true
+  detect_non_ha_changes: true
+  interval: 30
+  sunset_time: "20:30:00"
+  sunrise_time: "07:00:00"
+  take_over_control: true
+
+- name: Kitchen
+  lights:
+    - light.kitchen_lights
+  sleep_brightness: 5
+  max_brightness: 65
+  prefer_rgb_color: true
+  detect_non_ha_changes: true
+  interval: 30
+  sunset_time: "20:30:00"
+  sunrise_time: "07:00:00"
+  take_over_control: true

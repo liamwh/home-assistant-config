@@ -1,0 +1,32 @@
+---
+- alias: "TV Mode: turn off lights and disable automatic lights"
+  trigger:
+    - platform: state
+      entity_id: input_boolean.tv_mode
+      from: "off"
+      to: "on"
+  action:
+    - service: light.turn_off
+      data:
+        transition: 4
+        entity_id: light.all_the_lights
+
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.automatic_lights
+
+- alias: "TV Mode: turn on lights and enable automatic lights"
+  trigger:
+    - platform: state
+      entity_id: input_boolean.tv_mode
+      from: "on"
+      to: "off"
+  action:
+    - service: light.turn_on
+      data:
+        transition: 4
+        entity_id: light.all_the_lights
+
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.automatic_lights

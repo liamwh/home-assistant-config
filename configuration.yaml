@@ -1,0 +1,70 @@
+---
+homeassistant: !include includes/homeassistant.yaml
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+logger:
+  default: warning
+  logs:
+    custom_components.adaptive_lighting: debug
+
+# defaults
+cloud:
+config:
+counter:
+dhcp:
+# energy:
+history:
+image:
+input_text:
+logbook:
+media_source:
+mobile_app:
+my:
+person:
+ssdp:
+stream:
+sun:
+system_health:
+tag:
+timer:
+updater:
+usb:
+webhook:
+zeroconf:
+zone:
+
+# Inputs:
+http: !include includes/http.yaml
+input_boolean: !include includes/input_booleans.yaml
+input_select: !include includes/input_selects.yaml
+input_datetime: !include includes/input_datetimes.yaml
+input_number: !include includes/input_numbers.yaml
+automation: !include automations.yaml
+automation old: !include_dir_merge_list automations
+binary_sensor: !include includes/binary_sensors.yaml
+camera: !include includes/camera.yaml
+google_assistant: !include .google/google_assistant.yaml
+group: !include includes/groups.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+spotify: !include includes/spotify.yaml
+sensor: !include includes/sensors.yaml
+light: !include includes/lights.yaml
+vacuum: !include includes/vacuum.yaml
+notify: !include includes/notify.yaml
+ios: !include includes/ios.yaml
+switch: !include includes/switches.yaml
+lovelace: !include includes/lovelace.yaml
+media_player: !include includes/media_players.yaml
+intent_script: !include includes/intent_script.yaml
+adaptive_lighting: !include includes/adaptive_lighting.yaml
+recorder: !include includes/recorder.yaml
+proxmoxve: !include includes/proxmoxve.yaml
+tplink: !include includes/tplink.yaml
+discovery:
+
+frontend:
+  themes: !include_dir_merge_named themes

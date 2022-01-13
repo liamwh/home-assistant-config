@@ -1,0 +1,78 @@
+---
+cleaned_today:
+  name: Vacuum cleaned today
+  icon: mdi:broom
+
+guest_mode:
+  name: Guest mode
+  initial: false
+  icon: mdi:human-male-female
+
+vacation_mode:
+  name: Vacation mode
+  initial: false
+  icon: mdi:airplane
+
+alarm_clock:
+  name: Alarm clock is on
+  icon: mdi:alarm
+
+tv_mode:
+  name: TV Mode
+  icon: mdi:television
+
+automatic_temperature:
+  name: Automatic temperature
+  icon: mdi:thermometer
+
+automatic_lights:
+  name: Automatic Lights
+  icon: mdi:lightbulb-group
+  initial: true
+
+wake_up_with_spotify:
+  name: Start wake up with Spotify
+  initial: false
+  icon: mdi:music
+
+wake_up_light:
+  name: Start wake up light
+  initial: false
+  icon: mdi:weather-sunset-up
+
+demo_wake_up_with_spotify:
+  name: Demo - Start wake up with Spotify
+  initial: false
+  icon: mdi:music
+
+start_spotify:
+  name: Start Spotify
+  initial: false
+  icon: mdi:music
+
+start_tv_spotify:
+  name: Start TV to Spotify
+  initial: false
+  icon: mdi:music
+
+vacuum_day:
+  initial: false
+  name: Vacuum day today?
+  icon: mdi:check-circle
+
+flash_lights_if_low_bg:
+  initial: true
+  name: Flash lights if low BG
+  icon: mdi:warning
+
+bedroom_chill:
+  initial: false
+  name: Bedroom Chill
+  icon: mdi:mdi:bed-king
+
+theme_alternative:
+  name: Theme alternative
+
+dark_mode:
+  name: Dark mode
+  icon: mdi:theme-light-dark

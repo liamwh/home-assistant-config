@@ -1,0 +1,99 @@
+---
+- alias: "Sleep mode: turn off when alarm turns off"
+  trigger:
+    - platform: state
+      entity_id: input_boolean.alarm_clock
+      from: "on"
+      to: "off"
+  action:
+    entity_id: input_select.sleep_mode
+    service: input_select.select_option
+    data:
+      option: "off"
+
+- alias: "Sleep mode: turn off at 7:30AM if alarm is on and vacation mode is off"
+  trigger:
+    - platform: time
+      at: "07:30"
+  condition:
+    - condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.alarm_clock
+          state: "on"
+        - condition: state
+          entity_id: input_boolean.vacation_mode
+          state: "off"
+  action:
+    entity_id: input_select.sleep_mode
+    service: input_select.select_option
+    data:
+      option: "off"
+
+- alias: "Night mode: set low temperature when sleep mode turns on"
+  trigger:
+    platform: state
+    entity_id: input_select.sleep_mode
+    to: "on"
+  action:
+    service: script.set_low_temperature
+
+- alias: "Night mode: set high temperature when sleep mode turns off"
+  trigger:
+    platform: state
+    entity_id: input_select.sleep_mode
+    to: "off"
+  action:
+    service: script.set_high_temperature
+
+- alias: "Night mode: enable on when no motion in house after 9pm"
+  description: "When there is no activity in the house for more than an hour enable sleep mode."
+  trigger:
+    platform: state
+    entity_id: binary_sensor.activity_outside_bedroom
+    to: "off"
+    for: "01:00:00"
+  condition:
+    - condition: state
+      entity_id: group.people
+      state: home
+    - condition: time
+      after: "21:00:00"
+  action:
+    entity_id: input_select.sleep_mode
+    service: input_select.select_option
+    data:
+      option: "on"
+
+- alias: "Night mode: turn off tv mode when sleep mode turns on"
+  trigger:
+    platform: state
+    entity_id: input_select.sleep_mode
+    to: "on"
+  action:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.tv_mode
+
+- alias: "Sleep mode: go from half to total sleeping mode"
+  description: >
+    When it is half sleeping mode and there is no activity in
+    the house for more than an hour go to total sleeping mode.
+  trigger:
+    platform: state
+    entity_id: binary_sensor.activity_outside_bedroom
+    to: "off"
+    for: "01:00:00"
+  condition:
+    condition: state
+    entity_id: input_select.sleep_mode
+    state: half
+  action:
+    - service: input_select.select_option
+      entity_id: input_select.sleep_mode
+      data:
+        option: "total"
+    - service: notify.mobile_app_liams_iphone
+      data:
+        title: "Night mode"
+        message: "Automatically switched from 'half' to 'total' sleeping mode! 💤🛌"

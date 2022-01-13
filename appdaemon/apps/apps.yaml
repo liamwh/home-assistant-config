@@ -1,0 +1,37 @@
+---
+wake_up_with_spotify:
+  module: wake_up_with_spotify
+  class: WakeUpWithSpotify
+  total_time: 400
+  final_volume: 0.35
+  speaker: media_player.living_room_tv
+  spotify_source: Living Room TV
+  playlist: "spotify:playlist:5w3OFqHAkNiOgsEH560a9G"
+  input_boolean: input_boolean.wake_up_with_spotify
+
+demo_wake_up_with_spotify:
+  module: wake_up_with_spotify
+  class: WakeUpWithSpotify
+  total_time: 20
+  final_volume: 0.35
+  speaker: media_player.living_room_tv
+  spotify_source: Living Room TV
+  playlist: "spotify:playlist:5w3OFqHAkNiOgsEH560a9G"
+  input_boolean: input_boolean.demo_wake_up_with_spotify
+
+start_tv_spotify:
+  module: start_tv_spotify
+  class: StartTvSpotify
+  speaker: media_player.tv
+  source: "\U0001F4F1 Spotify"
+  volume: 0.3
+  input_boolean: input_boolean.start_tv_spotify
+
+start_spotify:
+  module: start_spotify
+  class: StartSpotify
+  volume: 0.3
+  speaker: media_player.tv
+  spotify_source: Living Room TV
+  playlist: "spotify:playlist:5w3OFqHAkNiOgsEH560a9G"
+  input_boolean: input_boolean.start_spotify

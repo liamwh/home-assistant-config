@@ -1,0 +1,129 @@
+---
+- alias: "Vacuum: started cleaning"
+  trigger:
+    platform: state
+    entity_id: vacuum.xiaomi_vacuum_cleaner
+    from: docked
+    to: cleaning
+  action:
+    service: notify.all_iphones
+    data:
+      title: "Vacuum"
+      message: "Vacuum started to clean!"
+
+- alias: "Vacuum: stopped cleaning"
+  trigger:
+    platform: state
+    entity_id: vacuum.xiaomi_vacuum_cleaner
+    from: returning
+    to: docked
+  action:
+    - service: notify.all_iphones
+      data:
+        title: "Vacuum"
+        message: "Cleanup successful after {{ state_attr('vacuum.xiaomi_vacuum_cleaner', 'cleaning_time') }} minutes."
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.cleaned_today
+
+- alias: "Vacuum: reminder notification"
+  trigger:
+    platform: time
+    at: "08:00"
+  condition:
+    condition: state
+    entity_id: binary_sensor.vacuum_day
+    state: "on"
+  action:
+    service: notify.all_iphones
+    data:
+      title: "Vacuum"
+      message: "Vacuum will go today, make sure to leave the doors open and leave nothing on the floor!"
+
+- alias: "Vacuum: cleanup if nobody is home"
+  trigger:
+    - platform: time
+      at: "13:00"
+    - platform: state
+      entity_id: group.people
+      from: home
+      to: not_home
+  condition:
+    - condition: time
+      after: "13:00:00"
+      before: "22:00:00"
+    - condition: state
+      entity_id: binary_sensor.vacuum_day
+      state: "on"
+    - condition: state
+      entity_id: group.people
+      state: not_home
+    - condition: state
+      entity_id: input_boolean.cleaned_today
+      state: "off"
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state: "off"
+    - condition: state
+      entity_id: input_boolean.vacation_mode
+      state: "off"
+  action:
+    service: vacuum.start
+    entity_id: vacuum.xiaomi_vacuum_cleaner
+
+- alias: "Vacuum: reset cleaned today"
+  initial_state: "on"
+  trigger:
+    platform: time
+    at: "00:00:00"
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.cleaned_today
+
+- alias: "Vacuum: reset to standard mode"
+  trigger:
+    platform: state
+    entity_id: vacuum.xiaomi_vacuum_cleaner
+    to: docked
+  action:
+    service: vacuum.set_fan_speed
+    entity_id: vacuum.xiaomi_vacuum_cleaner
+    data:
+      fan_speed: Standard
+
+- alias: "Vacuum: enable input boolean on vacuum days"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.vacuum_day
+      to: "on"
+    - platform: homeassistant
+      event: start
+  condition:
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state: "off"
+    - condition: state
+      entity_id: input_boolean.vacation_mode
+      state: "off"
+    - condition: state
+      entity_id: binary_sensor.vacuum_day
+      state: "on"
+  action:
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.vacuum_day
+
+- alias: "Vacuum: disable input boolean on non-vacuum days"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.vacuum_day
+      to: "off"
+    - platform: homeassistant
+      event: start
+  condition:
+    - condition: state
+      entity_id: binary_sensor.vacuum_day
+      state: "off"
+  action:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.vacuum_day

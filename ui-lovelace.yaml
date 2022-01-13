@@ -1,0 +1,595 @@
+background: var(--background-image)
+title: Home
+decluttering_templates:
+  automation_template:
+    card:
+      card:
+        show_header_toggle: false
+        title: "[[name]] automations"
+        type: entities
+      filter:
+        include:
+          - entity_id: automation.[[slug]]*
+      sort: entity_id
+      type: custom:auto-entities
+  entity_template:
+    card:
+      card:
+        show_header_toggle: false
+        title: "[[name]]"
+        type: entities
+      filter:
+        include:
+          - entity_id: "[[include_domain]].[[slug]]*"
+      sort: entity_id
+      type: custom:auto-entities
+views:
+  - theme: dark-mode
+    title: home
+    path: home
+    icon: mdi:home
+    cards:
+      - type: vertical-stack
+        cards:
+          - entities:
+              - entities:
+                  - light.corner_lamp
+                  - light.table_lamp
+                  - light.java_lamp
+                  - light.standing_lamp
+                  - entity: scene.living_room_chill
+                    name: 'Scene: Chill'
+                    icon: mdi:script-outline
+                  - entity: scene.living_room_energize
+                    name: 'Scene: Energize'
+                    icon: mdi:script-outline
+                type: custom:fold-entity-row
+                head:
+                  color_picker: true
+                  entity: light.living_room_lights
+                  name: Living
+                  type: custom:slider-entity-row
+                  icon: mdi:sofa
+              - type: custom:fold-entity-row
+                head:
+                  entity: light.kitchen_lights
+                  name: Kitchen
+                  icon: mdi:fridge
+                  type: custom:slider-entity-row
+                entities:
+                  - light.cabinet_lights
+                  - light.bench_upper_strip
+                  - light.bench_lower_strip
+                  - light.hallway_spot
+                  - light.standing_lamp
+              - entities:
+                  - light.hallway_entrance
+                  - light.hallway_spot
+                  - entity: scene.bathroom_nightlight
+                    name: 'Scene: Nightlight'
+                    icon: mdi:script-outline
+                type: custom:fold-entity-row
+                head:
+                  entity: light.hallway_lights
+                  name: Hallway
+                  icon: mdi:hanger
+                  type: custom:slider-entity-row
+              - type: custom:fold-entity-row
+                head:
+                  color_picker: true
+                  entity: light.cabinet_lights
+                  name: Cabinet
+                  type: custom:slider-entity-row
+                  icon: mdi:wardrobe
+                entities:
+                  - light.cabinet_left
+                  - light.cabinet_middle
+                  - light.cabinet_right
+              - entities:
+                  - light.bedroom_ceiling
+                  - light.bedside_lamp
+                type: custom:fold-entity-row
+                head:
+                  entity: light.bedroom_lights
+                  icon: mdi:bed-double
+                  type: custom:slider-entity-row
+                  name: Bedroom
+              - entities:
+                  - light.bathroom_mirror
+                  - light.bathroom_toilet
+                  - light.bathroom_shower
+                  - entity: scene.bathroom_energize
+                    name: 'Scene: Energize'
+                    icon: mdi:script-outline
+                type: custom:fold-entity-row
+                head:
+                  entity: light.bathroom_lights
+                  name: Bathroom
+                  icon: mdi:shower
+                  type: custom:slider-entity-row
+            show_header_toggle: false
+            title: Lights
+            type: entities
+          - type: custom:simple-thermostat
+            entity: climate.living_room
+            step_layout: row
+            name: false
+            icon: false
+            control: true
+            decimals: '1'
+          - cards:
+              - cards:
+                  - color: auto
+                    icon: mdi:weather-sunset-up
+                    entity: input_select.sleep_mode
+                    name: >-
+                      [[[ if (entity.state != "off") return "Wake up"; else return
+                      "Currently awake" ]]]
+                    styles:
+                      card:
+                        - font-size: 12px
+                        - font-weight: bold
+                        - height: 70px
+                    tap_action:
+                      action: call-service
+                      haptic: success
+                      service: input_select.select_option
+                      service_data:
+                        entity_id: input_select.sleep_mode
+                        option: 'off'
+                    type: custom:button-card
+                  - color: auto
+                    entity: input_select.sleep_mode
+                    icon: mdi:weather-night
+                    name: >-
+                      [[[ if (entity.state != "off") return "Sleep mode on"; else
+                      return  "Go to sleep" ]]]
+                    styles:
+                      card:
+                        - font-size: 12px
+                        - font-weight: bold
+                        - height: 70px
+                    tap_action:
+                      action: call-service
+                      haptic: success
+                      service: script.going_to_sleep
+                    type: custom:button-card
+                type: horizontal-stack
+              - cards:
+                  - color: auto
+                    entity: binary_sensor.washing_machine
+                    name: >-
+                      [[[ if (entity.state == "on") return "Washing machine on"; else
+                      return  "Washing machine off" ]]]
+                    styles:
+                      card:
+                        - font-size: 12px
+                        - font-weight: bold
+                        - height: 70px
+                    type: custom:button-card
+                  - color: auto
+                    icon: mdi:home-export-outline
+                    name: Leave Home
+                    styles:
+                      card:
+                        - font-size: 12px
+                        - font-weight: bold
+                        - height: 70px
+                    tap_action:
+                      action: call-service
+                      haptic: success
+                      service: script.leaving
+                    type: custom:button-card
+                type: horizontal-stack
+              - cards:
+                  - color: auto
+                    icon: >-
+                      [[[ if (entity.state == "on") return "mdi:alarm-check"; else
+                      return  "mdi:alarm" ]]]
+                    entity: input_boolean.alarm_clock
+                    name: >-
+                      [[[ if (entity.state == "on") return "Alarm is on"; else return
+                      "Alarm is off" ]]]
+                    styles:
+                      card:
+                        - font-size: 12px
+                        - font-weight: bold
+                        - height: 70px
+                    tap_action:
+                      action: call-service
+                      haptic: success
+                      service: input_boolean.toggle
+                      service_data:
+                        entity_id: input_boolean.alarm_clock
+                    type: custom:button-card
+                  - color: auto
+                    icon: >-
+                      [[[ if (entity.state == "True") return "mdi:weather-windy"; else
+                      return  "mdi:checkbox-marked-circle-outline" ]]]
+                    entity: binary_sensor.living_room_open_window
+                    name: >-
+                      [[[ if (entity.state == "True") return "Window(s) open"; else
+                      return  "No open window detected" ]]]
+                    styles:
+                      card:
+                        - font-size: 12px
+                        - font-weight: bold
+                        - height: 70px
+                    type: custom:button-card
+                type: horizontal-stack
+              - cards:
+                  - color: auto
+                    icon: >-
+                      [[[ if (entity.state == "on") return "mdi:fireplace"; else return
+                      "mdi:cancel" ]]]
+                    entity: input_boolean.automatic_temperature
+                    name: >-
+                      [[[ if (entity.state == "on") return "Automatic heating enabled";
+                      else return  "Automatic heating disabled" ]]]
+                    tap_action:
+                      action: call-service
+                      haptic: success
+                      service: input_boolean.toggle
+                      service_data:
+                        entity_id: input_boolean.automatic_temperature
+                    styles:
+                      card:
+                        - font-size: 12px
+                        - font-weight: bold
+                        - height: 70px
+                    type: custom:button-card
+                  - color: auto
+                    icon: >-
+                      [[[ if (entity.state == "on") return "mdi:head-lightbulb"; else
+                      return  "mdi:lightbulb-off" ]]]
+                    entity: input_boolean.automatic_lights
+                    name: >-
+                      [[[ if (entity.state == "on") return "Automatic lights enabled";
+                      else return  "Automatic lights disabled" ]]]
+                    tap_action:
+                      action: call-service
+                      haptic: success
+                      service: input_boolean.toggle
+                      service_data:
+                        entity_id: input_boolean.automatic_lights
+                    styles:
+                      card:
+                        - font-size: 12px
+                        - font-weight: bold
+                        - height: 70px
+                    type: custom:button-card
+                type: horizontal-stack
+              - cards:
+                  - color: auto
+                    icon: mdi:refresh
+                    entity: input_boolean.automatic_temperature
+                    name: Resync lights with sun
+                    tap_action:
+                      action: call-service
+                      haptic: success
+                      service: adaptive_lighting.set_manual_control
+                      service_data:
+                        entity_id:
+                          - switch.adaptive_lighting_hallway
+                          - switch.adaptive_lighting_cabinet
+                          - switch.adaptive_lighting_living_room
+                          - switch.adaptive_lighting_office
+                          - switch.adaptive_lighting_bedroom
+                          - switch.adaptive_lighting_kitchen
+                        lights:
+                          - light.standing_lamp
+                          - light.table_lamp
+                          - light.bedroom_lights
+                          - light.bathroom_lights
+                          - light.hallway_lights
+                          - light.cabinet_lights
+                          - light.office_lights
+                          - light.kitchen_lights
+                        manual_control: false
+                    styles:
+                      card:
+                        - font-size: 12px
+                        - font-weight: bold
+                        - height: 70px
+                    type: custom:button-card
+                  - color: auto
+                    icon: >-
+                      [[[ if (entity.state == "on") return "mdi:airplane-takeoff"; else
+                      return  "mdi:airplane-off" ]]]
+                    entity: input_boolean.vacation_mode
+                    name: >-
+                      [[[ if (entity.state == "on") return "Vacation mode enabled"; else
+                      return  "Vacation mode disabled" ]]]
+                    tap_action:
+                      action: call-service
+                      haptic: success
+                      service: input_boolean.toggle
+                      service_data:
+                        entity_id: input_boolean.vacation_mode
+                    styles:
+                      card:
+                        - font-size: 12px
+                        - font-weight: bold
+                        - height: 70px
+                    type: custom:button-card
+                  - color: auto
+                    icon: >-
+                      [[[ if (entity.state == "on") return "mdi:television"; else
+                      return  "mdi:television" ]]]
+                    entity: input_boolean.tv_mode
+                    name: >-
+                      [[[ if (entity.state == "on") return "TV mode enabled"; else
+                      return  "TV mode disabled" ]]]
+                    tap_action:
+                      action: call-service
+                      haptic: success
+                      service: input_boolean.toggle
+                      service_data:
+                        entity_id: input_boolean.tv_mode
+                    styles:
+                      card:
+                        - font-size: 12px
+                        - font-weight: bold
+                        - height: 70px
+                    type: custom:button-card
+                type: horizontal-stack
+            type: vertical-stack
+      - type: vertical-stack
+        cards:
+          - type: custom:mini-media-player
+            artwork: cover
+            background: /local/tv1.jpg
+            entity: media_player.tv
+            hide:
+              controls: true
+              mute: false
+              play_stop: true
+              volume: true
+            icon: mdi:television
+          - type: custom:mini-media-player
+            artwork: cover
+            entity: media_player.spotify
+            hide:
+              power: true
+              source: false
+              volume: true
+            icon: mdi:spotify
+          - type: weather-forecast
+            entity: weather.home
+          - type: custom:swipe-card
+            parameters: null
+            spaceBetween: 8
+            scrollbar:
+              hide: false
+              draggable: true
+              snapOnRelease: true
+            cards:
+              - name: CGM Graph - 12 Hours
+                animate: true
+                color_thresholds:
+                  - color: "#039BE5"
+                    value: 2
+                  - color: "#0DA035"
+                    value: 5
+                  - color: "#E0B400"
+                    value: 10
+                  - color: "#E45E65"
+                    value: 15
+                detail: 2
+                entities:
+                  - entity: sensor.dexcom_liamwoodleigh_glucose_value
+                    show_fill: true
+                    show_state: false
+                    smoothing: true
+                hours_to_show: 12
+                line_width: 3
+                points_per_hour: 60
+                show:
+                  graph: line
+                  labels: true
+                  average: true
+                type: custom:mini-graph-card
+                unit: mmol/L
+              - aggregate_func: avg
+                animate: true
+                color_thresholds:
+                  - color: "#039BE5"
+                    value: 2
+                  - color: "#0da035"
+                    value: 5
+                  - color: "#e0b400"
+                    value: 10
+                  - color: "#e45e65"
+                    value: 15
+                entities:
+                  - entity: sensor.dexcom_liamwoodleigh_glucose_value
+                group_by: date
+                hours_to_show: 168
+                name: Avg CGM Value Per Day
+                show:
+                  graph: bar
+                  labels: true
+                  state: true
+                type: custom:mini-graph-card
+      - type: vertical-stack
+        cards:
+          - type: custom:xiaomi-vacuum-card
+            entity: vacuum.xiaomi_vacuum_cleaner
+            name: Vacuum
+          - type: custom:swipe-card
+            parameters: null
+            spaceBetween: 8
+            scrollbar:
+              hide: false
+              draggable: true
+              snapOnRelease: true
+            cards:
+              - type: entities
+                entities:
+                  - entity: input_boolean.vacuum_day
+                  - entity: input_boolean.cleaned_today
+                    name: Vacuum cleaned already today?
+                show_header_toggle: false
+              - type: entities
+                entities:
+                  - entity: sensor.mijnafvalwijzer_restafval
+                    name: Restafval
+                    icon: hass:delete-empty
+                  - entity: sensor.mijnafvalwijzer_papier
+                    name: Papier
+                    icon: hass:file
+          - type: custom:xiaomi-vacuum-map-card
+            entity: vacuum.xiaomi_vacuum_cleaner
+            map_source:
+              camera: camera.xiaomi_cloud_map_extractor
+            calibration_source:
+              camera: true
+  - title: CGM
+    badges: []
+    icon: mdi:chart-bell-curve
+    path: CGM
+    cards:
+      - cards:
+          - color_thresholds:
+              - color: "#039BE5"
+                value: 2
+              - color: "#0DA035"
+                value: 5
+              - color: "#E0B400"
+                value: 10
+              - color: "#E45E65"
+                value: 15
+            detail: 1
+            entities:
+              - entity: sensor.liams_hba1c_value
+                show_fill: false
+                show_state: true
+                smoothing: true
+            hours_to_show: 2160
+            icon: mdi:water
+            line_width: 3
+            name: HbA1C Avg - 90 days
+            show:
+              graph: line
+            type: custom:mini-graph-card
+            unit: "%"
+          - color_thresholds:
+              - color: "#039BE5"
+                value: 2
+              - color: "#0DA035"
+                value: 5
+              - color: "#E0B400"
+                value: 10
+              - color: "#E45E65"
+                value: 15
+            detail: 1
+            entities:
+              - entity: sensor.glucose_avg_90d
+                show_fill: false
+                show_state: true
+                smoothing: true
+            hours_to_show: 2160
+            icon: mdi:water
+            line_width: 3
+            name: Estimated Avg Glucose - 90 days
+            show:
+              graph: line
+            type: custom:mini-graph-card
+            unit: mmol/L
+          - aggregate_func: avg
+            animate: true
+            color_thresholds:
+              - color: "#039BE5"
+                value: 2
+              - color: "#0da035"
+                value: 5
+              - color: "#e0b400"
+                value: 10
+              - color: "#e45e65"
+                value: 15
+            entities:
+              - entity: sensor.dexcom_liamwoodleigh_glucose_value
+            group_by: date
+            hours_to_show: 168
+            name: Avg CGM Value Per Day
+            show:
+              graph: bar
+              labels: true
+              state: true
+            type: custom:mini-graph-card
+        type: vertical-stack
+      - cards:
+          - aspect_ratio: 500x220
+            type: iframe
+            url: https://g6-cgm.herokuapp.com/clock/clock-color
+        type: vertical-stack
+      - cards:
+          - animate: true
+            color_thresholds:
+              - color: "#039BE5"
+                value: 2
+              - color: "#0DA035"
+                value: 5
+              - color: "#E0B400"
+                value: 10
+              - color: "#E45E65"
+                value: 15
+            detail: 2
+            entities:
+              - entity: sensor.dexcom_liamwoodleigh_glucose_value
+                show_fill: true
+                show_state: false
+                smoothing: true
+            hours_to_show: 12
+            line_width: 3
+            name: CGM Graph - 12 Hours
+            points_per_hour: 60
+            show:
+              graph: line
+              labels: true
+            type: custom:mini-graph-card
+            unit: mmol/L
+          - animate: true
+            color_thresholds:
+              - color: "#c0392b"
+                value: 3
+              - color: "#08ff2d"
+                value: 5
+              - color: "#f7ff08"
+                value: 10
+              - color: "#ff3508"
+                value: 15
+            detail: 1
+            entities:
+              - sensor.dexcom_liamwoodleigh_glucose_value
+            graph: line
+            hours_to_show: 36
+            line_width: 3
+            name: CGM Graph - 36 Hours
+            points_per_hour: 30
+            show:
+              labels: true
+            type: custom:mini-graph-card
+          - animate: true
+            color_thresholds:
+              - color: "#c0392b"
+                value: 3
+              - color: "#08ff2d"
+                value: 5
+              - color: "#f7ff08"
+                value: 10
+              - color: "#ff3508"
+                value: 15
+            entities:
+              - sensor.dexcom_liamwoodleigh_glucose_value
+            hours_to_show: 168
+            line_width: 3
+            name: CGM Graph - 7 Days
+            points_per_hour: 5
+            show:
+              labels: true
+              state: true
+            type: custom:mini-graph-card
+          - cards: []
+            type: horizontal-stack
+        type: vertical-stack

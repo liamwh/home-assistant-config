@@ -1,0 +1,143 @@
+---
+- alias: "BG: Flash bedroom lights if BG below 4"
+  mode: single
+  initial_state: "on"
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.dexcom_liamwoodleigh_glucose_value
+    below: "4"
+  condition:
+    - condition: and
+      conditions:
+        - condition: state
+          entity_id: person.liam
+          state: home
+        - condition: state
+          entity_id: input_boolean.flash_lights_if_low_bg
+          state: "on"
+  action:
+    - service: notify.mobile_app_liams_iphone
+      data:
+        message: "LOW BG! Turn off flashing lights?"
+        data:
+          push:
+            category: flashing_lights
+    - repeat:
+        while:
+          - condition: numeric_state
+            entity_id: sensor.dexcom_liamwoodleigh_glucose_value
+            below: 4
+          - condition: state
+            entity_id: input_select.sleep_mode
+            state: "on"
+          - condition: state
+            entity_id: input_boolean.flash_lights_if_low_bg
+            state: "on"
+        sequence:
+          - delay: "00:00:01"
+          - service: script.flash_bedroom
+
+- alias: "BG: Flash bedroom lights 10 times if BG above 18"
+  mode: single
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.dexcom_liamwoodleigh_glucose_value
+    above: "18"
+  condition:
+    - condition: and
+      conditions:
+        - condition: state
+          entity_id: person.liam
+          state: home
+        - condition: state
+          entity_id: input_select.sleep_mode
+          state: "on"
+        - condition: state
+          entity_id: input_boolean.flash_lights_if_low_bg
+          state: "on"
+  action:
+    - service: notify.mobile_app_liams_iphone
+      data:
+        message: "High BG!"
+    - repeat:
+        count: 10
+        sequence:
+          - delay: "00:00:01"
+          - service: script.flash_bedroom
+    # Wait 2 hours before re-enabling
+    - wait_template: "{{ sensor.dexcom_liamwoodleigh_glucose_value < 18 }}"
+      timeout: "02:00:00"
+
+- alias: "BG: Disable flashing lights after iOS notification action"
+  trigger:
+    platform: event
+    event_type: ios.notification_action_fired
+    event_data:
+      actionName: TURN_OFF_FLASHING_LIGHTS
+  action:
+    # Turn off input boolean used for condition of other automation
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.flash_lights_if_low_bg
+
+    # Turn off automation
+    - service: automation.turn_off
+      entity_id: automation.bg_flash_bedroom_lights_if_bg_below_4
+
+    # Turn off script
+    - service: script.turn_off
+      entity_id: script.flash_bedroom
+
+    # Turn off bedroom lights
+    - service: light.turn_off
+      entity_id: light.bedroom_lights
+
+    # Notify of status
+    - service: notify.mobile_app_liams_iphone
+      data:
+        title: "Blood Glucose"
+        message: "Turned off automation and turned off lights"
+
+    # Wait until BG above 4 or 1 hour has passed
+    - wait_template: "{{ sensor.dexcom_liamwoodleigh_glucose_value > 4 }}"
+      timeout: "01:00:00"
+
+    # Notify of status
+    - service: notify.mobile_app_liams_iphone
+      data:
+        title: "Blood Glucose"
+        message: "BG above 4, re-enabling automation"
+
+    # Turn on boolean
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.flash_lights_if_low_bg
+
+    # Turn on automation
+    - service: automation.turn_on
+      entity_id: automation.bg_flash_bedroom_lights_if_bg_below_4
+
+    # Notify of status
+    - service: notify.mobile_app_liams_iphone
+      data:
+        title: "Blood Glucose"
+        message: "Automation turned on/re-enabled."
+
+- alias: "BG: Notify every hour if BG above 7.5"
+  mode: single
+  trigger:
+    platform: time_pattern
+    # Matches every hour at 55 minutes past whole
+    minutes: 55
+  condition:
+    - condition: and
+      conditions:
+        - condition: state
+          entity_id: input_select.sleep_mode
+          state: "off"
+        - condition: numeric_state
+          entity_id: sensor.dexcom_liamwoodleigh_glucose_value
+          above: "7.5"
+  action:
+    service: notify.mobile_app_liams_iphone
+    data:
+      title: "Blood Glucose 💉"
+      message: "BG: {{ states('sensor.dexcom_liamwoodleigh_glucose_value') }}\nTrend: {{ states('sensor.dexcom_liamwoodleigh_glucose_trend') }}\nETH/EUR: {{ states('sensor.cryptoinfo_ethereum_eur')}}"

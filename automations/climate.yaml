@@ -1,0 +1,74 @@
+---
+- alias: "Climate: turn off the heating at 22:00 if no one is home"
+  trigger:
+    platform: time
+    at: "22:00"
+  condition:
+    - condition: state
+      entity_id: input_boolean.automatic_temperature
+      state: "on"
+    - condition: state
+      entity_id: binary_sensor.no_one_home
+      state: "on"
+    - "{{ not is_state_attr('climate.living_room', 'temperature', states('input_number.temperature_low')|float) }}"
+  action:
+    - service: script.set_low_temperature
+    - service: notify.all_iphones
+      data:
+        message: "Turned off the heating 🥶, click to turn it on again?"
+        data:
+          push:
+            category: turn_on_heating
+
+- alias: "Climate: turn on the heating 30 min before alarm"
+  trigger:
+    platform: template
+    value_template: >
+      {{ states("sensor.time")[0:5] == states("sensor.half_hour_before_alarm") }}
+  condition:
+    - condition: state
+      entity_id:
+        - input_boolean.alarm_clock
+        - input_boolean.automatic_temperature
+      state: "on"
+    - condition: state
+      entity_id: input_boolean.vacation_mode
+      state: "off"
+  action:
+    service: script.set_high_temperature
+
+- alias: "Climate: Window open disable heating prompt"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.living_room_open_window
+    to: "True"
+  condition:
+    - condition: state
+      entity_id: sensor.thermostat_power
+      state: "ON"
+  action:
+    - service: climate.turn_off
+      data:
+        entity_id: climate.living_room
+    - service: notify.all_iphones
+      data:
+        title: "Window open"
+        message: |+
+          Turned off heating! 🥶
+          Turn on again?
+        data:
+          push:
+            category: turn_on_heating
+
+- alias: "Climate: turn on heating after iOS notification action"
+  mode: single
+  trigger:
+    - platform: event
+      event_type: ios.notification_action_fired
+      event_data:
+        actionName: TURN_ON_HEATING
+  action:
+    - service: climate.turn_on
+      data:
+        entity_id: climate.living_room
+    - service: script.set_high_temperature
