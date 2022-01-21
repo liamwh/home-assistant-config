@@ -14,7 +14,7 @@ vacation_mode:
   icon: mdi:airplane
 
 alarm_clock:
-  name: Alarm clock is on
+  name: Alarm clock
   icon: mdi:alarm
 
 tv_mode:
@@ -71,8 +71,9 @@ bedroom_chill:
   icon: mdi:mdi:bed-king
 
 theme_alternative:
-  name: Theme alternative
+  name: Alternative theme mode
+  initial: true
 
 dark_mode:
-  name: Dark mode
+  name: Dark Mode
   icon: mdi:theme-light-dark

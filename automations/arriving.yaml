@@ -2,9 +2,9 @@
 - alias: "Arriving: switch music from iPhone to soundbar"
   description: ""
   trigger:
-    platform: state
-    entity_id: binary_sensor.openclose_front_door
-    to: "on"
+    - platform: state
+      entity_id: binary_sensor.openclose_front_door
+      to: "on"
   condition:
     - condition: time
       before: "23:00:00"

@@ -1,6 +1,5 @@
 ---
 - platform: workday
-  Name: "Workdays"
   country: !secret country_code
   workdays: [mon, tue, wed, thu]
 

@@ -177,7 +177,7 @@
       entity_id: input_boolean.automatic_lights
       state: "on"
     - condition: state
-      entity_id: input_boolean.sleep_mode
+      entity_id: input_select.sleep_mode
       state: "off"
     - condition: time
       # At least one of the following is required.
@@ -198,7 +198,7 @@
       entity_id: input_boolean.automatic_lights
       state: "on"
     - condition: state
-      entity_id: input_boolean.sleep_mode
+      entity_id: input_select.sleep_mode
       state: "off"
   action:
     service: light.turn_on

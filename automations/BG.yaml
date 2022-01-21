@@ -3,9 +3,9 @@
   mode: single
   initial_state: "on"
   trigger:
-    platform: numeric_state
-    entity_id: sensor.dexcom_liamwoodleigh_glucose_value
-    below: "4"
+    - platform: numeric_state
+      entity_id: sensor.dexcom_liamwoodleigh_glucose_value
+      below: "4"
   condition:
     - condition: and
       conditions:
@@ -140,4 +140,4 @@
     service: notify.mobile_app_liams_iphone
     data:
       title: "Blood Glucose 💉"
-      message: "BG: {{ states('sensor.dexcom_liamwoodleigh_glucose_value') }}\nTrend: {{ states('sensor.dexcom_liamwoodleigh_glucose_trend') }}\nETH/EUR: {{ states('sensor.cryptoinfo_ethereum_eur')}}"
+      message: "BG: {{ states('sensor.dexcom_liamwoodleigh_glucose_value') }}\nTrend: {{ states('sensor.dexcom_liamwoodleigh_glucose_trend') }}\nADA/USD: {{ states('sensor.cryptoinfo_cardano_usd')}}"

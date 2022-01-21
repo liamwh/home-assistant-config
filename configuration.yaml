@@ -42,8 +42,8 @@ input_boolean: !include includes/input_booleans.yaml
 input_select: !include includes/input_selects.yaml
 input_datetime: !include includes/input_datetimes.yaml
 input_number: !include includes/input_numbers.yaml
-automation: !include automations.yaml
-automation old: !include_dir_merge_list automations
+# automation: !include automations.yaml
+automation: !include_dir_merge_list automations
 binary_sensor: !include includes/binary_sensors.yaml
 camera: !include includes/camera.yaml
 google_assistant: !include .google/google_assistant.yaml
@@ -63,7 +63,7 @@ intent_script: !include includes/intent_script.yaml
 adaptive_lighting: !include includes/adaptive_lighting.yaml
 recorder: !include includes/recorder.yaml
 proxmoxve: !include includes/proxmoxve.yaml
-tplink: !include includes/tplink.yaml
+# tplink: !include includes/tplink.yaml
 discovery:
 
 frontend:

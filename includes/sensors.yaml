@@ -5,11 +5,11 @@
   value_template: >
     sgv:{{value_json[0].sgv}}, trend:{{value_json[0].trend}}, direction:{{value_json[0].direction}}, time:{{ ( (as_timestamp(now()) - as_timestamp(value_json[0].dateString) ) / 60) | round(0) }}
 
-- platform: github
-  access_token: !secret github_access_token
-  repositories:
-    - path: "liamwh/home-assistant-config"
-    - path: "liamwh/liamwh.com"
+# - platform: github
+#   access_token: !secret github_access_token
+#   repositories:
+#     - path: "liamwh/home-assistant-config"
+#     - path: "liamwh/liamwh.com"
 
 - platform: template
   sensors:
@@ -125,39 +125,39 @@
   unit_time: min
   time_window: "00:10:00"
 
-- platform: buienradar
-  name: "Buienradar"
-  latitude: !secret latitude_home
-  longitude: !secret longitude_home
-  timeframe: 120
-  monitored_conditions:
-    - stationname
-    - barometerfc
-    - barometerfcname
-    - conditioncode
-    - condition
-    - conditiondetailed
-    - conditionexact
-    - symbol
-    - feeltemperature
-    - humidity
-    - temperature
-    - groundtemperature
-    - windspeed
-    - windforce
-    - winddirection
-    - windazimuth
-    - pressure
-    - visibility
-    - windgust
-    - precipitation
-    - irradiance
-    - precipitation_forecast_average
-    - precipitation_forecast_total
-    - rainlast24hour
-    - rainlasthour
+# - platform: buienradar
+#   name: "Buienradar"
+#   latitude: !secret latitude_home
+#   longitude: !secret longitude_home
+#   timeframe: 120
+#   monitored_conditions:
+#     - stationname
+#     - barometerfc
+#     - barometerfcname
+#     - conditioncode
+#     - condition
+#     - conditiondetailed
+#     - conditionexact
+#     - symbol
+#     - feeltemperature
+#     - humidity
+#     - temperature
+#     - groundtemperature
+#     - windspeed
+#     - windforce
+#     - winddirection
+#     - windazimuth
+#     - pressure
+#     - visibility
+#     - windgust
+#     - precipitation
+#     - irradiance
+#     - precipitation_forecast_average
+#     - precipitation_forecast_total
+#     - rainlast24hour
+#     - rainlasthour
 
 - platform: cryptoinfo
-  cryptocurrency_name: "ethereum"
-  currency_name: "eur"
+  cryptocurrency_name: "Cardano"
+  currency_name: "usd"
   update_frequency: 10

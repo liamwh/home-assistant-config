@@ -1,8 +1,8 @@
 ---
 - alias: "Climate: turn off the heating at 22:00 if no one is home"
   trigger:
-    platform: time
-    at: "22:00"
+    - platform: time
+      at: "22:00"
   condition:
     - condition: state
       entity_id: input_boolean.automatic_temperature
@@ -22,9 +22,9 @@
 
 - alias: "Climate: turn on the heating 30 min before alarm"
   trigger:
-    platform: template
-    value_template: >
-      {{ states("sensor.time")[0:5] == states("sensor.half_hour_before_alarm") }}
+    - platform: template
+      value_template: >
+        {{ states("sensor.time")[0:5] == states("sensor.half_hour_before_alarm") }}
   condition:
     - condition: state
       entity_id:
@@ -67,6 +67,9 @@
       event_type: ios.notification_action_fired
       event_data:
         actionName: TURN_ON_HEATING
+    - platform: state
+      entity_id: input_boolean.vacation_mode
+      to: "off"
   action:
     - service: climate.turn_on
       data:
