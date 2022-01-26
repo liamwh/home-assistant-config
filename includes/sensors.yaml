@@ -161,3 +161,8 @@
   cryptocurrency_name: "Cardano"
   currency_name: "usd"
   update_frequency: 10
+
+- platform: cryptoinfo
+  cryptocurrency_name: "Ethereum"
+  currency_name: "usd"
+  update_frequency: 10

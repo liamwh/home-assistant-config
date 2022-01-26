@@ -140,4 +140,4 @@
     service: notify.mobile_app_liams_iphone
     data:
       title: "Blood Glucose 💉"
-      message: "BG: {{ states('sensor.dexcom_liamwoodleigh_glucose_value') }}\nTrend: {{ states('sensor.dexcom_liamwoodleigh_glucose_trend') }}\nADA/USD: {{ states('sensor.cryptoinfo_cardano_usd')}}"
+      message: "BG: {{ states('sensor.dexcom_liamwoodleigh_glucose_value') }}\nTrend: {{ states('sensor.dexcom_liamwoodleigh_glucose_trend') }}\nADA/USD: {{ states('sensor.cryptoinfo_cardano_usd')\nETH/USD: {{ states('sensor.cryptoinfo_ethereum_usd')}}"
