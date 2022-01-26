@@ -44,6 +44,7 @@
   entities:
     - light.hallway_spot
     - light.hallway_entrance
+    - light.cabinet_lights
 
 - platform: group
   name: All the lights
