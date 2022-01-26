@@ -11,6 +11,6 @@ temperature_high:
   name: Temperature high
   min: 10
   max: 22
-  initial: 17
+  initial: 20
   step: 0.5
   icon: mdi:temperature-celsius
