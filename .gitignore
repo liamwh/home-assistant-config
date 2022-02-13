@@ -19,6 +19,7 @@ __init__*
 
 tts
 
+/automations/bedroom_chill.yaml
 /ip_bans.yaml
 
 secrets.yaml

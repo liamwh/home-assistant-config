@@ -18,8 +18,9 @@
         {{ (states('sensor.liam_cgm') | regex_findall_index("sgv:(\d+)") | int) / 18 }}
       unit_of_measurement: "mmol/L"
     liam_cgm_trend:
+      # {{ states('sensor.liam_cgm') | regex_findall_index("trend:(\d+)") }}
       value_template: >
-        {{ states('sensor.liam_cgm') | regex_findall_index("trend:(\d+)") }}
+        {{ states('sensor.dexcom_liamwoodleigh_glucose_trend') }}
     liam_cgm_direction:
       value_template: >
         {{ states('sensor.liam_cgm') | regex_findall_index("direction:(\w+)") }}
@@ -46,7 +47,7 @@
     liams_hba1c_value:
       unique_id: sensor.glucose_avg_90d
       value_template: >
-        {% set a = ( states("sensor.glucose_avg_90d") | float + 2.59 ) %}
+        {% set a = ( float(states("sensor.glucose_avg_90d"), 0.0) + 2.59 ) %}
         {% set a1c = (a / 1.59) %}
         {{a1c}}
 
@@ -116,6 +117,7 @@
 - platform: statistics
   name: Temperature Sensor Bathroom Humidity Stats
   entity_id: sensor.temperature_sensor_bathroom_humidity
+  state_characteristic: mean
   sampling_size: 86400 # make sure all data points of the last 24hrs are included
   max_age: "24:00:00"
 

@@ -47,13 +47,14 @@ automation: !include_dir_merge_list automations
 binary_sensor: !include includes/binary_sensors.yaml
 camera: !include includes/camera.yaml
 google_assistant: !include .google/google_assistant.yaml
+homekit: !include .homekit/homekit.yaml
 group: !include includes/groups.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 spotify: !include includes/spotify.yaml
 sensor: !include includes/sensors.yaml
 light: !include includes/lights.yaml
-vacuum: !include includes/vacuum.yaml
+# vacuum: !include includes/vacuum.yaml
 notify: !include includes/notify.yaml
 ios: !include includes/ios.yaml
 switch: !include includes/switches.yaml
@@ -62,7 +63,7 @@ media_player: !include includes/media_players.yaml
 intent_script: !include includes/intent_script.yaml
 adaptive_lighting: !include includes/adaptive_lighting.yaml
 recorder: !include includes/recorder.yaml
-proxmoxve: !include includes/proxmoxve.yaml
+# proxmoxve: !include includes/proxmoxve.yaml
 # tplink: !include includes/tplink.yaml
 discovery:
 

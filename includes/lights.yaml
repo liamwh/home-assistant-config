@@ -68,6 +68,7 @@
     - light.bench_upper_strip
     - light.bench_lower_strip
     - light.standing_lamp
+    - light.cabinet_lights
 
 
 - platform: group

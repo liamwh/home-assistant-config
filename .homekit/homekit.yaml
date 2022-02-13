@@ -1,0 +1,77 @@
+---
+- filter:
+    # include_domains:
+    #     - alarm_control_panel
+    #     - camera
+    #     - script
+    #     - scene
+    #     - fan
+    #     - lock
+    #     - cover
+    #     - media_player
+    #     - vacuum
+    #     - sensor
+    #     - humidifier
+
+    include_entities:
+      # Scripts
+      - script.message_blood_sugar
+      - script.trash_notification
+      - script.good_morning_google
+
+      # Media Players
+      - media_player.tv
+
+      # Vacuum
+      - vacuum.xiaomi_vacuum_cleaner
+
+      # Input Booleans
+      - input_boolean.tv_mode
+      - input_boolean.automatic_lights
+      - input_boolean.automatic_temperature
+      - input_boolean.bedroom_chill
+
+      # Input Selects
+      - input_select.sleep_mode
+
+      # Lights (Already added by Philips Hue / Nanoleaf)
+
+      # # Bathroom
+      # - light.bathroom_toilet
+      # - light.bathroom_mirror
+      # - light.bathroom_shower
+
+      # # Bedroom
+      # - light.bedroom_ceiling
+      # - light.bedside_lamp
+
+      # # Living room
+      # - light.corner_lamp
+      # - light.table_lamp
+      # - light.java_lamp
+      # - light.elements
+
+      # light.tv_ambilight:
+
+      # Hallway
+      # - light.hallway_entrance
+      # - light.hallway_spot
+
+      # Kitchen
+      # - light.cabinet_left
+      # - light.cabinet_middle
+      # - light.cabinet_right
+      # - light.bench_upper_strip
+      # - light.bench_lower_strip
+      # - light.standing_lamp
+
+      # media_player.speakers
+      # media_player.living_room_tv
+
+      # media_player.kitchen_hub
+      # media_player.bedroom_hub
+      # media_player.spotify
+      # media_player.bathroom_speaker
+
+      # Climate
+      # Already added by Tado
