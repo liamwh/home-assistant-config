@@ -66,6 +66,16 @@ going_to_sleep:
         option: "on"
       entity_id: input_select.sleep_mode
     - service: script.turn_off_everything
+
+sleep_mode_half:
+  alias: Sleep mode half
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.sleep_mode
+        option: "half"
+      entity_id: input_select.sleep_mode
+
 next_colors:
   alias: Change the colors of lights
   fields:
