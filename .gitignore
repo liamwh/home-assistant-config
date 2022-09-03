@@ -22,6 +22,9 @@ tts
 /automations/bedroom_chill.yaml
 /ip_bans.yaml
 
+*.repositories
+custom_components/***.md
+
 secrets.yaml
 automations.yaml
 zones.yaml
