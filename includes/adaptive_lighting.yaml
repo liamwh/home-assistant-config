@@ -1,9 +1,7 @@
 ---
 - name: Living room
   lights:
-    - light.standing_lamp
-    - light.table_lamp
-    - light.corner_lamp
+    - light.living_room_lights
   min_brightness: 75
   sleep_brightness: 10
   prefer_rgb_color: true
