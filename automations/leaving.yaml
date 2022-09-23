@@ -47,7 +47,7 @@
     - condition: state
       entity_id: binary_sensor.no_one_home
       state: "on"
-    - service: notify.mobile_app_liams_iphone
+    - service: notify.mobile_app_iphone
       data:
         message: "No one is home, turn off everything?"
         data:
