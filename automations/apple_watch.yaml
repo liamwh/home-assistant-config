@@ -220,29 +220,6 @@
         entity_id: climate.living_room
         temperature: "{{ temperature }}"
 
-- alias: "Apple Watch: Take out waste reminder"
-  description: ""
-  mode: single
-  trigger:
-    - platform: time
-      at: "20:30:00"
-    - platform: event
-      event_type: ios.action_fired
-      event_data:
-        actionName: Afvalbeheer
-  condition:
-    - condition: or
-      conditions:
-        - condition: state
-          entity_id: sensor.mijnafvalwijzer_morgen
-          state: restafval
-        - condition: state
-          entity_id: sensor.mijnafvalwijzer_morgen
-          state: papier
-  action:
-    - service: script.trash_notification
-      data: {}
-
 - alias: "Apple Watch: Dishwasher finished notification"
   mode: single
   description: ""
