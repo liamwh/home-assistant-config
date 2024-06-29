@@ -120,24 +120,3 @@
       data:
         title: "Blood Glucose"
         message: "Automation turned on/re-enabled."
-
-- alias: "BG: Notify every hour if BG above 7.5"
-  mode: single
-  trigger:
-    platform: time_pattern
-    # Matches every hour at 55 minutes past whole
-    minutes: 55
-  condition:
-    - condition: and
-      conditions:
-        - condition: state
-          entity_id: input_select.sleep_mode
-          state: "off"
-        - condition: numeric_state
-          entity_id: sensor.dexcom_liamwoodleigh_glucose_value
-          above: "7.5"
-  action:
-    service: notify.liam
-    data:
-      title: "Blood Glucose 💉"
-      message: "BG: {{ states('sensor.dexcom_liamwoodleigh_glucose_value') }}\nTrend: {{ states('sensor.dexcom_liamwoodleigh_glucose_trend') }}\nADA/USD: {{ states('sensor.cryptoinfo_cardano_usd')\nETH/USD: {{ states('sensor.cryptoinfo_ethereum_usd')}}"
