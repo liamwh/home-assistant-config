@@ -47,9 +47,9 @@
   sunrise_time: "07:00:00"
   take_over_control: true
 
-- name: Cabinet
+- name: Pantry
   lights:
-    - light.cabinet_lights
+    - light.pantry_lights
   min_brightness: 75
   sleep_brightness: 5
   prefer_rgb_color: true
