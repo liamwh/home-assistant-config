@@ -45,6 +45,7 @@ increase_brightness:
           "{% set b = state_attr(group, 'brightness') %} {% if b == None %}\n\
           \  10\n{% elif b < 20 %}\n  128\n{% elif b < 140 %}\n  255\n{% else %}\n \
           \ 10\n{% endif %}\n"
+
 turn_off_everything:
   alias: Turn off everything
   mode: single
