@@ -74,7 +74,7 @@
              'LIVING_ROOM': 'light.living_room_lights',
              'HALLWAY': 'light.hallway_lights',
              'BATHROOM': 'light.bathroom_lights',
-             'BATHROOM': 'light.cabinet_lights',
+             'BATHROOM': 'light.pantry_lights',
             }[wait.trigger.event.data.actionName] }}
     - service: "{{ iphone }}"
       data:

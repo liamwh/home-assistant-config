@@ -210,11 +210,11 @@ flash_bedroom:
 #           - switch.adaptive_lighting_living_room
 #           - switch.adaptive_lighting_hallway
 #           - switch.adaptive_lighting_bathroom
-#           - switch.adaptive_lighting_cabinet
+#           - switch.adaptive_lighting_pantry
 #           - switch.adaptive_lighting_office_lights
 #         lights:
 #           - light.hallway_lights
-#           - light.cabinet_lights
+#           - light.pantry_lights
 #           - light.bedroom_lights
 #           - light.corner_lamp
 #           - light.standing_lamp

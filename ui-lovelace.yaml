@@ -32,24 +32,30 @@ views:
       - type: vertical-stack
         cards:
           - entities:
-              - entities:
-                  - light.corner_lamp
-                  - light.table_lamp
-                  - light.java_lamp
-                  - light.standing_lamp
-                  - entity: scene.living_room_chill
-                    name: 'Scene: Chill'
-                    icon: mdi:script-outline
-                  - entity: scene.living_room_energize
-                    name: 'Scene: Energize'
-                    icon: mdi:script-outline
-                type: custom:fold-entity-row
+              - type: custom:fold-entity-row
                 head:
                   color_picker: true
                   entity: light.living_room_lights
                   name: Living
                   type: custom:slider-entity-row
                   icon: mdi:sofa
+                entities:
+                  - light.entrance_spot_1
+                  - light.entrance_spot_2
+                  - light.entrance_spot_3
+                  - light.entrance_spot_4
+                  - light.living_room_middle_spot_1
+                  - light.living_room_middle_spot_2
+                  - light.living_room_middle_spot_3
+                  - light.living_room_middle_spot_4
+                  - light.standing_lamp
+                  # - entity: scene.living_room_chill
+                  #   name: "Scene: Chill"
+                  #   icon: mdi:script-outline
+                  # - entity: scene.living_room_energize
+                  #   name: "Scene: Energize"
+                  #   icon: mdi:script-outline
+
               - type: custom:fold-entity-row
                 head:
                   entity: light.kitchen_lights
@@ -57,56 +63,57 @@ views:
                   icon: mdi:fridge
                   type: custom:slider-entity-row
                 entities:
-                  - light.cabinet_lights
-                  - light.bench_upper_strip
-                  - light.bench_lower_strip
-                  - light.hallway_spot
-                  - light.standing_lamp
-              - entities:
-                  - light.hallway_entrance
-                  - light.hallway_spot
-                  - entity: scene.bathroom_nightlight
-                    name: 'Scene: Nightlight'
-                    icon: mdi:script-outline
-                type: custom:fold-entity-row
-                head:
-                  entity: light.hallway_lights
-                  name: Hallway
-                  icon: mdi:hanger
-                  type: custom:slider-entity-row
+                  - light.kitchen_bench_upper_strip
+                  - light.kitchen_bench_lower_strip
+                  - light.kitchen_spot_1
+                  - light.kitchen_spot_2
+                  - light.kitchen_spot_3
+                  - light.kitchen_spot_4
+                  - light.table_lamp
+
               - type: custom:fold-entity-row
                 head:
                   color_picker: true
-                  entity: light.cabinet_lights
-                  name: Cabinet
+                  entity: light.pantry_lights
+                  name: Pantry
                   type: custom:slider-entity-row
                   icon: mdi:wardrobe
                 entities:
-                  - light.cabinet_left
-                  - light.cabinet_middle
-                  - light.cabinet_right
-              - entities:
-                  - light.bedroom_ceiling
-                  - light.bedside_lamp
-                type: custom:fold-entity-row
+                  - light.pantry_spot_top
+                  - light.pantry_spot_middle
+                  - light.pantry_spot_bottom
+
+              - type: custom:fold-entity-row
                 head:
                   entity: light.bedroom_lights
                   icon: mdi:bed-double
                   type: custom:slider-entity-row
                   name: Bedroom
-              - entities:
-                  - light.bathroom_mirror
-                  - light.bathroom_toilet
-                  - light.bathroom_shower
-                  - entity: scene.bathroom_energize
-                    name: 'Scene: Energize'
-                    icon: mdi:script-outline
-                type: custom:fold-entity-row
+                entities:
+                  - light.bedside_lamp_left
+                  - light.bedside_lamp_right
+
+              - type: custom:fold-entity-row
+                head:
+                  entity: light.hallway_lights
+                  name: Hallway
+                  icon: mdi:door
+                  type: custom:slider-entity-row
+                entities:
+                  - light.hallway
+
+              - type: custom:fold-entity-row
                 head:
                   entity: light.bathroom_lights
                   name: Bathroom
                   icon: mdi:shower
                   type: custom:slider-entity-row
+                entities:
+                  - light.bathroom_back
+                  - light.bathroom_entrance
+                  - light.bathroom_middle_hallway
+                  - light.bathroom_middle_sink
+
             show_header_toggle: false
             title: Lights
             type: entities
@@ -116,7 +123,7 @@ views:
             name: false
             icon: false
             control: true
-            decimals: '1'
+            decimals: "1"
           - cards:
               - cards:
                   - color: auto
@@ -136,7 +143,7 @@ views:
                       service: input_select.select_option
                       service_data:
                         entity_id: input_select.sleep_mode
-                        option: 'off'
+                        option: "off"
                     type: custom:button-card
                   - color: auto
                     entity: input_select.sleep_mode
@@ -271,7 +278,7 @@ views:
                       service_data:
                         entity_id:
                           - switch.adaptive_lighting_hallway
-                          - switch.adaptive_lighting_cabinet
+                          - switch.adaptive_lighting_pantry
                           - switch.adaptive_lighting_living_room
                           - switch.adaptive_lighting_office
                           - switch.adaptive_lighting_bedroom
@@ -282,7 +289,7 @@ views:
                           - light.bedroom_lights
                           - light.bathroom_lights
                           - light.hallway_lights
-                          - light.cabinet_lights
+                          - light.pantry_lights
                           - light.office_lights
                           - light.kitchen_lights
                         manual_control: false

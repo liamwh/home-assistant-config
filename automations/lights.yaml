@@ -152,7 +152,7 @@
         entity_id: light.hallway_lights
         transition: 1
 
-- alias: "Light: turn on cabinet if motion (backup automation)"
+- alias: "Light: turn on pantry if motion (backup automation)"
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_hallway
@@ -164,7 +164,7 @@
   action:
     - service: light.turn_on
       data:
-        entity_id: light.cabinet_lights
+        entity_id: light.pantry_lights
         transition: 1
 
 - alias: "Light: turn on bedroom if motion (backup automation)"

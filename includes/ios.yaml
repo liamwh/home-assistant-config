@@ -66,8 +66,8 @@ push:
           title: Bathroom
         - identifier: HALLWAY
           title: Hallway
-        - identifier: CABINET
-          title: Cabinet
+        - identifier: PANTRY
+          title: pantry
 
     - name: Set temperature
       identifier: set_temperature

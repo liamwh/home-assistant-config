@@ -1,18 +1,4 @@
 ---
-- platform: workday
-  country: !secret country_code
-  workdays: [mon, tue, wed, thu]
-
-- platform: workday
-  name: Day before workday sensor
-  country: !secret country_code
-  workdays: [sun, mon, tue, wed]
-
-- platform: workday
-  name: Vacuum day
-  country: !secret country_code
-  workdays: [mon, tue, thu, sun]
-
 - platform: template
   sensors:
     someone_showering:
@@ -119,9 +105,9 @@
         {% set living_room_lights_on = is_state("light.living_room_lights", "on") %}
         {% set bathroom_lights_on = is_state("light.bathroom_lights", "on") %}
         {% set hallway_lights_on = is_state("light.hallway_lights", "on") %}
-        {% set cabinet_lights_on = is_state("light.cabinet_lights", "on") %}
+        {% set pantry_lights_on = is_state("light.pantry_lights", "on") %}
         {% set kitchen_lights_on = is_state("light.kitchen_lights", "on") %}
-        {{ bathroom_lights_on or bedroom_lights_on or living_room_lights_on or hallway_lights_on or cabinet_lights_on }}
+        {{ bathroom_lights_on or bedroom_lights_on or living_room_lights_on or hallway_lights_on or pantry_lights_on }}
 
     anything_on:
       friendly_name: Anything is on
