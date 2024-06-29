@@ -38,10 +38,10 @@ views:
                   - light.java_lamp
                   - light.standing_lamp
                   - entity: scene.living_room_chill
-                    name: "Scene: Chill"
+                    name: 'Scene: Chill'
                     icon: mdi:script-outline
                   - entity: scene.living_room_energize
-                    name: "Scene: Energize"
+                    name: 'Scene: Energize'
                     icon: mdi:script-outline
                 type: custom:fold-entity-row
                 head:
@@ -66,7 +66,7 @@ views:
                   - light.hallway_entrance
                   - light.hallway_spot
                   - entity: scene.bathroom_nightlight
-                    name: "Scene: Nightlight"
+                    name: 'Scene: Nightlight'
                     icon: mdi:script-outline
                 type: custom:fold-entity-row
                 head:
@@ -99,7 +99,7 @@ views:
                   - light.bathroom_toilet
                   - light.bathroom_shower
                   - entity: scene.bathroom_energize
-                    name: "Scene: Energize"
+                    name: 'Scene: Energize'
                     icon: mdi:script-outline
                 type: custom:fold-entity-row
                 head:
@@ -116,7 +116,7 @@ views:
             name: false
             icon: false
             control: true
-            decimals: "1"
+            decimals: '1'
           - cards:
               - cards:
                   - color: auto
@@ -136,7 +136,7 @@ views:
                       service: input_select.select_option
                       service_data:
                         entity_id: input_select.sleep_mode
-                        option: "off"
+                        option: 'off'
                     type: custom:button-card
                   - color: auto
                     entity: input_select.sleep_mode
@@ -270,21 +270,21 @@ views:
                       service: adaptive_lighting.set_manual_control
                       service_data:
                         entity_id:
-                          - switch.adaptive_lighting_living_room
-                          - switch.adaptive_lighting_kitchen
-                          - switch.adaptive_lighting_pantry
-                          - switch.adaptive_lighting_bathroom
                           - switch.adaptive_lighting_hallway
+                          - switch.adaptive_lighting_cabinet
+                          - switch.adaptive_lighting_living_room
+                          - switch.adaptive_lighting_office
                           - switch.adaptive_lighting_bedroom
-                          - switch.adaptive_lighting_toilet
+                          - switch.adaptive_lighting_kitchen
                         lights:
-                          - light.living_room_lights
-                          - light.kitchen_lights
-                          - light.pantry_lights
+                          - light.standing_lamp
+                          - light.table_lamp
+                          - light.bedroom_lights
                           - light.bathroom_lights
                           - light.hallway_lights
-                          - light.bedroom_lights
-                          - light.toilet_lights
+                          - light.cabinet_lights
+                          - light.office_lights
+                          - light.kitchen_lights
                         manual_control: false
                     styles:
                       card:
