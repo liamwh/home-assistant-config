@@ -6,7 +6,3 @@
 #   password: !secret tv_password
 #   mac: !secret tv_mac_wireless
 #   favorite_channels_only: true
-
-- platform: androidtv
-  name: TV
-  host: !secret tv_ip
