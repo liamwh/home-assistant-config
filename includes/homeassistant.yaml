@@ -19,3 +19,5 @@ customize:
     icon: mdi:bed-king
   light.toilet:
     icon: mdi:emoticon-poop
+auth_mfa_modules:
+  - type: totp
