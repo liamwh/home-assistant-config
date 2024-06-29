@@ -16,7 +16,7 @@
           entity_id: input_boolean.flash_lights_if_low_bg
           state: "on"
   action:
-    - service: notify.mobile_app_iphone
+    - service: notify.liam
       data:
         message: "LOW BG! Turn off flashing lights?"
         data:
@@ -56,7 +56,7 @@
           entity_id: input_boolean.flash_lights_if_low_bg
           state: "on"
   action:
-    - service: notify.mobile_app_iphone
+    - service: notify.liam
       data:
         message: "High BG!"
     - repeat:
@@ -92,7 +92,7 @@
       entity_id: light.bedroom_lights
 
     # Notify of status
-    - service: notify.mobile_app_iphone
+    - service: notify.liam
       data:
         title: "Blood Glucose"
         message: "Turned off automation and turned off lights"
@@ -102,7 +102,7 @@
       timeout: "01:00:00"
 
     # Notify of status
-    - service: notify.mobile_app_iphone
+    - service: notify.liam
       data:
         title: "Blood Glucose"
         message: "BG above 4, re-enabling automation"
@@ -116,7 +116,7 @@
       entity_id: automation.bg_flash_bedroom_lights_if_bg_below_4
 
     # Notify of status
-    - service: notify.mobile_app_iphone
+    - service: notify.liam
       data:
         title: "Blood Glucose"
         message: "Automation turned on/re-enabled."
@@ -137,7 +137,7 @@
           entity_id: sensor.dexcom_liamwoodleigh_glucose_value
           above: "7.5"
   action:
-    service: notify.mobile_app_iphone
+    service: notify.liam
     data:
       title: "Blood Glucose 💉"
       message: "BG: {{ states('sensor.dexcom_liamwoodleigh_glucose_value') }}\nTrend: {{ states('sensor.dexcom_liamwoodleigh_glucose_trend') }}\nADA/USD: {{ states('sensor.cryptoinfo_cardano_usd')\nETH/USD: {{ states('sensor.cryptoinfo_ethereum_usd')}}"

@@ -38,7 +38,7 @@
         entity_id: "{{ switch }}"
         lights: "{{ light }}"
         manual_control: false
-    - service: notify.mobile_app_iphone
+    - service: notify.liam
       data:
         title: "Adaptive Lighting: reset manual_control"
         message: "{{ light }} is reset to *not* 'manually controlled'"
@@ -56,7 +56,7 @@
       data:
         message: "{{ light }} is manually controlled"
         level: error
-    - service: notify.mobile_app_iphone
+    - service: notify.liam
       data:
         title: "Adaptive Lighting: manual_control"
         message: "{{ light }} is now manually controlled."

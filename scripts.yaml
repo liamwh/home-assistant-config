@@ -2,7 +2,7 @@
 message_blood_sugar:
   alias: Message blood sugar
   sequence:
-    - service: notify.mobile_app_iphone
+    - service: notify.liam
       data:
         message:
           "BG: {{ states('sensor.dexcom_liamwoodleigh_glucose_value') }}. Trend:
@@ -294,7 +294,7 @@ turn_on_lights:
 #   mode: single
 #   sequence:
 #     # Send iPhone notification
-#     - service: notify.mobile_app_iphone
+#     - service: notify.liam
 #       data:
 #         title: "Arriving"
 #         message: "Switching music from phone to TV. Take out your Airpods & press play when ready!"
@@ -328,7 +328,7 @@ arriving:
 
 trash_notification:
   sequence:
-    - service: notify.mobile_app_iphone
+    - service: notify.liam
       data:
         title: "Afvalbeheer"
         message: |+
