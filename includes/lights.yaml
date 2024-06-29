@@ -16,16 +16,26 @@
     - light.pantry_lights
 
 - platform: group
-  name: Living Room Lights
+  name: Entrance Lights
   entities:
     - light.entrance_spot_1
     - light.entrance_spot_2
     - light.entrance_spot_3
     - light.entrance_spot_4
+
+- platform: group
+  name: Living Room Middle Lights
+  entities:
     - light.living_room_middle_spot_1
     - light.living_room_middle_spot_2
     - light.living_room_middle_spot_3
     - light.living_room_middle_spot_4
+
+- platform: group
+  name: Living Room Lights
+  entities:
+    - light.entrance_lights
+    - light.living_room_middle_lights
     - light.standing_lamp
 
 - platform: group
@@ -48,14 +58,19 @@
     - light.hallway
 
 - platform: group
-  name: Kitchen Lights
+  name: Kitchen Spots
   entities:
-    - light.kitchen_bench_upper_strip
-    - light.kitchen_bench_lower_strip
     - light.kitchen_spot_1
     - light.kitchen_spot_2
     - light.kitchen_spot_3
     - light.kitchen_spot_4
+
+- platform: group
+  name: Kitchen Lights
+  entities:
+    - light.kitchen_bench_upper_strip
+    - light.kitchen_bench_lower_strip
+    - light.kitchen_spots
     - light.table_lamp
 
 - platform: group

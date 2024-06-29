@@ -59,18 +59,6 @@
   sunset_time: "18:30:00"
   take_over_control: true
 
-- name: Office
-  lights:
-    - light.office_lights
-  sleep_brightness: 20
-  max_brightness: 35
-  prefer_rgb_color: true
-  detect_non_ha_changes: true
-  interval: 30
-  sunset_time: "18:30:00"
-  sunrise_time: "07:00:00"
-  take_over_control: true
-
 - name: Kitchen
   lights:
     - light.kitchen_lights

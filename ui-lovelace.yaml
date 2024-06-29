@@ -280,7 +280,6 @@ views:
                           - switch.adaptive_lighting_hallway
                           - switch.adaptive_lighting_pantry
                           - switch.adaptive_lighting_living_room
-                          - switch.adaptive_lighting_office
                           - switch.adaptive_lighting_bedroom
                           - switch.adaptive_lighting_kitchen
                         lights:
