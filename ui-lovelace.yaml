@@ -281,17 +281,9 @@ views:
                           - switch.adaptive_lighting_hallway
                           - switch.adaptive_lighting_pantry
                           - switch.adaptive_lighting_living_room
+                          - switch.adaptive_lighting_bathroom
                           - switch.adaptive_lighting_bedroom
                           - switch.adaptive_lighting_kitchen
-                        lights:
-                          - light.standing_lamp
-                          - light.table_lamp
-                          - light.bedroom_lights
-                          - light.bathroom_lights
-                          - light.hallway_lights
-                          - light.pantry_lights
-                          - light.office_lights
-                          - light.kitchen_lights
                         manual_control: false
                     styles:
                       card:
