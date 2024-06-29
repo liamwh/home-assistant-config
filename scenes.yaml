@@ -1,4 +1,5 @@
-- id: '1602662464896'
+---
+- id: "1602662464896"
   name: Bathroom - Energize
   entities:
     light.bathroom_lights:
@@ -7,14 +8,14 @@
       brightness: 255
       color_temp: 156
       entity_id:
-      - light.bathroom_shower
-      - light.bathroom_mirror
-      - light.bathroom_toilet
+        - light.bathroom_shower
+        - light.bathroom_mirror
+        - light.bathroom_toilet
       friendly_name: Bathroom Lights
       icon: mdi:lightbulb-group
       supported_features: 43
-      state: 'on'
-- id: '1602662626545'
+      state: "on"
+- id: "1602662626545"
   name: Bathroom & Hallway - Nightlight
   entities:
     light.bathroom_toilet:
@@ -22,211 +23,211 @@
       max_mireds: 454
       friendly_name: Above toilet
       supported_features: 43
-      state: 'off'
+      state: "off"
     light.bathroom_mirror:
       min_mireds: 153
       max_mireds: 500
       effect_list:
-      - colorloop
-      - random
+        - colorloop
+        - random
       brightness: 102
       hs_color:
-      - 356.038
-      - 83.137
+        - 356.038
+        - 83.137
       rgb_color:
-      - 255
-      - 43
-      - 56
+        - 255
+        - 43
+        - 56
       xy_color:
-      - 0.663
-      - 0.297
+        - 0.663
+        - 0.297
       effect: none
       friendly_name: Bathroom Entrance
       supported_features: 63
-      state: 'on'
+      state: "on"
     light.bathroom_shower:
       min_mireds: 153
       max_mireds: 500
       effect_list:
-      - colorloop
-      - random
+        - colorloop
+        - random
       brightness: 102
       hs_color:
-      - 356.038
-      - 83.137
+        - 356.038
+        - 83.137
       rgb_color:
-      - 255
-      - 43
-      - 56
+        - 255
+        - 43
+        - 56
       xy_color:
-      - 0.663
-      - 0.297
+        - 0.663
+        - 0.297
       effect: none
       friendly_name: Shower Light
       supported_features: 63
-      state: 'on'
+      state: "on"
     light.hallway_entrance:
       min_mireds: 153
       max_mireds: 500
       effect_list:
-      - colorloop
-      - random
+        - colorloop
+        - random
       brightness: 101
       hs_color:
-      - 352.925
-      - 83.137
+        - 352.925
+        - 83.137
       rgb_color:
-      - 255
-      - 43
-      - 67
+        - 255
+        - 43
+        - 67
       xy_color:
-      - 0.653
-      - 0.292
+        - 0.653
+        - 0.292
       effect: none
       friendly_name: Hallway Light
       supported_features: 63
-      state: 'on'
+      state: "on"
     light.hallway_spot:
       min_mireds: 153
       max_mireds: 500
       effect_list:
-      - colorloop
-      - random
+        - colorloop
+        - random
       brightness: 101
       hs_color:
-      - 352.925
-      - 83.137
+        - 352.925
+        - 83.137
       rgb_color:
-      - 255
-      - 43
-      - 67
+        - 255
+        - 43
+        - 67
       xy_color:
-      - 0.653
-      - 0.292
+        - 0.653
+        - 0.292
       effect: none
       friendly_name: Spot Light
       supported_features: 63
-      state: 'on'
-- id: '1603645132355'
+      state: "on"
+- id: "1603645132355"
   name: Living Room - Chill
   entities:
     light.corner_lamp:
       min_mireds: 153
       max_mireds: 500
       effect_list:
-      - colorloop
-      - random
+        - colorloop
+        - random
       brightness: 204
       hs_color:
-      - 25.752
-      - 88.627
+        - 25.752
+        - 88.627
       rgb_color:
-      - 255
-      - 125
-      - 29
+        - 255
+        - 125
+        - 29
       xy_color:
-      - 0.609
-      - 0.368
+        - 0.609
+        - 0.368
       effect: none
       friendly_name: Corner Lamp
       supported_features: 63
-      state: 'on'
+      state: "on"
     light.table_lamp:
       min_mireds: 153
       max_mireds: 500
       effect_list:
-      - colorloop
-      - random
+        - colorloop
+        - random
       brightness: 229
       hs_color:
-      - 30.38
-      - 61.961
+        - 30.38
+        - 61.961
       rgb_color:
-      - 255
-      - 177
-      - 96
+        - 255
+        - 177
+        - 96
       xy_color:
-      - 0.507
-      - 0.394
+        - 0.507
+        - 0.394
       effect: none
       friendly_name: Table Lamp
       supported_features: 63
-      state: 'on'
+      state: "on"
     light.standing_lamp:
       min_mireds: 153
       max_mireds: 500
       effect_list:
-      - colorloop
-      - random
+        - colorloop
+        - random
       brightness: 204
       hs_color:
-      - 331.132
-      - 41.569
+        - 331.132
+        - 41.569
       rgb_color:
-      - 255
-      - 148
-      - 199
+        - 255
+        - 148
+        - 199
       xy_color:
-      - 0.423
-      - 0.268
+        - 0.423
+        - 0.268
       effect: none
       friendly_name: Standing Lamp
       supported_features: 63
-      state: 'on'
+      state: "on"
     light.java_lamp:
       min_mireds: 153
       max_mireds: 500
       effect_list:
-      - colorloop
-      - random
+        - colorloop
+        - random
       brightness: 204
       hs_color:
-      - 27.489
-      - 89.02
+        - 27.489
+        - 89.02
       rgb_color:
-      - 255
-      - 131
-      - 27
+        - 255
+        - 131
+        - 27
       xy_color:
-      - 0.602
-      - 0.374
+        - 0.602
+        - 0.374
       effect: none
       friendly_name: Java Lamp
       supported_features: 63
-      state: 'on'
+      state: "on"
     light.tv_ambilight:
       effect_list:
-      - Manual
-      - Standard
-      - Natural
-      - Football
-      - Vivid
-      - Game
-      - Comfort
-      - Relax
-      - Lumina
-      - Colora
-      - Retro
-      - Spectrum
-      - Scanner
-      - Rhythm
-      - Party
+        - Manual
+        - Standard
+        - Natural
+        - Football
+        - Vivid
+        - Game
+        - Comfort
+        - Relax
+        - Lumina
+        - Colora
+        - Retro
+        - Spectrum
+        - Scanner
+        - Rhythm
+        - Party
       brightness: 185
       hs_color:
-      - 14.118
-      - 99.608
+        - 14.118
+        - 99.608
       rgb_color:
-      - 255
-      - 60
-      - 0
+        - 255
+        - 60
+        - 0
       xy_color:
-      - 0.679
-      - 0.318
+        - 0.679
+        - 0.318
       effect: Manual
       friendly_name: TV Ambilight
       supported_features: 21
-      state: 'on'
-- id: '1605453088920'
+      state: "on"
+- id: "1605453088920"
   name: Bathroom - Relax
   entities:
     light.bathroom_lights:
@@ -235,59 +236,59 @@
       brightness: 145
       color_temp: 443
       entity_id:
-      - light.bathroom_shower
-      - light.bathroom_mirror
-      - light.bathroom_toilet
+        - light.bathroom_shower
+        - light.bathroom_mirror
+        - light.bathroom_toilet
       friendly_name: Bathroom Lights
       icon: mdi:lightbulb-group
       supported_features: 43
-      state: 'on'
-- id: '1605811735092'
+      state: "on"
+- id: "1605811735092"
   name: Living Room - Energize
   entities:
     light.living_room_lights:
       min_mireds: 153
       max_mireds: 500
       effect_list:
-      - Scanner
-      - Vivid
-      - Party
-      - Natural
-      - Standard
-      - Manual
-      - random
-      - Retro
-      - Game
-      - Colora
-      - colorloop
-      - Football
-      - Relax
-      - Lumina
-      - Spectrum
-      - Rhythm
-      - Comfort
+        - Scanner
+        - Vivid
+        - Party
+        - Natural
+        - Standard
+        - Manual
+        - random
+        - Retro
+        - Game
+        - Colora
+        - colorloop
+        - Football
+        - Relax
+        - Lumina
+        - Spectrum
+        - Rhythm
+        - Comfort
       brightness: 255
       hs_color:
-      - 0
-      - 0.392
+        - 0
+        - 0.392
       rgb_color:
-      - 255
-      - 254
-      - 254
+        - 255
+        - 254
+        - 254
       xy_color:
-      - 0.324
-      - 0.329
+        - 0.324
+        - 0.329
       effect: none
       entity_id:
-      - light.corner_lamp
-      - light.table_lamp
-      - light.standing_lamp
-      - light.java_lamp
+        - light.corner_lamp
+        - light.table_lamp
+        - light.standing_lamp
+        - light.java_lamp
       friendly_name: Living Room Lights
       icon: mdi:lightbulb-group
       supported_features: 63
-      state: 'on'
-- id: '1640076156305'
+      state: "on"
+- id: "1640076156305"
   name: Bedroom - Chill
   entities:
     light.bedroom_lights:
@@ -295,17 +296,17 @@
       min_mireds: 153
       max_mireds: 500
       rgb_color:
-      - 255
-      - 119
-      - 75
+        - 255
+        - 119
+        - 75
       supported_color_modes:
-      - color_temp
-      - xy
+        - color_temp
+        - xy
       entity_id:
-      - light.bedroom_ceiling
-      - light.bedside_lamp
+        - light.bedroom_ceiling
+        - light.bedside_lamp
       icon: mdi:bed-king
       friendly_name: Bedroom lights
       supported_features: 40
-      state: 'on'
+      state: "on"
   icon: mdi:bed-king
