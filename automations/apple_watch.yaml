@@ -234,17 +234,3 @@
         title: "Dishwasher done! 🧼"
         message: |+
           Dishes are clean!
-
-- alias: "Apple Watch: Washing machine finished notification"
-  mode: single
-  description: ""
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.washing_machine
-      to: "off"
-  action:
-    - service: notify.all_iphones
-      data:
-        title: "Washing done! 👕"
-        message: |+
-          Get clothes out of the washing machine!

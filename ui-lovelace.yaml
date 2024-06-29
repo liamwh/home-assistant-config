@@ -164,17 +164,6 @@ views:
                 type: horizontal-stack
               - cards:
                   - color: auto
-                    entity: binary_sensor.washing_machine
-                    name: >-
-                      [[[ if (entity.state == "on") return "Washing machine on"; else
-                      return  "Washing machine off" ]]]
-                    styles:
-                      card:
-                        - font-size: 12px
-                        - font-weight: bold
-                        - height: 70px
-                    type: custom:button-card
-                  - color: auto
                     icon: mdi:home-export-outline
                     name: Leave Home
                     styles:
