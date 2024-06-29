@@ -40,21 +40,32 @@ views:
                   type: custom:slider-entity-row
                   icon: mdi:sofa
                 entities:
-                  - light.entrance_spot_1
-                  - light.entrance_spot_2
-                  - light.entrance_spot_3
-                  - light.entrance_spot_4
-                  - light.living_room_middle_spot_1
-                  - light.living_room_middle_spot_2
-                  - light.living_room_middle_spot_3
-                  - light.living_room_middle_spot_4
+                  - type: custom:fold-entity-row
+                    head:
+                      color_picker: true
+                      entity: light.entrance_lights
+                      name: Entrance
+                      type: custom:slider-entity-row
+                      icon: mdi:location_enter
+                    entities:
+                      - light.entrance_spot_1
+                      - light.entrance_spot_2
+                      - light.entrance_spot_3
+                      - light.entrance_spot_4
+
+                  - type: custom:fold-entity-row
+                    head:
+                      color_picker: true
+                      entity: light.living_room_middle_lights
+                      name: Middle Lights
+                      type: custom:slider-entity-row
+                      icon: mdi:sofa
+                    entities:
+                      - light.living_room_middle_spot_1
+                      - light.living_room_middle_spot_2
+                      - light.living_room_middle_spot_3
+                      - light.living_room_middle_spot_4
                   - light.standing_lamp
-                  # - entity: scene.living_room_chill
-                  #   name: "Scene: Chill"
-                  #   icon: mdi:script-outline
-                  # - entity: scene.living_room_energize
-                  #   name: "Scene: Energize"
-                  #   icon: mdi:script-outline
 
               - type: custom:fold-entity-row
                 head:
