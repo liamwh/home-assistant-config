@@ -34,7 +34,6 @@ usb:
 webhook:
 zeroconf:
 zone:
-discovery:
 
 # Inputs:
 http: !include includes/http.yaml
@@ -65,7 +64,6 @@ recorder: !include includes/recorder.yaml
 # tplink: !include includes/tplink.yaml
 # spotify: !include includes/spotify.yaml
 # vacuum: !include includes/vacuum.yaml
-
 
 frontend:
   themes: !include_dir_merge_named themes
