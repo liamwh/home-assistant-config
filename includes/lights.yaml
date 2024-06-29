@@ -13,6 +13,7 @@
     - light.bathroom_lights
     - light.hallway_lights
     - light.kitchen_lights
+    - light.pantry_lights
 
 - platform: group
   name: Living Room Lights
