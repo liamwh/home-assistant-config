@@ -47,10 +47,10 @@
 - platform: group
   name: Bathroom Lights
   entities:
-    - light.bathroom_back
     - light.bathroom_entrance
     - light.bathroom_middle_hallway
     - light.bathroom_middle_sink
+    - light.bathroom_back
 
 - platform: group
   name: Hallway lights
