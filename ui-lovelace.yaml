@@ -46,7 +46,7 @@ views:
                       entity: light.entrance_lights
                       name: Entrance
                       type: custom:slider-entity-row
-                      icon: mdi:location_enter
+                      icon: mdi:location-enter
                     entities:
                       - light.entrance_spot_1
                       - light.entrance_spot_2
@@ -59,7 +59,7 @@ views:
                       entity: light.living_room_middle_lights
                       name: Middle Lights
                       type: custom:slider-entity-row
-                      icon: mdi:sofa
+                      icon: mdi:track-light
                     entities:
                       - light.living_room_middle_spot_1
                       - light.living_room_middle_spot_2
