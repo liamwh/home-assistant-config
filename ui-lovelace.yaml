@@ -156,6 +156,7 @@ views:
                         entity_id: input_select.sleep_mode
                         option: "off"
                     type: custom:button-card
+
                   - color: auto
                     entity: input_select.sleep_mode
                     icon: mdi:weather-night
@@ -417,39 +418,41 @@ views:
                   labels: true
                   state: true
                 type: custom:mini-graph-card
-      - type: vertical-stack
-        cards:
-          - type: custom:xiaomi-vacuum-card
-            entity: vacuum.xiaomi_vacuum_cleaner
-            name: Vacuum
-          - type: custom:swipe-card
-            parameters: null
-            spaceBetween: 8
-            scrollbar:
-              hide: false
-              draggable: true
-              snapOnRelease: true
-            cards:
-              - type: entities
-                entities:
-                  - entity: input_boolean.vacuum_day
-                  - entity: input_boolean.cleaned_today
-                    name: Vacuum cleaned already today?
-                show_header_toggle: false
-              - type: entities
-                entities:
-                  - entity: sensor.mijnafvalwijzer_restafval
-                    name: Restafval
-                    icon: hass:delete-empty
-                  - entity: sensor.mijnafvalwijzer_papier
-                    name: Papier
-                    icon: hass:file
-          - type: custom:xiaomi-vacuum-map-card
-            entity: vacuum.xiaomi_vacuum_cleaner
-            map_source:
-              camera: camera.xiaomi_cloud_map_extractor
-            calibration_source:
-              camera: true
+
+      # - type: vertical-stack
+      #   cards:
+      #     - type: custom:xiaomi-vacuum-card
+      #       entity: vacuum.xiaomi_vacuum_cleaner
+      #       name: Vacuum
+      #     - type: custom:swipe-card
+      #       parameters: null
+      #       spaceBetween: 8
+      #       scrollbar:
+      #         hide: false
+      #         draggable: true
+      #         snapOnRelease: true
+      #       cards:
+      #         - type: entities
+      #           entities:
+      #             - entity: input_boolean.vacuum_day
+      #             - entity: input_boolean.cleaned_today
+      #               name: Vacuum cleaned already today?
+      #           show_header_toggle: false
+      #         - type: entities
+      #           entities:
+      #             - entity: sensor.mijnafvalwijzer_restafval
+      #               name: Restafval
+      #               icon: hass:delete-empty
+      #             - entity: sensor.mijnafvalwijzer_papier
+      #               name: Papier
+      #               icon: hass:file
+      #     - type: custom:xiaomi-vacuum-map-card
+      #       entity: vacuum.xiaomi_vacuum_cleaner
+      #       map_source:
+      #         camera: camera.xiaomi_cloud_map_extractor
+      #       calibration_source:
+      #         camera: true
+
   - title: CGM
     badges: []
     icon: mdi:chart-bell-curve
