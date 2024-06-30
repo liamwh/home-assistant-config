@@ -16,6 +16,20 @@
     - light.pantry_lights
 
 - platform: group
+  name: Downstairs Lights
+  entities:
+    - light.bedroom_lights
+    - light.bathroom_lights
+    - light.hallway_lights
+
+- platform: group
+  name: Upstairs Lights
+  entities:
+    - light.living_room_lights
+    - light.kitchen_lights
+    - light.pantry_lights
+
+- platform: group
   name: Entrance Lights
   entities:
     - light.entrance_spot_1
