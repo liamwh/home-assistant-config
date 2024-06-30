@@ -74,7 +74,7 @@
     condition: and
     conditions:
       - condition: template
-        value_template: "{{ not is_state('light.kitchen_lights', trigger.to_state.state) }}"
+        value_template: "{{ not is_state('light.hallway_lights', trigger.to_state.state) }}"
       - condition: state
         entity_id: input_boolean.automatic_lights
         state: "on"
