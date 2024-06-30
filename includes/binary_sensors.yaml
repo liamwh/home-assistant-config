@@ -66,7 +66,8 @@
     activity_in_bedroom:
       friendly_name: Activity in the bedroom
       value_template: >
-        {{ is_state("binary_sensor.motion_sensor_bedroom", "on") }}
+        {{ is_state("binary_sensor.motion_sensor_bedroom", "on")
+        or is_state("binary_sensor.bedroom_motion", "on") }}
       delay_off: "00:01:00"
 
     activity_in_living_room:
