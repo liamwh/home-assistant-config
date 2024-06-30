@@ -78,7 +78,8 @@
     activity_in_kitchen:
       friendly_name: Activity in the kitchen
       value_template: >
-        {{ is_state("binary_sensor.motion_sensor_kitchen", "on") }}
+        {{ is_state("binary_sensor.motion_sensor_kitchen", "on")
+        or is_state("binary_sensor.kitchen_motion", "on") }}
       delay_off: "00:20:00"
 
     worked_enough_today:
