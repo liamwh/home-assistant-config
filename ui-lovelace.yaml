@@ -94,18 +94,6 @@ views:
 
               - type: custom:fold-entity-row
                 head:
-                  color_picker: true
-                  entity: light.pantry_lights
-                  name: Pantry
-                  type: custom:slider-entity-row
-                  icon: mdi:wardrobe
-                entities:
-                  - light.pantry_spot_top
-                  - light.pantry_spot_middle
-                  - light.pantry_spot_bottom
-
-              - type: custom:fold-entity-row
-                head:
                   entity: light.bedroom_lights
                   icon: mdi:bed-double
                   type: custom:slider-entity-row
@@ -122,6 +110,18 @@ views:
                   type: custom:slider-entity-row
                 entities:
                   - light.hallway
+
+              - type: custom:fold-entity-row
+                head:
+                  color_picker: true
+                  entity: light.pantry_lights
+                  name: Pantry
+                  type: custom:slider-entity-row
+                  icon: mdi:wardrobe
+                entities:
+                  - light.pantry_spot_top
+                  - light.pantry_spot_middle
+                  - light.pantry_spot_bottom
 
               - type: custom:fold-entity-row
                 head:
