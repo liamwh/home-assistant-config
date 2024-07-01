@@ -1,5 +1,8 @@
 background: var(--background-image)
 title: Home
+resources:
+  - type: js
+    url: /local/community/custom-brand-icons/custom-brand-icons.js
 decluttering_templates:
   automation_template:
     card:
@@ -342,14 +345,12 @@ views:
         cards:
           - type: custom:mini-media-player
             artwork: cover
-            background: /local/tv1.jpg
-            entity: media_player.tv
+            entity: media_player.apple_tv_living_room
             hide:
-              controls: true
-              mute: false
-              play_stop: true
+              power: true
+              source: true
               volume: true
-            icon: mdi:television
+            icon: phu:apple-tv
           - type: custom:mini-media-player
             artwork: cover
             entity: media_player.spotify
