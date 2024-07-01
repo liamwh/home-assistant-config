@@ -125,6 +125,11 @@ views:
                   - light.bathroom_middle_hallway
                   - light.bathroom_middle_sink
 
+              - type: custom:slider-entity-row
+                entity: light.toilet
+                name: Toilet
+                icon: mdi:toilet
+
             show_header_toggle: false
             title: Lights
             type: entities
