@@ -43,14 +43,15 @@
             or is_state("group.people", "home") }}
 
     activity_in_hallway:
-      friendly_name: Activity in the hallway
+      friendly_name: Activity in the Hallway
       value_template: >
         {{ is_state("binary_sensor.motion_sensor_hallway", "on")
-        or is_state("binary_sensor.staircase_motion", "on") }}
+        or is_state("binary_sensor.staircase_motion", "on")
+        or is_state("binary_sensor.hallway_motion", "on") }}
       delay_off: "00:02:00"
 
     activity_in_bathroom:
-      friendly_name: Activity in the bathroom
+      friendly_name: Activity in the Bathroom
       value_template: >
         {{ is_state("binary_sensor.motion_sensor_bathroom", "on")
             or is_state("binary_sensor.someone_showering", "on") }}
@@ -59,8 +60,10 @@
     activity_outside_bedroom:
       friendly_name: Activity anywhere outside the bedroom
       value_template: >
-        {{ is_state("binary_sensor.motion_sensor_kitchen", "on")
-            or is_state("binary_sensor.motion_sensor_living_room", "on") }}
+        {{ is_state("binary_sensor.activity_in_bathroom", "on")
+          or is_state("binary_sensor.activity_in_hallway", "on")
+          or is_state("binary_sensor.activity_in_kitchen", "on")
+          or is_state("binary_sensor.activity_in_living_room", "on") }}
       delay_off: "00:03:00"
 
     activity_in_bedroom:
@@ -99,7 +102,8 @@
         {% set hallway_lights_on = is_state("light.hallway_lights", "on") %}
         {% set pantry_lights_on = is_state("light.pantry_lights", "on") %}
         {% set kitchen_lights_on = is_state("light.kitchen_lights", "on") %}
-        {{ bathroom_lights_on or bedroom_lights_on or living_room_lights_on or hallway_lights_on or pantry_lights_on }}
+        {% set toilet_light_on = is_state("light.toilet", "on") %}
+        {{ bathroom_lights_on or bedroom_lights_on or living_room_lights_on or hallway_lights_on or pantry_lights_on or toilet_light_on }}
 
     anything_on:
       friendly_name: Anything is on
