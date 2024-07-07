@@ -48,7 +48,7 @@
         {{ is_state("binary_sensor.motion_sensor_hallway", "on")
         or is_state("binary_sensor.staircase_motion", "on")
         or is_state("binary_sensor.hallway_motion", "on") }}
-      delay_off: "00:02:00"
+      delay_off: "00:01:00"
 
     activity_in_bathroom:
       friendly_name: Activity in the Bathroom
