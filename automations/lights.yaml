@@ -48,7 +48,7 @@
         entity_id: light.kitchen_lights
         transition: 1
 
-- alias: "Light: toggle living room without elements (based on presence)"
+- alias: "Light: toggle living room (based on presence)"
   trigger:
     platform: state
     entity_id: binary_sensor.activity_in_living_room
@@ -56,14 +56,14 @@
     condition: and
     conditions:
       - condition: template
-        value_template: "{{ not is_state('light.living_room_lights_without_elements', trigger.to_state.state) }}"
+        value_template: "{{ not is_state('light.living_room_lights', trigger.to_state.state) }}"
       - condition: state
         entity_id: input_boolean.automatic_lights
         state: "on"
   action:
     - service: light.turn_{{ trigger.to_state.state }}
       data:
-        entity_id: light.living_room_lights_without_elements
+        entity_id: light.living_room_lights
         transition: 1
 
 - alias: "Light: toggle hallway (based on presence)"
