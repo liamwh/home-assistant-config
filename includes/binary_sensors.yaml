@@ -109,7 +109,7 @@
       friendly_name: Anything is on
       value_template: >
         {% set light_on = is_state("binary_sensor.any_light_on", "on") %}
-        {% set tv_on = is_state("media_player.tv", "on") %}
+        {% set tv_on = is_state("media_player.living_room_android_tv", "on") %}
         {% set heating_on = is_state_attr('climate.living_room', 'hvac_action', heating) %}
         {{ light_on or tv_on or heating_on}}
 

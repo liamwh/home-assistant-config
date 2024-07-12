@@ -7,6 +7,7 @@ message_blood_sugar:
         message:
           "BG: {{ states('sensor.dexcom_liamwoodleigh_glucose_value') }}. Trend:
           {{ states('sensor.dexcom_liamwoodleigh_glucose_trend') }}"
+
 white_lights_living_room:
   alias: Set white lights in the living room
   sequence:
@@ -19,6 +20,7 @@ white_lights_living_room:
       entity_id: input_select.last_script_living_room
       data:
         option: script.white_lights_living_room
+
 white_lights_bedroom:
   alias: Set white lights in the bedroom
   sequence:
@@ -31,6 +33,7 @@ white_lights_bedroom:
       entity_id: input_select.last_script_bedroom
       data:
         option: script.white_lights_bedroom
+
 increase_brightness:
   alias: Increase the brightness of a group of lights
   fields:
@@ -88,16 +91,18 @@ next_colors:
       data:
         entity_id: "{{ input_select }}"
     - service: "{{ states(input_select) }}"
+
 start_netflix:
   alias: Start Netflix
   sequence:
-    - entity_id: media_player.tv
+    - entity_id: media_player.living_room_android_tv
       service: media_player.turn_on
     - data:
         source: Netflix
       entity_id: media_player.living_room_tv
       service: media_player.select_source
   mode: single
+
 set_low_temperature:
   alias: Set low temperature
   sequence:
@@ -105,6 +110,7 @@ set_low_temperature:
       entity_id: climate.living_room
       data:
         temperature: '{{ states("input_number.temperature_low") }}'
+
 set_high_temperature:
   alias: Set high temperature
   sequence:
@@ -112,11 +118,13 @@ set_high_temperature:
       entity_id: climate.living_room
       data:
         temperature: '{{ states("input_number.temperature_high") }}'
+
 leaving:
   alias: Leaving the house
   sequence:
     - service: script.set_low_temperature
     - service: script.turn_off_everything
+
 vacuum_command:
   alias: Vacuum living room
   icon: mdi:robot-vacuum
@@ -172,6 +180,7 @@ vacuum_command:
           data:
             entity_id: vacuum.xiaomi_vacuum_cleaner
             segments: 16
+
 show_home_assistant_on_kitchen_hub:
   alias: Show Home Assistant
   sequence:
@@ -180,6 +189,7 @@ show_home_assistant_on_kitchen_hub:
         entity_id: media_player.kitchen_hub
         view_path: home
       service: cast.show_lovelace_view
+
 flash_bedroom:
   sequence:
     - service: light.turn_on
@@ -196,6 +206,7 @@ flash_bedroom:
       data:
         entity_id: light.bedroom_lights
         transition: false
+
 # turn_on_lights:
 #   alias: lights with Adaptive Lighting
 #   icon: mdi:lamp
@@ -256,11 +267,11 @@ turn_off_tv:
     - condition: not
       conditions:
         - condition: state
-          entity_id: media_player.tv
+          entity_id: media_player.living_room_android_tv
           state: unavailable
     - service: media_player.turn_off
       data: {}
-      entity_id: media_player.tv
+      entity_id: media_player.living_room_android_tv
   mode: single
 # turn_on_lights:
 #   alias: Turn on lights with Adaptive Lighting
@@ -305,11 +316,11 @@ turn_on_lights:
 
 #     # Turn on the TV
 #     - service: media_player.turn_on
-#       entity_id: media_player.tv
+#       entity_id: media_player.living_room_android_tv
 
 #     # Open Spotify on TV
 #     - service: media_player.select_source
-#       entity_id: media_player.tv
+#       entity_id: media_player.living_room_android_tv
 #       data:
 #         source: "\U0001F4F1 Spotify"
 
@@ -384,7 +395,7 @@ tv_click_center:
   sequence:
     - service: androidtv.adb_command
       target:
-        entity_id: media_player.tv
+        entity_id: media_player.living_room_android_tv
       data:
         command: "sendevent /dev/input/event1 1 352 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 352 0 && sendevent /dev/input/event1 0 0 0"
 
@@ -392,7 +403,7 @@ tv_click_quick_settings:
   sequence:
     - service: androidtv.adb_command
       target:
-        entity_id: media_player.tv
+        entity_id: media_player.living_room_android_tv
       data:
         command: "sendevent /dev/input/event1 1 641 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 641 0 && sendevent /dev/input/event1 0 0 0"
 
@@ -400,7 +411,7 @@ tv_click_right:
   sequence:
     - service: androidtv.adb_command
       target:
-        entity_id: media_player.tv
+        entity_id: media_player.living_room_android_tv
       data:
         command: "sendevent /dev/input/event1 1 106 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 106 0 && sendevent /dev/input/event1 0 0 0"
 
@@ -408,7 +419,7 @@ tv_click_down:
   sequence:
     - service: androidtv.adb_command
       target:
-        entity_id: media_player.tv
+        entity_id: media_player.living_room_android_tv
       data:
         command: "sendevent /dev/input/event1 1 108 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 108 0 && sendevent /dev/input/event1 0 0 0"
 
@@ -432,36 +443,36 @@ tv_wakeup_soundbar:
 #     # Open quick settings settings
 #     - service: androidtv.adb_command
 #       target:
-#         entity_id: media_player.tv
+#         entity_id: media_player.living_room_android_tv
 #       data:
 #         command: "sendevent /dev/input/event1 1 641 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 641 0 && sendevent /dev/input/event1 0 0 0"
 #     # Clicker center to open frequent settings
 #     - service: androidtv.adb_command
 #       target:
-#         entity_id: media_player.tv
+#         entity_id: media_player.living_room_android_tv
 #       data:
 #         command: "sendevent /dev/input/event1 1 352 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 352 0 && sendevent /dev/input/event1 0 0 0"
 #     # Press right
 #     - service: androidtv.adb_command
 #       target:
-#         entity_id: media_player.tv
+#         entity_id: media_player.living_room_android_tv
 #       data:
 #         command: "sendevent /dev/input/event1 1 106 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 106 0 && sendevent /dev/input/event1 0 0 0"
 #     # Press down once
 #     - service: androidtv.adb_command
 #       target:
-#         entity_id: media_player.tv
+#         entity_id: media_player.living_room_android_tv
 #       data:
 #         command: "sendevent /dev/input/event1 1 108 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 108 0 && sendevent /dev/input/event1 0 0 0"
 #     # Press down second time
 #     - service: androidtv.adb_command
 #       target:
-#         entity_id: media_player.tv
+#         entity_id: media_player.living_room_android_tv
 #       data:
 #         command: "sendevent /dev/input/event1 1 108 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 108 0 && sendevent /dev/input/event1 0 0 0"
 #     # Press center button
 #     - service: androidtv.adb_command
 #       target:
-#         entity_id: media_player.tv
+#         entity_id: media_player.living_room_android_tv
 #       data:
 #         command: "sendevent /dev/input/event1 1 352 1 && sendevent /dev/input/event1 0 0 0 && sendevent /dev/input/event1 1 352 0 && sendevent /dev/input/event1 0 0 0"

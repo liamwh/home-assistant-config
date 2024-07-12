@@ -7,11 +7,11 @@
       actionName: Play TV
   condition:
     condition: state
-    entity_id: media_player.tv
+    entity_id: media_player.living_room_android_tv
     state: "on"
   action:
     service: media_player.media_play_pause
-    entity_id: media_player.tv
+    entity_id: media_player.living_room_android_tv
 
 - alias: "Apple Watch: set sleep mode"
   mode: parallel

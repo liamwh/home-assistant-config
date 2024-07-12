@@ -20,7 +20,7 @@
       - script.good_morning_google
 
       # Media Players
-      - media_player.tv
+      - media_player.living_room_android_tv
 
       # Vacuum
       - vacuum.xiaomi_vacuum_cleaner
