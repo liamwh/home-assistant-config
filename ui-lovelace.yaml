@@ -352,6 +352,13 @@ views:
         cards:
           - type: custom:mini-media-player
             artwork: cover
+            entity: media_player.living_room_android_tv
+            hide:
+              power: false
+              source: false
+              volume: false
+          - type: custom:mini-media-player
+            artwork: cover
             entity: media_player.apple_tv_living_room
             hide:
               power: true
