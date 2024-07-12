@@ -1,8 +1,0 @@
----
-# - platform: philips_android_tv
-#   name: TV
-#   host: !secret tv_ip
-#   username: !secret tv_username
-#   password: !secret tv_password
-#   mac: !secret tv_mac_wireless
-#   favorite_channels_only: true
