@@ -147,13 +147,6 @@ views:
                 name: Toilet
                 icon: mdi:toilet
 
-          - type: custom:simple-thermostat
-            entity: climate.living_room
-            step_layout: row
-            name: false
-            icon: false
-            control: true
-            decimals: "1"
           - cards:
               - cards:
                   - color: auto
@@ -193,6 +186,7 @@ views:
                       service: script.going_to_sleep
                     type: custom:button-card
                 type: horizontal-stack
+
               - cards:
                   - color: auto
                     icon: mdi:home-export-outline
@@ -208,6 +202,7 @@ views:
                       service: script.leaving
                     type: custom:button-card
                 type: horizontal-stack
+
               - cards:
                   - color: auto
                     icon: >-
@@ -244,6 +239,7 @@ views:
                         - height: 70px
                     type: custom:button-card
                 type: horizontal-stack
+
               - cards:
                   - color: auto
                     icon: >-
@@ -265,6 +261,7 @@ views:
                         - font-weight: bold
                         - height: 70px
                     type: custom:button-card
+
                   - color: auto
                     icon: >-
                       [[[ if (entity.state == "on") return "mdi:head-lightbulb"; else
@@ -286,6 +283,7 @@ views:
                         - height: 70px
                     type: custom:button-card
                 type: horizontal-stack
+
               - cards:
                   - color: auto
                     icon: mdi:refresh
@@ -330,6 +328,7 @@ views:
                         - font-weight: bold
                         - height: 70px
                     type: custom:button-card
+
                   - color: auto
                     icon: >-
                       [[[ if (entity.state == "on") return "mdi:television"; else
@@ -352,6 +351,7 @@ views:
                     type: custom:button-card
                 type: horizontal-stack
             type: vertical-stack
+
       - type: vertical-stack
         cards:
           - type: custom:mini-media-player
@@ -377,6 +377,13 @@ views:
               source: false
               volume: true
             icon: mdi:spotify
+          - type: custom:simple-thermostat
+            entity: climate.living_room
+            step_layout: row
+            name: false
+            icon: false
+            control: true
+            decimals: "1"
           - type: weather-forecast
             entity: weather.home
           - type: custom:swipe-card
