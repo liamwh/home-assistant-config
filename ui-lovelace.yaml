@@ -545,7 +545,8 @@ views:
             url: https://g6-cgm.herokuapp.com/clock/clock-color
         type: vertical-stack
       - cards:
-          - animate: true
+          - type: custom:mini-graph-card
+            animate: true
             color_thresholds:
               - color: "#039BE5"
                 value: 2
@@ -568,9 +569,10 @@ views:
             show:
               graph: line
               labels: true
-            type: custom:mini-graph-card
             unit: mmol/L
-          - animate: true
+
+          - type: custom:mini-graph-card
+            animate: true
             color_thresholds:
               - color: "#c0392b"
                 value: 3
@@ -590,8 +592,9 @@ views:
             points_per_hour: 30
             show:
               labels: true
-            type: custom:mini-graph-card
-          - animate: true
+
+          - type: custom:mini-graph-card
+            animate: true
             color_thresholds:
               - color: "#c0392b"
                 value: 3
@@ -610,7 +613,7 @@ views:
             show:
               labels: true
               state: true
-            type: custom:mini-graph-card
+
           - cards: []
             type: horizontal-stack
         type: vertical-stack
