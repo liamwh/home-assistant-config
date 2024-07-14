@@ -34,7 +34,10 @@ views:
     cards:
       - type: vertical-stack
         cards:
-          - entities:
+          - show_header_toggle: false
+            title: Upstairs Lights
+            type: entities
+            entities:
               - type: custom:fold-entity-row
                 head:
                   color_picker: true
@@ -94,25 +97,6 @@ views:
 
               - type: custom:fold-entity-row
                 head:
-                  entity: light.bedroom_lights
-                  icon: mdi:bed-double
-                  type: custom:slider-entity-row
-                  name: Bedroom
-                entities:
-                  - light.bedside_lamp_left
-                  - light.bedside_lamp_right
-
-              - type: custom:fold-entity-row
-                head:
-                  entity: light.hallway_lights
-                  name: Hallway
-                  icon: mdi:door
-                  type: custom:slider-entity-row
-                entities:
-                  - light.hallway
-
-              - type: custom:fold-entity-row
-                head:
                   color_picker: true
                   entity: light.pantry_lights
                   name: Pantry
@@ -122,6 +106,20 @@ views:
                   - light.pantry_spot_top
                   - light.pantry_spot_middle
                   - light.pantry_spot_bottom
+
+          - show_header_toggle: false
+            title: Downstairs Lights
+            type: entities
+            entities:
+              - type: custom:fold-entity-row
+                head:
+                  entity: light.bedroom_lights
+                  icon: mdi:bed-double
+                  type: custom:slider-entity-row
+                  name: Bedroom
+                entities:
+                  - light.bedside_lamp_left
+                  - light.bedside_lamp_right
 
               - type: custom:fold-entity-row
                 head:
@@ -135,14 +133,20 @@ views:
                   - light.bathroom_middle_hallway
                   - light.bathroom_middle_sink
 
+              - type: custom:fold-entity-row
+                head:
+                  entity: light.hallway_lights
+                  name: Hallway
+                  icon: mdi:door
+                  type: custom:slider-entity-row
+                entities:
+                  - light.hallway
+
               - type: custom:slider-entity-row
                 entity: light.toilet
                 name: Toilet
                 icon: mdi:toilet
 
-            show_header_toggle: false
-            title: Lights
-            type: entities
           - type: custom:simple-thermostat
             entity: climate.living_room
             step_layout: row
