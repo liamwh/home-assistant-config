@@ -379,13 +379,13 @@ views:
               source: false
               volume: true
             icon: mdi:spotify
-          - type: custom:simple-thermostat
-            entity: climate.living_room
-            step_layout: row
-            name: false
-            icon: false
-            control: true
-            decimals: "1"
+          # - type: custom:simple-thermostat
+          #   entity: climate.living_room
+          #   step_layout: row
+          #   name: false
+          #   icon: false
+          #   control: true
+          #   decimals: "1"
           - type: weather-forecast
             entity: weather.home
           - type: custom:swipe-card
