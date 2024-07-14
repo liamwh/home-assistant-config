@@ -3,6 +3,8 @@ title: Home
 resources:
   - type: js
     url: /local/community/custom-brand-icons/custom-brand-icons.js
+  - url: /local/decluttering-card.js
+    type: module
 decluttering_templates:
   automation_template:
     card:
