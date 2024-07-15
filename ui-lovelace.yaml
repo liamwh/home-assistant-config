@@ -1,10 +1,5 @@
 background: var(--background-image)
 title: Home
-resources:
-  - type: js
-    url: /local/community/custom-brand-icons/custom-brand-icons.js
-  - url: /local/decluttering-card.js
-    type: module
 decluttering_templates:
   automation_template:
     card:
@@ -150,7 +145,8 @@ views:
                 icon: mdi:toilet
 
           - cards:
-              - cards:
+              - type: horizontal-stack
+                cards:
                   - color: auto
                     icon: mdi:weather-sunset-up
                     entity: input_select.sleep_mode
@@ -187,7 +183,11 @@ views:
                       haptic: success
                       service: script.going_to_sleep
                     type: custom:button-card
-                type: horizontal-stack
+
+              - show_header_toggle: false
+                type: entities
+                entities:
+                  - input_select.sleep_mode
 
               - cards:
                   - color: auto
@@ -263,6 +263,27 @@ views:
                         - font-weight: bold
                         - height: 70px
                     type: custom:button-card
+
+                  - name: >-
+                      [[[ if (entity.state == "on") return "Automatic bedroom lights enabled";
+                      else return  "Automatic bedroom lights disabled" ]]]
+                    type: custom:button-card
+                    color: auto
+                    icon: >-
+                      [[[ if (entity.state == "on") return "mdi:head-lightbulb"; else
+                      return  "mdi:lightbulb-off" ]]]
+                    entity: input_boolean.automatic_bedroom_lights
+                    tap_action:
+                      action: call-service
+                      haptic: success
+                      service: input_boolean.toggle
+                      service_data:
+                        entity_id: input_boolean.automatic_bedroom_lights
+                    styles:
+                      card:
+                        - font-size: 12px
+                        - font-weight: bold
+                        - height: 70px
 
                   - color: auto
                     icon: >-

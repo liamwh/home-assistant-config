@@ -11,7 +11,7 @@
     data:
       option: "off"
 
-- alias: "Sleep mode: turn off at 7:30AM if alarm is on and vacation mode is off"
+- alias: "Sleep mode: turn off at 9:15AM if alarm is on and vacation mode is off"
   trigger:
     - platform: time
       at: "07:30"
@@ -30,7 +30,7 @@
     data:
       option: "off"
 
-- alias: "Night mode: set low temperature when sleep mode turns on"
+- alias: "Sleep mode: set low temperature when sleep mode turns on"
   trigger:
     platform: state
     entity_id: input_select.sleep_mode
@@ -38,7 +38,7 @@
   action:
     service: script.set_low_temperature
 
-- alias: "Night mode: set high temperature when sleep mode turns off"
+- alias: "Sleep mode: set high temperature when sleep mode turns off"
   trigger:
     platform: state
     entity_id: input_select.sleep_mode
@@ -46,7 +46,7 @@
   action:
     service: script.set_high_temperature
 
-- alias: "Night mode: enable on when no motion in house after 9pm"
+- alias: "Sleep mode: enable on when no motion in house after 9pm"
   description: "When there is no activity in the house for more than an hour enable sleep mode."
   trigger:
     platform: state
@@ -65,7 +65,7 @@
     data:
       option: "on"
 
-- alias: "Night mode: turn off tv mode when sleep mode turns on"
+- alias: "Sleep mode: turn off tv mode when sleep mode turns on"
   trigger:
     platform: state
     entity_id: input_select.sleep_mode
@@ -95,5 +95,15 @@
         option: "total"
     - service: notify.liam
       data:
-        title: "Night mode"
+        title: "Sleep mode"
         message: "Automatically switched from 'half' to 'total' sleeping mode! 💤🛌"
+
+- alias: "Light: turn on light automation when sleep mode turns off"
+  trigger:
+    platform: state
+    entity_id: input_select.sleep_mode
+    to: "off"
+  action:
+    service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.automatic_lights

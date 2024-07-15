@@ -19,6 +19,7 @@
       friendly_name: Any motion detected
       value_template: >
         {{ is_state("binary_sensor.activity_in_hallway", "on")
+        or is_state("binary_sensor.activity_on_staircase", "on")
         or is_state("binary_sensor.activity_in_living_room", "on")
         or is_state("binary_sensor.activity_in_bathroom", "on")
         or is_state("binary_sensor.activity_in_kitchen", "on")
@@ -46,6 +47,14 @@
       friendly_name: Activity in the Hallway
       value_template: >
         {{ is_state("binary_sensor.motion_sensor_hallway", "on")
+        or is_state("binary_sensor.activity_on_staircase", "on")
+        or is_state("binary_sensor.hallway_motion", "on") }}
+      delay_off: "00:01:00"
+
+    activity_on_staircase:
+      friendly_name: Activity on the Staircase
+      value_template: >
+        {{ is_state("binary_sensor.motion_sensor_hallway", "on")
         or is_state("binary_sensor.staircase_motion", "on")
         or is_state("binary_sensor.hallway_motion", "on") }}
       delay_off: "00:01:00"
@@ -61,6 +70,7 @@
       friendly_name: Activity anywhere outside the bedroom
       value_template: >
         {{ is_state("binary_sensor.activity_in_bathroom", "on")
+          or is_state("binary_sensor.activity_on_staircase", "on")
           or is_state("binary_sensor.activity_in_hallway", "on")
           or is_state("binary_sensor.activity_in_kitchen", "on")
           or is_state("binary_sensor.activity_in_living_room", "on") }}

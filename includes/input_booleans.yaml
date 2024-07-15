@@ -25,6 +25,15 @@ automatic_temperature:
   name: Automatic temperature
   icon: mdi:thermometer
 
+bedroom_lights_automatically_turned_on:
+  name: Will automatically turn off
+  icon: mdi:ceiling-light
+  initial: "off"
+
+automatic_bedroom_lights:
+  name: Automatic bedroom lights
+  icon: mdi:lamp
+
 automatic_lights:
   name: Automatic Lights
   icon: mdi:lightbulb-group
