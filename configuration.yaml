@@ -55,7 +55,6 @@ light: !include includes/lights.yaml
 notify: !include includes/notify.yaml
 ios: !include includes/ios.yaml
 switch: !include includes/switches.yaml
-lovelace: !include includes/lovelace.yaml
 intent_script: !include includes/intent_script.yaml
 adaptive_lighting: !include includes/adaptive_lighting.yaml
 recorder: !include includes/recorder.yaml
