@@ -71,3 +71,15 @@
   max_sunset_time: "21:00:00"
   sunrise_time: "07:00:00"
   take_over_control: true
+
+- name: Toilet
+  lights:
+    - light.toilet_lights
+  min_brightness: 100
+  sleep_brightness: 5
+  prefer_rgb_color: false
+  detect_non_ha_changes: true
+  interval: 30
+  max_sunset_time: "22:00:00"
+  sunrise_time: "07:00:00"
+  take_over_control: true
