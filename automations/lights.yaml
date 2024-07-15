@@ -12,6 +12,18 @@
         entity_id: light.bathroom_lights
         transition: 1
 
+- alias: "Light: Turn on Toilet light when state changes from unavailable"
+  description: "Sets the toilet light to on when it becomes available."
+  trigger:
+    - platform: state
+      entity_id: light.toilet
+      from: "unavailable"
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.toilet
+  mode: single
+
 - alias: "Light: toggle bathroom (based on presence)"
   trigger:
     platform: state
