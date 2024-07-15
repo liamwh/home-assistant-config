@@ -102,114 +102,10 @@
     entity_id: input_boolean.bedroom_lights_automatically_turned_on
 
 # Bathroom
-- alias: "Light: Turn on bathroom lights when door opens"
-  trigger:
-    - type: opened
-      platform: device
-      device_id: f71438264bf00faabf9df480352d3b25
-      entity_id: binary_sensor.openclose_bathroom_door
-      domain: binary_sensor
-  action:
-    - service: light.turn_on
-      data:
-        entity_id: light.bathroom_lights
-        transition: 1
-
-- alias: "Light: toggle bathroom (based on presence)"
+- alias: "Light: turn on bathroom if motion"
   trigger:
     platform: state
     entity_id: binary_sensor.activity_in_bathroom
-  condition:
-    condition: and
-    conditions:
-      - condition: template
-        value_template: "{{ not is_state('light.bathroom_lights', trigger.to_state.state) }}"
-      - condition: state
-        entity_id: input_boolean.automatic_lights
-        state: "on"
-  action:
-    service: light.turn_{{ trigger.to_state.state }}
-    data:
-      entity_id: light.bathroom_lights
-      transition: 1
-
-# Toilet
-- alias: "Light: Turn on Toilet light when state changes from unavailable"
-  description: "Sets the toilet light to on when it becomes available."
-  trigger:
-    - platform: state
-      entity_id: light.toilet
-      from: "unavailable"
-  action:
-    - service: light.turn_on
-      target:
-        entity_id: light.toilet
-  mode: single
-
-# Kitchen
-- alias: "Light: toggle kitchen (based on presence)"
-  trigger:
-    platform: state
-    entity_id: binary_sensor.activity_in_kitchen
-  condition:
-    condition: and
-    conditions:
-      - condition: template
-        value_template: "{{ not is_state('light.kitchen_lights', trigger.to_state.state) }}"
-      - condition: state
-        entity_id: input_boolean.automatic_lights
-        state: "on"
-  action:
-    - service: light.turn_{{ trigger.to_state.state }}
-      data:
-        entity_id: light.kitchen_lights
-        transition: 1
-
-# Living Room
-- alias: "Light: toggle living room (based on presence)"
-  trigger:
-    platform: state
-    entity_id: binary_sensor.activity_in_living_room
-  condition:
-    condition: and
-    conditions:
-      - condition: template
-        value_template: "{{ not is_state('light.living_room_lights', trigger.to_state.state) }}"
-      - condition: state
-        entity_id: input_boolean.automatic_lights
-        state: "on"
-  action:
-    - service: light.turn_{{ trigger.to_state.state }}
-      data:
-        entity_id: light.living_room_lights
-        transition: 1
-
-# Hallway
-- alias: "Light: toggle hallway (based on presence)"
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.activity_in_hallway
-    - platform: state
-      entity_id: binary_sensor.activity_on_staircase
-  condition:
-    condition: and
-    conditions:
-      - condition: template
-        value_template: "{{ not is_state('light.hallway_lights', trigger.to_state.state) }}"
-      - condition: state
-        entity_id: input_boolean.automatic_lights
-        state: "on"
-  action:
-    - service: light.turn_{{ trigger.to_state.state }}
-      data:
-        entity_id: light.hallway_lights
-        transition: 1
-
-#### Backup automations when lights are already on
-- alias: "Light: turn on bathroom if motion (backup automation)"
-  trigger:
-    platform: state
-    entity_id: binary_sensor.motion_sensor_bathroom
     to: "on"
   condition:
     - condition: state
@@ -221,10 +117,42 @@
       entity_id: light.bathroom_lights
       transition: 1
 
-- alias: "Light: turn on kitchen if motion (backup automation)"
+- alias: "Light: turn off bathroom"
   trigger:
     platform: state
-    entity_id: binary_sensor.motion_sensor_kitchen
+    entity_id: binary_sensor.activity_in_bathroom
+    to: "off"
+  condition:
+    - condition: state
+      entity_id: input_boolean.automatic_lights
+      state: "on"
+  action:
+    service: light.turn_off
+    data:
+      entity_id: light.bathroom_lights
+      transition: 1
+
+# Toilet
+- alias: "Light: Turn on Toilet light when state changes from unavailable"
+  description: "Sets the toilet light to on when it becomes available."
+  trigger:
+    - platform: state
+      entity_id: light.toilet
+      from: "unavailable"
+    - platform: state
+      entity_id: light.toilet
+      from: "unknown"
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.toilet
+  mode: single
+
+# Kitchen
+- alias: "Light: turn on kitchen if motion"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.activity_in_kitchen
     to: "on"
   condition:
     - condition: state
@@ -236,35 +164,91 @@
         entity_id: light.kitchen_lights
         transition: 1
 
-- alias: "Light: turn on hallway if motion (backup automation)"
+- alias: "Light: turn off kitchen"
   trigger:
     platform: state
-    entity_id: binary_sensor.motion_sensor_hallway
-    to: "on"
+    entity_id: binary_sensor.activity_in_kitchen
+    to: "off"
   condition:
     - condition: state
       entity_id: input_boolean.automatic_lights
       state: "on"
   action:
-    - service: light.turn_on
+    - service: light.turn_off
       data:
-        entity_id: light.hallway_lights
+        entity_id: light.kitchen_lights
         transition: 1
 
-- alias: "Light: turn on pantry if motion (backup automation)"
+# Living Room
+- alias: "Light: turn on living room if motion"
   trigger:
     platform: state
-    entity_id: binary_sensor.motion_sensor_hallway
+    entity_id: binary_sensor.activity_in_living_room
+    to: "on"
+  condition:
+    - condition: state
+      entity_id: input_boolean.automatic_lights
+      state: "on"
+    - condition: state
+      entity_id: input_select.sleep_mode
+      state: "off"
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.living_room_lights
+        transition: 1
+
+- alias: "Light: turn off living room"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.activity_in_living_room
+    to: "off"
+  condition:
+    - condition: state
+      entity_id: input_boolean.automatic_lights
+      state: "on"
+  action:
+    - service: light.turn_off
+      data:
+        entity_id: light.living_room_lights
+        transition: 1
+
+# Hallway
+- alias: "Light: turn on hallway"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.activity_in_hallway
+    from: "off"
     to: "on"
   condition:
     - condition: state
       entity_id: input_boolean.automatic_lights
       state: "on"
   action:
-    - service: light.turn_on
-      data:
-        entity_id: light.pantry_lights
-        transition: 1
+    service: light.turn_on
+    data:
+      entity_id:
+        - light.hallway_lights
+        - light.staircase_lights
+      transition: 1
+
+- alias: "Light: turn off hallway"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.activity_in_hallway
+    from: "on"
+    to: "off"
+  condition:
+    - condition: state
+      entity_id: input_boolean.automatic_lights
+      state: "on"
+  action:
+    service: light.turn_off
+    data:
+      entity_id:
+        - light.hallway_lights
+        - light.staircase_lights
+      transition: 1
 
 - alias: "Light: turn on living room if motion (backup automation)"
   trigger:
@@ -275,9 +259,6 @@
     - condition: state
       entity_id: input_boolean.automatic_lights
       state: "on"
-    - condition: state
-      entity_id: input_select.sleep_mode
-      state: "off"
   action:
     service: light.turn_on
     data:

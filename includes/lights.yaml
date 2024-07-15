@@ -72,6 +72,9 @@
     - light.hallway
 
 - platform: group
+  name: Staircase lights
+
+- platform: group
   name: Kitchen Spots
   entities:
     - light.kitchen_spot_1
