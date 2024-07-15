@@ -21,6 +21,19 @@
     data:
       entity_id: light.bedroom_lights
 
+- alias: "Light: turn off toilet after 5 minutes of inactivity"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.activity_in_toilet
+    from: "on"
+    to: "off"
+    for: "00:05:00"
+  condition: "{{ is_state('light.toilet_lights', 'on') }}"
+  action:
+    service: light.turn_off
+    data:
+      entity_id: light.toilet_lights
+
 - alias: "Light: automatically turn on the bedroom"
   trigger:
     platform: state
@@ -303,6 +316,22 @@
   action:
     service: light.turn_off
     entity_id: light.kitchen_lights
+
+- alias: "Light: turn off toilet (extra check)"
+  description: In case the other automation failed
+  trigger:
+    platform: time_pattern
+    minutes: "/10"
+  condition:
+    - condition: state
+      entity_id: binary_sensor.activity_in_toilet
+      state: "off"
+    - condition: state
+      entity_id: light.toilet_lights
+      state: "on"
+  action:
+    service: light.turn_off
+    entity_id: light.toilet_lights
 
 - alias: "Light: turn off bedroom (extra check)"
   description: In case the other automation failed
