@@ -21,19 +21,6 @@
     data:
       entity_id: light.bedroom_lights
 
-- alias: "Light: turn off toilet after 5 minutes of inactivity"
-  trigger:
-    platform: state
-    entity_id: binary_sensor.activity_in_toilet
-    from: "on"
-    to: "off"
-    for: "00:05:00"
-  condition: "{{ is_state('light.toilet_lights', 'on') }}"
-  action:
-    service: light.turn_off
-    data:
-      entity_id: light.toilet_lights
-
 - alias: "Light: automatically turn on the bedroom"
   trigger:
     platform: state
@@ -101,6 +88,66 @@
     service: input_boolean.turn_off
     entity_id: input_boolean.bedroom_lights_automatically_turned_on
 
+# Toilet
+- alias: "Light: turn on toilet"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.activity_in_toilet
+      from: "off"
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_toilet
+      from: "off"
+      to: "on"
+  condition: "{{ is_state('light.toilet_lights', 'off') }}"
+  action:
+    service: light.turn_on
+    data:
+      entity_id: light.toilet_lights
+
+- alias: "Light: Turn on Toilet light when state changes from unavailable"
+  description: "Sets the toilet light to on when it becomes available."
+  trigger:
+    - platform: state
+      entity_id: light.toilet_lights
+      from: "unavailable"
+    - platform: state
+      entity_id: light.toilet_lights
+      from: "unknown"
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.toilet_lights
+  mode: single
+
+- alias: "Light: turn off toilet after 5 minutes of inactivity"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.activity_in_toilet
+    from: "on"
+    to: "off"
+  condition: "{{ is_state('light.toilet_lights', 'on') }}"
+  action:
+    service: light.turn_off
+    data:
+      entity_id: light.toilet_lights
+
+- alias: "Light: turn off toilet (extra check)"
+  description: In case the other automation failed
+  trigger:
+    platform: time_pattern
+    minutes: "/15"
+  condition:
+    - condition: state
+      entity_id: binary_sensor.activity_in_toilet
+      state: "off"
+    - condition: state
+      entity_id: light.toilet_lights
+      state: "on"
+  action:
+    service: light.turn_off
+    entity_id: light.toilet_lights
+
 # Bathroom
 - alias: "Light: turn on bathroom if motion"
   trigger:
@@ -131,22 +178,6 @@
     data:
       entity_id: light.bathroom_lights
       transition: 1
-
-# Toilet
-- alias: "Light: Turn on Toilet light when state changes from unavailable"
-  description: "Sets the toilet light to on when it becomes available."
-  trigger:
-    - platform: state
-      entity_id: light.toilet
-      from: "unavailable"
-    - platform: state
-      entity_id: light.toilet
-      from: "unknown"
-  action:
-    - service: light.turn_on
-      target:
-        entity_id: light.toilet
-  mode: single
 
 # Kitchen
 - alias: "Light: turn on kitchen if motion"
@@ -297,22 +328,6 @@
   action:
     service: light.turn_off
     entity_id: light.kitchen_lights
-
-- alias: "Light: turn off toilet (extra check)"
-  description: In case the other automation failed
-  trigger:
-    platform: time_pattern
-    minutes: "0"
-  condition:
-    - condition: state
-      entity_id: binary_sensor.activity_in_toilet
-      state: "off"
-    - condition: state
-      entity_id: light.toilet_lights
-      state: "on"
-  action:
-    service: light.turn_off
-    entity_id: light.toilet_lights
 
 - alias: "Light: turn off bedroom (extra check)"
   description: In case the other automation failed
