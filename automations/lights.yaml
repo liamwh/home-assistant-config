@@ -175,13 +175,18 @@
 # Kitchen
 - alias: "Light: turn on kitchen if motion"
   trigger:
-    platform: state
-    entity_id: binary_sensor.activity_in_kitchen
-    to: "on"
+    - platform: state
+      entity_id: binary_sensor.activity_in_kitchen
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_kitchen
+      to: "on"
   condition:
     - condition: state
       entity_id: input_boolean.automatic_lights
       state: "on"
+    - condition: template
+      value_template: "{{ state_attr('switch.adaptive_lighting_kitchen', 'manual_control') | length == 0 }}"
   action:
     - service: light.turn_on
       data:
