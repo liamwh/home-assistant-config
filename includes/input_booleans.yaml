@@ -33,6 +33,7 @@ bedroom_lights_automatically_turned_on:
 automatic_bedroom_lights:
   name: Automatic bedroom lights
   icon: mdi:lamp
+  initial: true
 
 automatic_lights:
   name: Automatic Lights
