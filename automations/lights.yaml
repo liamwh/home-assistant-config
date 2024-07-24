@@ -121,6 +121,21 @@
         entity_id: light.toilet_lights
   mode: single
 
+- alias: "Light: Turn on Hallway Lights when state changes from unavailable"
+  description: "Sets the Hallway Lights to on when it becomes available."
+  trigger:
+    - platform: state
+      entity_id: light.hallway_lights
+      from: "unavailable"
+    - platform: state
+      entity_id: light.hallway_lights
+      from: "unknown"
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.hallway_lights
+  mode: single
+
 - alias: "Light: turn off toilet after 5 minutes of inactivity"
   trigger:
     platform: state
