@@ -268,10 +268,12 @@
 # Hallway
 - alias: "Light: turn on hallway"
   trigger:
-    platform: state
-    entity_id: binary_sensor.activity_in_hallway
-    from: "off"
-    to: "on"
+    - platform: state
+      entity_id: binary_sensor.activity_in_hallway
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.hallway_motion
+      to: "on"
   condition:
     - condition: state
       entity_id: input_boolean.automatic_lights
