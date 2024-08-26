@@ -315,16 +315,20 @@ views:
                     tap_action:
                       action: call-service
                       haptic: success
-                      service: adaptive_lighting.set_manual_control
-                      service_data:
-                        entity_id:
-                          - switch.adaptive_lighting_hallway
-                          - switch.adaptive_lighting_pantry
-                          - switch.adaptive_lighting_living_room
-                          - switch.adaptive_lighting_bathroom
-                          - switch.adaptive_lighting_bedroom
-                          - switch.adaptive_lighting_kitchen
-                        manual_control: false
+                      service: script.resync_lights
+                    # tap_action:
+                    #   action: call-service
+                    #   haptic: success
+                    #   service: adaptive_lighting.set_manual_control
+                    #   service_data:
+                    #     entity_id:
+                    #       - switch.adaptive_lighting_hallway
+                    #       - switch.adaptive_lighting_pantry
+                    #       - switch.adaptive_lighting_living_room
+                    #       - switch.adaptive_lighting_bathroom
+                    #       - switch.adaptive_lighting_bedroom
+                    #       - switch.adaptive_lighting_kitchen
+                    #     manual_control: false
                     styles:
                       card:
                         - font-size: 12px

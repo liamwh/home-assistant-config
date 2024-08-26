@@ -1,4 +1,18 @@
 ---
+resync_lights:
+  alias: Resync lights with sun
+  sequence:
+    - service: adaptive_lighting.set_manual_control
+      data:
+        entity_id:
+          - switch.adaptive_lighting_hallway
+          - switch.adaptive_lighting_pantry
+          - switch.adaptive_lighting_living_room
+          - switch.adaptive_lighting_bathroom
+          - switch.adaptive_lighting_bedroom
+          - switch.adaptive_lighting_kitchen
+        manual_control: false
+
 message_blood_sugar:
   alias: Message blood sugar
   sequence:
