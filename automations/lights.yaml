@@ -250,7 +250,7 @@
         entity_id: light.living_room_lights
         transition: 1
 
-- alias: "Light: turn off living room"
+- alias: "Light: turn off living room if no upstairs motion"
   trigger:
     platform: state
     entity_id: binary_sensor.activity_in_living_room
@@ -258,6 +258,9 @@
   condition:
     - condition: state
       entity_id: input_boolean.automatic_lights
+      state: "on"
+    - condition: state
+      entity_id: binary_sensor.activity_in_kitchen
       state: "on"
   action:
     - service: light.turn_off
@@ -327,7 +330,7 @@
     minutes: "/30"
   condition:
     - condition: state
-      entity_id: binary_sensor.activity_in_living_room
+      entity_id: binary_sensor.activity_upstairs
       state: "off"
     - condition: state
       entity_id: light.living_room_lights

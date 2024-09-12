@@ -104,6 +104,23 @@
         or is_state("binary_sensor.kitchen_motion", "on") }}
       delay_off: "00:20:00"
 
+    activity_upstairs:
+      friendly_name: Activity Upstairs
+      # TODO: Add the pantry when it's added to HA
+      value_template: >
+        {{ is_state("binary_sensor.activity_in_kitchen", "on")
+        or is_state("binary_sensor.activity_in_living_room", "on") }}
+      delay_off: "00:20:00"
+
+    activity_downstairs:
+      friendly_name: Activity Downstairs
+      # TODO: Add the laundry room when it's added to HA
+      value_template: >
+        {{ is_state("binary_sensor.activity_in_bedroom", "on")
+        or is_state("binary_sensor.activity_in_bathroom", "on") }} 
+        or is_state("binary_sensor.activity_in_toilet", "on") }}
+      delay_off: "00:20:00"
+
     worked_enough_today:
       friendly_name: Worked enough today
       value_template: >
