@@ -231,12 +231,35 @@
         entity_id: light.kitchen_lights
         transition: 1
 
+# Upstairs
+- alias: "Light: turn on upstairs lights if motion upstairs or staircase"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.activity_upstairs
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.activity_on_staircase
+      to: "on"
+  condition:
+    - condition: state
+      entity_id: binary_sensor.activity_upstairs
+      state: "false"
+    - condition: state
+      entity_id: input_boolean.automatic_lights
+      state: "on"
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.upstairs_lights
+        transition: 1
+
 # Living Room
 - alias: "Light: turn on living room if motion"
   trigger:
     platform: state
     entity_id: binary_sensor.activity_in_living_room
     to: "on"
+
   condition:
     - condition: state
       entity_id: input_boolean.automatic_lights
@@ -260,8 +283,8 @@
       entity_id: input_boolean.automatic_lights
       state: "on"
     - condition: state
-      entity_id: binary_sensor.activity_in_kitchen
-      state: "on"
+      entity_id: binary_sensor.activity_upstairs
+      state: "off"
   action:
     - service: light.turn_off
       data:
@@ -346,7 +369,7 @@
     minutes: "0"
   condition:
     - condition: state
-      entity_id: binary_sensor.activity_in_kitchen
+      entity_id: binary_sensor.activity_upstairs
       state: "off"
     - condition: state
       entity_id: light.kitchen_lights
