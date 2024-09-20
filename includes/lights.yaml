@@ -83,14 +83,6 @@
     - light.kitchen_spot_4
 
 - platform: group
-  name: Kitchen Lights
-  entities:
-    - light.kitchen_bench_upper_strip
-    - light.kitchen_bench_lower_strip
-    - light.kitchen_spots
-    - light.table_lamp
-
-- platform: group
   name: Pantry Lights
   entities:
     - light.pantry_spot_top
@@ -101,3 +93,31 @@
   name: Toilet Lights
   entities:
     - light.toilet
+
+- platform: template
+  lights:
+    kitchen_cabinet:
+      friendly_name: "Kitchen Cabinet"
+      unique_id: "kitchen_cabinet"
+      value_template: "{{ is_state('switch.smart_plug_cabinet', 'on') }}"
+      turn_on:
+        service: switch.turn_on
+        entity_id: switch.smart_plug_cabinet
+      turn_off:
+        service: switch.turn_off
+        entity_id: switch.smart_plug_cabinet
+      icon_template: >-
+        {% if is_state('switch.smart_plug_cabinet', 'on') %}
+          mdi:lightbulb-on
+        {% else %}
+          mdi:lightbulb-off
+        {% endif %}
+
+- platform: group
+  name: Kitchen Lights
+  entities:
+    - light.kitchen_bench_upper_strip
+    - light.kitchen_bench_lower_strip
+    - light.kitchen_spots
+    - light.table_lamp
+    - light.kitchen_cabinet
