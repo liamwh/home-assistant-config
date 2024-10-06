@@ -89,8 +89,8 @@ views:
                       - light.kitchen_spot_3
                       - light.kitchen_spot_4
                   - light.table_lamp
-                  - light.kitchen_bench_upper_strip
-                  - light.kitchen_bench_lower_strip
+                  - light.kitchen_cabinet
+                  - light.kitchen_cabinet_strips
 
               - type: custom:fold-entity-row
                 head:
