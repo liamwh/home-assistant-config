@@ -57,6 +57,7 @@
   entities:
     - light.bedside_lamp_left
     - light.bedside_lamp_right
+    - light.corner_lamp
 
 - platform: group
   name: Bathroom Lights
