@@ -58,7 +58,7 @@
     platform: state
     entity_id: binary_sensor.activity_in_bedroom
     to: "off"
-    for: "00:08:00"
+    for: "00:15:00"
   condition:
     - condition: state
       entity_id: input_boolean.bedroom_lights_automatically_turned_on
@@ -72,8 +72,8 @@
   action:
     service: light.turn_off
     entity_id: light.bedroom_lights
-    data:
-      transition: 10
+    # data:
+    #   transition: 10
 
 - alias: "Light: turn off bedroom lights auto switch"
   mode: parallel
@@ -208,7 +208,7 @@
     service: light.turn_off
     data:
       entity_id: light.bathroom_lights
-      transition: 1
+      # transition: 1
 
 # Kitchen
 - alias: "Light: turn on kitchen if motion"
@@ -244,7 +244,7 @@
     - service: light.turn_off
       data:
         entity_id: light.kitchen_lights
-        transition: 1
+        # transition: 1
 
 # Upstairs
 - alias: "Light: turn on upstairs lights if motion upstairs or staircase"
@@ -304,7 +304,7 @@
     - service: light.turn_off
       data:
         entity_id: light.living_room_lights
-        transition: 1
+        # transition: 1
 
 # Hallway
 - alias: "Light: turn on hallway"
@@ -343,7 +343,6 @@
       entity_id:
         - light.hallway_lights
         - light.staircase_lights
-      transition: 1
 
 - alias: "Light: turn on living room if motion (backup automation)"
   trigger:
