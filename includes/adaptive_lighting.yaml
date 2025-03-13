@@ -9,6 +9,7 @@
   detect_non_ha_changes: true
   interval: 30
   sunrise_time: "07:00:00"
+  min_sunset_time: "20:00:00"
   max_sunset_time: "21:00:00"
   take_over_control: true
 
@@ -33,6 +34,7 @@
   detect_non_ha_changes: true
   interval: 30
   max_sunset_time: "21:00:00"
+  min_sunset_time: "20:00:00"
   sunrise_time: "06:30:00"
   take_over_control: true
 
@@ -64,10 +66,12 @@
   lights:
     - light.kitchen_lights
   sleep_brightness: 5
-  max_brightness: 65
+  min_brightness: 50
+  max_brightness: 75
   prefer_rgb_color: true
   detect_non_ha_changes: true
   interval: 30
+  min_sunset_time: "20:00:00"
   max_sunset_time: "21:00:00"
   sunrise_time: "07:00:00"
   take_over_control: true
