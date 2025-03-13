@@ -122,6 +122,11 @@
       data:
         brightness: 255
         color_temp_kelvin: 6500
+    - service: adaptive_lighting.set_manual_control
+      data:
+        entity_id:
+          - switch.adaptive_lighting_toilet
+        manual_control: false
   mode: single
 
 - alias: "Light: Turn on Hallway Lights when state changes from unavailable"
@@ -140,6 +145,11 @@
       data:
         brightness: 255
         color_temp_kelvin: 6500
+    - service: adaptive_lighting.set_manual_control
+      data:
+        entity_id:
+          - switch.adaptive_lighting_hallway
+        manual_control: false
   mode: single
 
 - alias: "Light: Turn on Bathroom light when state changes from unavailable"
@@ -158,6 +168,11 @@
       data:
         brightness: 255
         color_temp_kelvin: 6500
+    - service: adaptive_lighting.set_manual_control
+      data:
+        entity_id:
+          - switch.adaptive_lighting_bathroom
+        manual_control: false
   mode: single
 
 - alias: "Light: turn off toilet after 5 minutes of inactivity"
