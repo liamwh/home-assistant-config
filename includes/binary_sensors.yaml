@@ -49,7 +49,7 @@
         {{ is_state("binary_sensor.motion_sensor_hallway", "on")
         or is_state("binary_sensor.activity_on_staircase", "on")
         or is_state("binary_sensor.hallway_motion", "on") }}
-      delay_off: "00:01:00"
+      delay_off: "00:15:00"
 
     activity_on_staircase:
       friendly_name: Activity on the staircase
@@ -117,7 +117,7 @@
       # TODO: Add the laundry room when it's added to HA
       value_template: >
         {{ is_state("binary_sensor.activity_in_bedroom", "on")
-        or is_state("binary_sensor.activity_in_bathroom", "on") }} 
+        or is_state("binary_sensor.activity_in_bathroom", "on") }}
         or is_state("binary_sensor.activity_in_toilet", "on") }}
       delay_off: "00:20:00"
 
