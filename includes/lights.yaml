@@ -137,7 +137,9 @@
 - platform: group
   name: Laundry Lights
   entities:
-    - light.laundry_ceiling
+    - light.laundry_left
+    - light.laundry_middle
+    - light.laundry_right
 
 - platform: group
   name: Gym Lights
