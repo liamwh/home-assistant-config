@@ -67,7 +67,9 @@ views:
                   color_picker: true
                   entity: light.laundry_lights
                 entities:
-                  - light.laundry_ceiling
+                  - light.laundry_left
+                  - light.laundry_middle
+                  - light.laundry_right
 
           - show_header_toggle: false
             title: First Floor
