@@ -24,7 +24,7 @@ decluttering_templates:
       sort: entity_id
       type: custom:auto-entities
 views:
-  - theme: dark-mode
+  - theme: ios-dark-mode-blue-red
     title: home
     path: home
     icon: mdi:home
@@ -163,221 +163,221 @@ views:
                   - light.pantry_spot_middle
                   - light.pantry_spot_bottom
 
+      - cards:
+          - type: horizontal-stack
+            cards:
+              - color: auto
+                icon: mdi:weather-sunset-up
+                entity: input_select.sleep_mode
+                name: >-
+                  [[[ if (entity.state != "off") return "Wake up"; else
+                  return "Currently awake" ]]]
+                styles:
+                  card:
+                    - font-size: 12px
+                    - font-weight: bold
+                    - height: 70px
+                tap_action:
+                  action: call-service
+                  haptic: success
+                  service: input_select.select_option
+                  service_data:
+                    entity_id: input_select.sleep_mode
+                    option: 'off'
+                type: custom:button-card
+              - color: auto
+                entity: input_select.sleep_mode
+                icon: mdi:weather-night
+                name: >-
+                  [[[ if (entity.state != "off") return "Sleep mode on";
+                  else return  "Go to sleep" ]]]
+                styles:
+                  card:
+                    - font-size: 12px
+                    - font-weight: bold
+                    - height: 70px
+                tap_action:
+                  action: call-service
+                  haptic: success
+                  service: script.going_to_sleep
+                type: custom:button-card
+          - show_header_toggle: false
+            type: entities
+            entities:
+              - input_select.sleep_mode
           - cards:
-              - type: horizontal-stack
-                cards:
-                  - color: auto
-                    icon: mdi:weather-sunset-up
-                    entity: input_select.sleep_mode
-                    name: >-
-                      [[[ if (entity.state != "off") return "Wake up"; else
-                      return "Currently awake" ]]]
-                    styles:
-                      card:
-                        - font-size: 12px
-                        - font-weight: bold
-                        - height: 70px
-                    tap_action:
-                      action: call-service
-                      haptic: success
-                      service: input_select.select_option
-                      service_data:
-                        entity_id: input_select.sleep_mode
-                        option: 'off'
-                    type: custom:button-card
-                  - color: auto
-                    entity: input_select.sleep_mode
-                    icon: mdi:weather-night
-                    name: >-
-                      [[[ if (entity.state != "off") return "Sleep mode on";
-                      else return  "Go to sleep" ]]]
-                    styles:
-                      card:
-                        - font-size: 12px
-                        - font-weight: bold
-                        - height: 70px
-                    tap_action:
-                      action: call-service
-                      haptic: success
-                      service: script.going_to_sleep
-                    type: custom:button-card
-              - show_header_toggle: false
-                type: entities
-                entities:
-                  - input_select.sleep_mode
-              - cards:
-                  - color: auto
-                    icon: mdi:home-export-outline
-                    name: Leave Home
-                    styles:
-                      card:
-                        - font-size: 12px
-                        - font-weight: bold
-                        - height: 70px
-                    tap_action:
-                      action: call-service
-                      haptic: success
-                      service: script.leaving
-                    type: custom:button-card
-                type: horizontal-stack
-              - cards:
-                  - color: auto
-                    icon: >-
-                      [[[ if (entity.state == "on") return "mdi:alarm-check";
-                      else return  "mdi:alarm" ]]]
-                    entity: input_boolean.alarm_clock
-                    name: >-
-                      [[[ if (entity.state == "on") return "Alarm is on"; else
-                      return "Alarm is off" ]]]
-                    styles:
-                      card:
-                        - font-size: 12px
-                        - font-weight: bold
-                        - height: 70px
-                    tap_action:
-                      action: call-service
-                      haptic: success
-                      service: input_boolean.toggle
-                      service_data:
-                        entity_id: input_boolean.alarm_clock
-                    type: custom:button-card
-                  - color: auto
-                    icon: >-
-                      [[[ if (entity.state == "True") return
-                      "mdi:weather-windy"; else return
-                      "mdi:checkbox-marked-circle-outline" ]]]
-                    entity: binary_sensor.living_room_open_window
-                    name: >-
-                      [[[ if (entity.state == "True") return "Window(s) open";
-                      else return  "No open window detected" ]]]
-                    styles:
-                      card:
-                        - font-size: 12px
-                        - font-weight: bold
-                        - height: 70px
-                    type: custom:button-card
-                type: horizontal-stack
-              - cards:
-                  - color: auto
-                    icon: >-
-                      [[[ if (entity.state == "on") return "mdi:fireplace"; else
-                      return "mdi:cancel" ]]]
-                    entity: input_boolean.automatic_temperature
-                    name: >-
-                      [[[ if (entity.state == "on") return "Automatic heating
-                      enabled"; else return  "Automatic heating disabled" ]]]
-                    tap_action:
-                      action: call-service
-                      haptic: success
-                      service: input_boolean.toggle
-                      service_data:
-                        entity_id: input_boolean.automatic_temperature
-                    styles:
-                      card:
-                        - font-size: 12px
-                        - font-weight: bold
-                        - height: 70px
-                    type: custom:button-card
-                  - type: custom:button-card
-                    name: >-
-                      [[[ if (entity.state == "on") return "Automatic bedroom
-                      lights enabled"; else return  "Automatic bedroom lights
-                      disabled" ]]]
-                    color: auto
-                    icon: >-
-                      [[[ if (entity.state == "on") return "mdi:head-lightbulb";
-                      else return  "mdi:lightbulb-off" ]]]
-                    entity: input_boolean.automatic_bedroom_lights
-                    tap_action:
-                      action: call-service
-                      haptic: success
-                      service: input_boolean.toggle
-                      service_data:
-                        entity_id: input_boolean.automatic_bedroom_lights
-                    styles:
-                      card:
-                        - font-size: 12px
-                        - font-weight: bold
-                        - height: 70px
-                  - color: auto
-                    icon: >-
-                      [[[ if (entity.state == "on") return "mdi:head-lightbulb";
-                      else return  "mdi:lightbulb-off" ]]]
-                    entity: input_boolean.automatic_lights
-                    name: >-
-                      [[[ if (entity.state == "on") return "Automatic lights
-                      enabled"; else return  "Automatic lights disabled" ]]]
-                    tap_action:
-                      action: call-service
-                      haptic: success
-                      service: input_boolean.toggle
-                      service_data:
-                        entity_id: input_boolean.automatic_lights
-                    styles:
-                      card:
-                        - font-size: 12px
-                        - font-weight: bold
-                        - height: 70px
-                    type: custom:button-card
-                type: horizontal-stack
-              - cards:
-                  - color: auto
-                    icon: mdi:refresh
-                    entity: input_boolean.automatic_temperature
-                    name: Resync lights with sun
-                    tap_action:
-                      action: call-service
-                      haptic: success
-                      service: script.resync_lights
-                    styles:
-                      card:
-                        - font-size: 12px
-                        - font-weight: bold
-                        - height: 70px
-                    type: custom:button-card
-                  - color: auto
-                    icon: >-
-                      [[[ if (entity.state == "on") return
-                      "mdi:airplane-takeoff"; else return  "mdi:airplane-off"
-                      ]]]
-                    entity: input_boolean.vacation_mode
-                    name: >-
-                      [[[ if (entity.state == "on") return "Vacation mode
-                      enabled"; else return  "Vacation mode disabled" ]]]
-                    tap_action:
-                      action: call-service
-                      haptic: success
-                      service: input_boolean.toggle
-                      service_data:
-                        entity_id: input_boolean.vacation_mode
-                    styles:
-                      card:
-                        - font-size: 12px
-                        - font-weight: bold
-                        - height: 70px
-                    type: custom:button-card
-                  - color: auto
-                    icon: >-
-                      [[[ if (entity.state == "on") return "mdi:television";
-                      else return  "mdi:television" ]]]
-                    entity: input_boolean.tv_mode
-                    name: >-
-                      [[[ if (entity.state == "on") return "TV mode enabled";
-                      else return  "TV mode disabled" ]]]
-                    tap_action:
-                      action: call-service
-                      haptic: success
-                      service: input_boolean.toggle
-                      service_data:
-                        entity_id: input_boolean.tv_mode
-                    styles:
-                      card:
-                        - font-size: 12px
-                        - font-weight: bold
-                        - height: 70px
-                    type: custom:button-card
-                type: horizontal-stack
-            type: vertical-stack
+              - color: auto
+                icon: mdi:home-export-outline
+                name: Leave Home
+                styles:
+                  card:
+                    - font-size: 12px
+                    - font-weight: bold
+                    - height: 70px
+                tap_action:
+                  action: call-service
+                  haptic: success
+                  service: script.leaving
+                type: custom:button-card
+            type: horizontal-stack
+          - cards:
+              - color: auto
+                icon: >-
+                  [[[ if (entity.state == "on") return "mdi:alarm-check";
+                  else return  "mdi:alarm" ]]]
+                entity: input_boolean.alarm_clock
+                name: >-
+                  [[[ if (entity.state == "on") return "Alarm is on"; else
+                  return "Alarm is off" ]]]
+                styles:
+                  card:
+                    - font-size: 12px
+                    - font-weight: bold
+                    - height: 70px
+                tap_action:
+                  action: call-service
+                  haptic: success
+                  service: input_boolean.toggle
+                  service_data:
+                    entity_id: input_boolean.alarm_clock
+                type: custom:button-card
+              - color: auto
+                icon: >-
+                  [[[ if (entity.state == "True") return
+                  "mdi:weather-windy"; else return
+                  "mdi:checkbox-marked-circle-outline" ]]]
+                entity: binary_sensor.living_room_open_window
+                name: >-
+                  [[[ if (entity.state == "True") return "Window(s) open";
+                  else return  "No open window detected" ]]]
+                styles:
+                  card:
+                    - font-size: 12px
+                    - font-weight: bold
+                    - height: 70px
+                type: custom:button-card
+            type: horizontal-stack
+          - cards:
+              - color: auto
+                icon: >-
+                  [[[ if (entity.state == "on") return "mdi:fireplace"; else
+                  return "mdi:cancel" ]]]
+                entity: input_boolean.automatic_temperature
+                name: >-
+                  [[[ if (entity.state == "on") return "Automatic heating
+                  enabled"; else return  "Automatic heating disabled" ]]]
+                tap_action:
+                  action: call-service
+                  haptic: success
+                  service: input_boolean.toggle
+                  service_data:
+                    entity_id: input_boolean.automatic_temperature
+                styles:
+                  card:
+                    - font-size: 12px
+                    - font-weight: bold
+                    - height: 70px
+                type: custom:button-card
+              - type: custom:button-card
+                name: >-
+                  [[[ if (entity.state == "on") return "Automatic bedroom
+                  lights enabled"; else return  "Automatic bedroom lights
+                  disabled" ]]]
+                color: auto
+                icon: >-
+                  [[[ if (entity.state == "on") return "mdi:head-lightbulb";
+                  else return  "mdi:lightbulb-off" ]]]
+                entity: input_boolean.automatic_bedroom_lights
+                tap_action:
+                  action: call-service
+                  haptic: success
+                  service: input_boolean.toggle
+                  service_data:
+                    entity_id: input_boolean.automatic_bedroom_lights
+                styles:
+                  card:
+                    - font-size: 12px
+                    - font-weight: bold
+                    - height: 70px
+              - color: auto
+                icon: >-
+                  [[[ if (entity.state == "on") return "mdi:head-lightbulb";
+                  else return  "mdi:lightbulb-off" ]]]
+                entity: input_boolean.automatic_lights
+                name: >-
+                  [[[ if (entity.state == "on") return "Automatic lights
+                  enabled"; else return  "Automatic lights disabled" ]]]
+                tap_action:
+                  action: call-service
+                  haptic: success
+                  service: input_boolean.toggle
+                  service_data:
+                    entity_id: input_boolean.automatic_lights
+                styles:
+                  card:
+                    - font-size: 12px
+                    - font-weight: bold
+                    - height: 70px
+                type: custom:button-card
+            type: horizontal-stack
+          - cards:
+              - color: auto
+                icon: mdi:refresh
+                entity: input_boolean.automatic_temperature
+                name: Resync lights with sun
+                tap_action:
+                  action: call-service
+                  haptic: success
+                  service: script.resync_lights
+                styles:
+                  card:
+                    - font-size: 12px
+                    - font-weight: bold
+                    - height: 70px
+                type: custom:button-card
+              - color: auto
+                icon: >-
+                  [[[ if (entity.state == "on") return
+                  "mdi:airplane-takeoff"; else return  "mdi:airplane-off"
+                  ]]]
+                entity: input_boolean.vacation_mode
+                name: >-
+                  [[[ if (entity.state == "on") return "Vacation mode
+                  enabled"; else return  "Vacation mode disabled" ]]]
+                tap_action:
+                  action: call-service
+                  haptic: success
+                  service: input_boolean.toggle
+                  service_data:
+                    entity_id: input_boolean.vacation_mode
+                styles:
+                  card:
+                    - font-size: 12px
+                    - font-weight: bold
+                    - height: 70px
+                type: custom:button-card
+              - color: auto
+                icon: >-
+                  [[[ if (entity.state == "on") return "mdi:television";
+                  else return  "mdi:television" ]]]
+                entity: input_boolean.tv_mode
+                name: >-
+                  [[[ if (entity.state == "on") return "TV mode enabled";
+                  else return  "TV mode disabled" ]]]
+                tap_action:
+                  action: call-service
+                  haptic: success
+                  service: input_boolean.toggle
+                  service_data:
+                    entity_id: input_boolean.tv_mode
+                styles:
+                  card:
+                    - font-size: 12px
+                    - font-weight: bold
+                    - height: 70px
+                type: custom:button-card
+            type: horizontal-stack
+        type: vertical-stack
       - type: vertical-stack
         cards:
           - type: custom:mini-media-player
