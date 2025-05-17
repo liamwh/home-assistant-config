@@ -65,7 +65,7 @@ views:
                   type: custom:slider-entity-row
                   toggle: true
                   color_picker: true
-                  entity: light.laundry_lights
+                  entity: light.laundry
                 entities:
                   - light.laundry_left
                   - light.laundry_middle
