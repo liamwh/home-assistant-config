@@ -44,20 +44,30 @@ views:
                   icon: phu:rooms-office
                   toggle: true
                 entities:
-                  - light.office_ceiling
+                  # - light.office_ceiling
                   - light.standing_lamp
+
               - type: custom:fold-entity-row
                 head:
-                  type: section
-                  label: Guest Room
+                  name: Guest Room
+                  icon: mdi:bed-double
+                  type: custom:slider-entity-row
+                  toggle: true
+                  color_picker: true
+                  entity: light.guest_room_lights
                 entities:
-                  - light.guest_room_lights
-                  - light.guest_room_spot_1
+                  - light.guest_room_ceiling
+
               - type: custom:fold-entity-row
                 head:
-                  type: section
-                  label: Laundry
-                entities: []
+                  name: Laundry
+                  icon: mdi:washing-machine
+                  type: custom:slider-entity-row
+                  toggle: true
+                  color_picker: true
+                  entity: light.laundry_lights
+                entities:
+                  - light.laundry_ceiling
 
           - show_header_toggle: false
             title: First Floor
@@ -75,15 +85,11 @@ views:
                   - light.bedside_lamp_left
                   - light.bedside_lamp_right
 
-              - type: custom:fold-entity-row
-                head:
-                  entity: light.gym_ceiling
-                  name: Gym
-                  icon: mdi:dumbbell
-                  type: custom:slider-entity-row
-                  toggle: true
-                entities:
-                  - light.gym_ceiling
+              - type: custom:slider-entity-row
+                entity: light.gym_ceiling
+                name: Gym
+                icon: mdi:dumbbell
+                toggle: true
 
               - entity: light.bathroom_ceiling
                 name: Bathroom

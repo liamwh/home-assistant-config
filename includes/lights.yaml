@@ -128,3 +128,13 @@
   name: Office Lights
   entities:
     - light.office_ceiling
+
+- platform: group
+  name: Guest Room Lights
+  entities:
+    - light.guest_room_ceiling
+
+- platform: group
+  name: Laundry Lights
+  entities:
+    - light.laundry_ceiling
