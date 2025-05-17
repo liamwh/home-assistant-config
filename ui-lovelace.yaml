@@ -71,9 +71,9 @@ views:
                   name: Bedroom
                   toggle: true
                 entities:
+                  - light.bedroom_ceiling
                   - light.bedside_lamp_left
                   - light.bedside_lamp_right
-                  - light.bedroom_ceiling
 
               - type: custom:fold-entity-row
                 head:
@@ -113,11 +113,11 @@ views:
                 type: custom:slider-entity-row
                 toggle: true
 
-              - entity: light.dining_room_ceiling
-                name: Dining
-                icon: phu:dining-table
-                type: custom:slider-entity-row
-                toggle: true
+              # - entity: light.dining_room_ceiling
+              #   name: Dining
+              #   icon: phu:dining-table
+              #   type: custom:slider-entity-row
+              #   toggle: true
 
               - type: custom:fold-entity-row
                 head:

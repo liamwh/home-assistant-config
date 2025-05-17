@@ -123,3 +123,8 @@
     - light.table_lamp
     - light.kitchen_cabinet
     - light.kitchen_cabinet_strips
+
+- platform: group
+  name: Office Lights
+  entities:
+    - light.office_ceiling
