@@ -72,7 +72,9 @@
   detect_non_ha_changes: true
   interval: 30
   min_sunset_time: "20:00:00"
-  max_sunset_time: "22:00:00"
+  max_sunset_time: "23:00:00"
+  min_color_temp: 3000
+  sunset_offset: 3600
   sunrise_time: "07:00:00"
   take_over_control: true
 
