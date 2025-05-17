@@ -138,3 +138,8 @@
   name: Laundry Lights
   entities:
     - light.laundry_ceiling
+
+- platform: group
+  name: Gym Lights
+  entities:
+    - light.gym_ceiling

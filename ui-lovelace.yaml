@@ -86,7 +86,7 @@ views:
                   - light.bedside_lamp_right
 
               - type: custom:slider-entity-row
-                entity: light.gym_ceiling
+                entity: light.gym_lights
                 name: Gym
                 icon: mdi:dumbbell
                 toggle: true
