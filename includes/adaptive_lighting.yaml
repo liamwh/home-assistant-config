@@ -10,7 +10,7 @@
   interval: 30
   sunrise_time: "07:00:00"
   min_sunset_time: "20:00:00"
-  max_sunset_time: "21:00:00"
+  max_sunset_time: "22:00:00"
   take_over_control: true
 
 - name: Bedroom
@@ -22,7 +22,7 @@
   detect_non_ha_changes: true
   interval: 30
   sunrise_time: "07:00:00"
-  max_sunset_time: "21:00:00"
+  max_sunset_time: "22:00:00"
   take_over_control: true
 
 - name: Bathroom
@@ -33,8 +33,8 @@
   prefer_rgb_color: false
   detect_non_ha_changes: true
   interval: 30
-  max_sunset_time: "21:00:00"
   min_sunset_time: "20:00:00"
+  max_sunset_time: "22:00:00"
   sunrise_time: "06:30:00"
   take_over_control: true
 
@@ -46,7 +46,7 @@
   prefer_rgb_color: true
   detect_non_ha_changes: true
   interval: 30
-  max_sunset_time: "21:00:00"
+  max_sunset_time: "22:00:00"
   sunrise_time: "07:00:00"
   take_over_control: true
 
@@ -59,7 +59,7 @@
   detect_non_ha_changes: true
   interval: 30
   sunrise_time: "07:00:00"
-  max_sunset_time: "21:00:00"
+  max_sunset_time: "22:00:00"
   take_over_control: true
 
 - name: Kitchen
@@ -72,7 +72,7 @@
   detect_non_ha_changes: true
   interval: 30
   min_sunset_time: "20:00:00"
-  max_sunset_time: "21:00:00"
+  max_sunset_time: "22:00:00"
   sunrise_time: "07:00:00"
   take_over_control: true
 
