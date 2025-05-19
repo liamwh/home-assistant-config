@@ -92,7 +92,7 @@ views:
                 icon: mdi:shower
                 type: custom:slider-entity-row
                 toggle: true
-              - entity: light.walk_in_wardrobe
+              - entity: light.walk_in_wardrobe_ceiling
                 name: Walk-in Wardrobe
                 icon: mdi:wardrobe
                 type: custom:slider-entity-row

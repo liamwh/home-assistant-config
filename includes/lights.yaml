@@ -24,7 +24,7 @@
   entities:
     - light.bedroom_lights
     - light.gym_lights
-    - light.walk_in_wardrobe_lights
+    - light.walk_in_wardrobe_ceiling
     - light.bathroom_lights
     - light.staircase_first_floor_hallway
 
