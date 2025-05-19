@@ -8,34 +8,36 @@
 - platform: group
   name: All the lights
   entities:
-    - light.living_room_lights
-    - light.bedroom_lights
-    - light.bathroom_lights
-    - light.hallway_lights
-    - light.kitchen_lights
-    - light.pantry_lights
+    - light.top_floor_lights
+    - light.first_floor_lights
+    - light.ground_floor_lights
 
 - platform: group
-  name: Downstairs Lights
+  name: Top Floor Lights
+  entities:
+    - light.office_lights
+    - light.guest_room_lights
+    - light.laundry_lights
+
+- platform: group
+  name: First Floor Lights
   entities:
     - light.bedroom_lights
+    - light.gym_lights
+    - light.walk_in_wardrobe_lights
     - light.bathroom_lights
+    - light.staircase_first_floor_hallway
+
+- platform: group
+  name: Ground Floor Lights
+  entities:
     - light.hallway_lights
-
-- platform: group
-  name: Upstairs Lights
-  entities:
-    - light.living_room_lights
+    - light.dining_room_lights
     - light.kitchen_lights
-    - light.pantry_lights
-
-- platform: group
-  name: Entrance Lights
-  entities:
-    - light.entrance_spot_1
-    - light.entrance_spot_2
-    - light.entrance_spot_3
-    - light.entrance_spot_4
+    - light.toilet
+  alias:
+  - "Bottom Floor Lights"
+  - "Downstairs Lights"
 
 - platform: group
   name: Dining Room Lights
@@ -62,10 +64,7 @@
 - platform: group
   name: Bathroom Lights
   entities:
-    - light.bathroom_entrance
-    - light.bathroom_middle_hallway
-    - light.bathroom_middle_sink
-    - light.bathroom_back
+    - light.bathroom_ceiling
 
 - platform: group
   name: Hallway lights
@@ -82,13 +81,6 @@
     - light.kitchen_spot_lower_right
     - light.kitchen_spot_upper_left
     - light.kitchen_spot_upper_right
-
-- platform: group
-  name: Pantry Lights
-  entities:
-    - light.pantry_spot_top
-    - light.pantry_spot_middle
-    - light.pantry_spot_bottom
 
 - platform: group
   name: Toilet Lights
@@ -117,12 +109,12 @@
 - platform: group
   name: Kitchen Lights
   entities:
-    - light.kitchen_bench_upper_strip
-    - light.kitchen_bench_lower_strip
+    # - light.kitchen_bench_upper_strip
+    # - light.kitchen_bench_lower_strip
     - light.kitchen_spots
-    - light.table_lamp
-    - light.kitchen_cabinet
-    - light.kitchen_cabinet_strips
+    # - light.table_lamp
+    # - light.kitchen_cabinet
+    # - light.kitchen_cabinet_strips
 
 - platform: group
   name: Office Lights
