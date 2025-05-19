@@ -35,6 +35,7 @@
     - light.dining_room_lights
     - light.kitchen_lights
     - light.toilet
+    - light.living_room_lights
 
 - platform: group
   name: Dining Room Lights
