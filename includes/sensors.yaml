@@ -113,6 +113,19 @@
   streetnumber: !secret home_number
   upcomingsensor: 1
 
+- platform: afvalwijzer
+  provider: mijnafvalwijzer        # (required, default = mijnafvalwijzer) choose the provider for your community.
+  postal_code: !secret home_postcode              # (required, default = '')
+  street_number: !secret home_number                 # (required, default = '')
+  suffix: ''                       # (optional, default = '')
+  username: ''                     # (optional, default = '')
+  password: ''                     # (optional, default = '')
+  exclude_pickup_today: true       # (optional, default = true) to take or not to take Today into account in the next pickup.
+  date_isoformat: false            # (optional, default = false) show the date in full isoformat if desired. Example: "2024-01-14T08:40:33.993521"
+  default_label: geen              # (optional, default = geen) label if no date found
+  id: ''                           # (optional, default = '') use if you'd like to have multiple waste pickup locations in HASS
+  exclude_list: ''                 # (optional, default = '') comma separated list of wast types (case ignored). F.e. "papier, gft, restafval, pmd, etc"
+
 - platform: statistics
   name: Temperature Sensor Bathroom Humidity Stats
   entity_id: sensor.temperature_sensor_bathroom_humidity

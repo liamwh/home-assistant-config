@@ -44,9 +44,7 @@ views:
                   icon: phu:rooms-office
                   toggle: true
                 entities:
-                  # - light.office_ceiling
                   - light.standing_lamp
-
               - type: custom:fold-entity-row
                 head:
                   name: Guest Room
@@ -57,7 +55,6 @@ views:
                   entity: light.guest_room_lights
                 entities:
                   - light.guest_room_ceiling
-
               - type: custom:fold-entity-row
                 head:
                   name: Laundry
@@ -70,7 +67,6 @@ views:
                   - light.laundry_left
                   - light.laundry_middle
                   - light.laundry_right
-
           - show_header_toggle: false
             title: First Floor
             type: entities
@@ -86,31 +82,26 @@ views:
                   - light.bedroom_ceiling
                   - light.bedside_lamp_left
                   - light.bedside_lamp_right
-
               - type: custom:slider-entity-row
                 entity: light.gym_lights
                 name: Gym
                 icon: mdi:dumbbell
                 toggle: true
-
               - entity: light.bathroom_ceiling
                 name: Bathroom
                 icon: mdi:shower
                 type: custom:slider-entity-row
                 toggle: true
-
               - entity: light.walk_in_wardrobe
                 name: Walk-in Wardrobe
                 icon: mdi:wardrobe
                 type: custom:slider-entity-row
                 toggle: true
-
               - entity: light.staircase_first_floor_hallway
                 name: Staircase
                 icon: mdi:stairs
                 type: custom:slider-entity-row
                 toggle: true
-
           - show_header_toggle: false
             title: Ground Floor
             type: entities
@@ -123,48 +114,25 @@ views:
                   type: custom:slider-entity-row
                   toggle: true
                 entities:
-                    - light.kitchen_spot_lower_left
-                    - light.kitchen_spot_lower_right
-                    - light.kitchen_spot_upper_left
-                    - light.kitchen_spot_upper_right
-
-
+                  - light.kitchen_spot_lower_left
+                  - light.kitchen_spot_lower_right
+                  - light.kitchen_spot_upper_left
+                  - light.kitchen_spot_upper_right
               - entity: light.living_room_lights
                 name: Living
                 icon: mdi:sofa
                 type: custom:slider-entity-row
                 toggle: true
-
-              # - entity: light.dining_room_ceiling
-              #   name: Dining
-              #   icon: phu:dining-table
-              #   type: custom:slider-entity-row
-              #   toggle: true
-
               - entity: light.hallway
                 name: Hallway
                 icon: mdi:door
                 type: custom:slider-entity-row
                 toggle: true
-
               - entity: light.toilet
                 name: Toilet
                 icon: mdi:toilet
                 type: custom:slider-entity-row
                 toggle: true
-
-              # - type: custom:fold-entity-row
-              #   head:
-              #     color_picker: true
-              #     entity: light.pantry_lights
-              #     name: Pantry
-              #     type: custom:slider-entity-row
-              #     icon: mdi:wardrobe
-              #   entities:
-              #     - light.pantry_spot_top
-              #     - light.pantry_spot_middle
-              #     - light.pantry_spot_bottom
-
       - cards:
           - type: horizontal-stack
             cards:
@@ -172,8 +140,8 @@ views:
                 icon: mdi:weather-sunset-up
                 entity: input_select.sleep_mode
                 name: >-
-                  [[[ if (entity.state != "off") return "Wake up"; else
-                  return "Currently awake" ]]]
+                  [[[ if (entity.state != "off") return "Wake up"; else return
+                  "Currently awake" ]]]
                 styles:
                   card:
                     - font-size: 12px
@@ -191,8 +159,8 @@ views:
                 entity: input_select.sleep_mode
                 icon: mdi:weather-night
                 name: >-
-                  [[[ if (entity.state != "off") return "Sleep mode on";
-                  else return  "Go to sleep" ]]]
+                  [[[ if (entity.state != "off") return "Sleep mode on"; else
+                  return  "Go to sleep" ]]]
                 styles:
                   card:
                     - font-size: 12px
@@ -225,8 +193,8 @@ views:
           - cards:
               - color: auto
                 icon: >-
-                  [[[ if (entity.state == "on") return "mdi:alarm-check";
-                  else return  "mdi:alarm" ]]]
+                  [[[ if (entity.state == "on") return "mdi:alarm-check"; else
+                  return  "mdi:alarm" ]]]
                 entity: input_boolean.alarm_clock
                 name: >-
                   [[[ if (entity.state == "on") return "Alarm is on"; else
@@ -245,13 +213,12 @@ views:
                 type: custom:button-card
               - color: auto
                 icon: >-
-                  [[[ if (entity.state == "True") return
-                  "mdi:weather-windy"; else return
-                  "mdi:checkbox-marked-circle-outline" ]]]
+                  [[[ if (entity.state == "True") return "mdi:weather-windy";
+                  else return "mdi:checkbox-marked-circle-outline" ]]]
                 entity: binary_sensor.living_room_open_window
                 name: >-
-                  [[[ if (entity.state == "True") return "Window(s) open";
-                  else return  "No open window detected" ]]]
+                  [[[ if (entity.state == "True") return "Window(s) open"; else
+                  return  "No open window detected" ]]]
                 styles:
                   card:
                     - font-size: 12px
@@ -282,9 +249,8 @@ views:
                 type: custom:button-card
               - type: custom:button-card
                 name: >-
-                  [[[ if (entity.state == "on") return "Automatic bedroom
-                  lights enabled"; else return  "Automatic bedroom lights
-                  disabled" ]]]
+                  [[[ if (entity.state == "on") return "Automatic bedroom lights
+                  enabled"; else return  "Automatic bedroom lights disabled" ]]]
                 color: auto
                 icon: >-
                   [[[ if (entity.state == "on") return "mdi:head-lightbulb";
@@ -339,13 +305,12 @@ views:
                 type: custom:button-card
               - color: auto
                 icon: >-
-                  [[[ if (entity.state == "on") return
-                  "mdi:airplane-takeoff"; else return  "mdi:airplane-off"
-                  ]]]
+                  [[[ if (entity.state == "on") return "mdi:airplane-takeoff";
+                  else return  "mdi:airplane-off" ]]]
                 entity: input_boolean.vacation_mode
                 name: >-
-                  [[[ if (entity.state == "on") return "Vacation mode
-                  enabled"; else return  "Vacation mode disabled" ]]]
+                  [[[ if (entity.state == "on") return "Vacation mode enabled";
+                  else return  "Vacation mode disabled" ]]]
                 tap_action:
                   action: call-service
                   haptic: success
@@ -360,12 +325,12 @@ views:
                 type: custom:button-card
               - color: auto
                 icon: >-
-                  [[[ if (entity.state == "on") return "mdi:television";
-                  else return  "mdi:television" ]]]
+                  [[[ if (entity.state == "on") return "mdi:television"; else
+                  return  "mdi:television" ]]]
                 entity: input_boolean.tv_mode
                 name: >-
-                  [[[ if (entity.state == "on") return "TV mode enabled";
-                  else return  "TV mode disabled" ]]]
+                  [[[ if (entity.state == "on") return "TV mode enabled"; else
+                  return  "TV mode disabled" ]]]
                 tap_action:
                   action: call-service
                   haptic: success
@@ -379,6 +344,24 @@ views:
                     - height: 70px
                 type: custom:button-card
             type: horizontal-stack
+          - type: custom:auto-entities
+            card:
+              type: glance
+            filter:
+              exclude:
+                - entity_id: sensor.afvalwijzer_*next*
+                - entity_id: sensor.afvalwijzer_day_after_tomorrow*
+                - entity_id: sensor.afvalwijzer_today*
+                - entity_id: sensor.afvalwijzer_tomorrow*
+                - entity_id: sensor.afvalwijzer_kerstbomen*
+                - entity_id: sensor.afvalwijzer_*orgen
+                - entity_id: sensor.afvalwijzer_van*
+              include:
+                - entity_id: sensor.afvalwijzer_*
+                  options:
+                    format: date
+            sort:
+              method: state
         type: vertical-stack
       - type: vertical-stack
         cards:
@@ -405,8 +388,13 @@ views:
               source: false
               volume: true
             icon: mdi:spotify
-          - type: weather-forecast
+          - show_current: true
+            show_forecast: true
+            type: weather-forecast
             entity: weather.home
+            forecast_type: daily
+            forecast_slots: 7
+            theme: ios-dark-mode-blue-red
           - type: custom:swipe-card
             parameters: null
             spaceBetween: 8
