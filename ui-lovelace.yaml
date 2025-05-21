@@ -619,7 +619,7 @@ views:
         type: custom:decluttering-card
         variables:
           - name: Motion
-          - slug: motion*
+          - slug: motion*|.*_motion
           - include_domain: binary_sensor
       - template: entity_template
         type: custom:decluttering-card
