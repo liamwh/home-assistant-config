@@ -371,7 +371,7 @@
 - alias: "Light: turn on living room if motion (backup automation)"
   trigger:
     platform: state
-    entity_id: binary_sensor.living_room_motion_new
+    entity_id: binary_sensor.living_room_motion
     to: "on"
   condition:
     - condition: state
