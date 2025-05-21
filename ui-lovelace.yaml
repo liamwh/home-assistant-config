@@ -123,11 +123,17 @@ views:
                 icon: mdi:sofa
                 type: custom:slider-entity-row
                 toggle: true
-              - entity: light.hallway
-                name: Hallway
-                icon: mdi:door
-                type: custom:slider-entity-row
-                toggle: true
+              - type: custom:fold-entity-row
+                head:
+                  name: Hallway
+                  icon: mdi:door
+                  type: custom:slider-entity-row
+                  entity: light.hallway_lights
+                  toggle: true
+                entities:
+                  - light.entrance_hallway_1
+                  - light.entrance_hallway_2
+                  - light.entrance_hallway_3
               - entity: light.toilet
                 name: Toilet
                 icon: mdi:toilet
@@ -358,8 +364,6 @@ views:
                 - entity_id: sensor.afvalwijzer_van*
               include:
                 - entity_id: sensor.afvalwijzer_*
-                  options:
-                    format: date
             sort:
               method: state
         type: vertical-stack

@@ -44,6 +44,7 @@
 
 - platform: group
   name: Living Room Lights
+  unique_id: living_room_lights
   entities:
     - light.living_room_ceiling
 
@@ -65,9 +66,12 @@
     - light.bathroom_ceiling
 
 - platform: group
-  name: Hallway lights
+  name: Hallway Lights
+  unique_id: hallway_lights
   entities:
-    - light.hallway
+    - light.entrance_hallway_1
+    - light.entrance_hallway_2
+    - light.entrance_hallway_3
 
 - platform: group
   name: Staircase lights
