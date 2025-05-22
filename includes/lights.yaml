@@ -70,8 +70,8 @@
   unique_id: hallway_lights
   entities:
     - light.entrance_hallway_1
-    # - light.entrance_hallway_2
-    # - light.entrance_hallway_3
+    - light.entrance_hallway_2
+    - light.entrance_hallway_3
 
 - platform: group
   name: Staircase lights

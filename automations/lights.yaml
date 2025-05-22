@@ -293,42 +293,38 @@
         transition: 1
 
 # Living Room
-- alias: "Light: turn on living room if motion"
-  trigger:
-    platform: state
-    entity_id: binary_sensor.activity_in_living_room
-    to: "on"
+# - alias: "Light: turn on living room if motion"
+#   trigger:
+#     platform: state
+#     entity_id: binary_sensor.activity_in_living_room
+#     to: "on"
 
-  condition:
-    - condition: state
-      entity_id: input_boolean.automatic_lights
-      state: "on"
-    - condition: state
-      entity_id: input_select.sleep_mode
-      state: "off"
-  action:
-    - service: light.turn_on
-      data:
-        entity_id: light.living_room_lights
-        transition: 1
+#   condition:
+#     - condition: state
+#       entity_id: input_boolean.automatic_lights
+#       state: "on"
+#     - condition: state
+#       entity_id: input_select.sleep_mode
+#       state: "off"
+#   action:
+#     - service: light.turn_on
+#       data:
+#         entity_id: light.living_room_lights
+#         transition: 1
 
-- alias: "Light: turn off living room if no upstairs motion"
-  trigger:
-    platform: state
-    entity_id: binary_sensor.activity_in_living_room
-    to: "off"
-  condition:
-    - condition: state
-      entity_id: input_boolean.automatic_lights
-      state: "on"
-    - condition: state
-      entity_id: binary_sensor.activity_upstairs
-      state: "off"
-  action:
-    - service: light.turn_off
-      data:
-        entity_id: light.living_room_lights
-        # transition: 1
+- id: 'motion_light_living_room_with_lux'
+  alias: "Light: Turn on living room lights only when dark"
+  use_blueprint:
+    path: motion/motion_light_lux.yaml
+    input:
+      motion_entity: binary_sensor.living_room_motion
+      light_sensor: sensor.living_room_illuminance
+      illuminance_threshold: 75
+      light_target:
+        entity_id:
+          - light.living_room_lights
+      no_motion_wait: "00:20:00"
+      adaptive_switch: switch.adaptive_lighting_living_room
 
 # Hallway
 # - alias: "Light: turn on hallway"
@@ -351,6 +347,7 @@
 #         - light.hallway_lights
 #         - light.staircase_lights
 #       transition: 1
+
 - id: 'motion_light_hallway_with_lux'
   alias: "Light: Turn on hallway lights only when dark"
   use_blueprint:
@@ -363,6 +360,7 @@
         entity_id:
           - light.hallway_lights
       no_motion_wait: 180
+      adaptive_switch: switch.adaptive_lighting_hallway
 
 - alias: "Light: turn off hallway"
   trigger:

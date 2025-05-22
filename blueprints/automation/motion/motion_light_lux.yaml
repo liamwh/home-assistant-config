@@ -1,10 +1,11 @@
 blueprint:
-  name: Motion-activated Light with Ambient Lux Check
+  name: Motion-activated Light with Ambient Lux & Adaptive Lighting
   description: >
     Turn on a light when motion is detected - but only if ambient
-    illuminance is below your configured threshold.
+    illuminance is below your configured threshold. Uses Adaptive
+    Lighting by default, with a fallback to a plain light.turn_on.
   domain: automation
-  source_url: https://github.com/your-repo/blueprints/motion_light_lux.yaml
+  source_url: https://github.com/liamwh/blueprints/motion_light_lux_adaptive.yaml
 
   input:
     motion_entity:
@@ -24,9 +25,6 @@ blueprint:
 
     illuminance_threshold:
       name: Lux Threshold
-      description: >
-        Maximum lux at which the light will turn on.
-        If the reading is below this number, the light can switch on.
       default: 50
       selector:
         number:
@@ -35,20 +33,42 @@ blueprint:
           unit_of_measurement: lx
 
     light_target:
-      name: Light
+      name: Light Target
       selector:
         target:
           entity:
             domain: light
 
     no_motion_wait:
-      name: Wait time
-      description: Time to leave the light on after last motion
+      name: Wait Time (seconds)
       default: 120
       selector:
         number:
           min: 0
           max: 3600
+          unit_of_measurement: seconds
+
+    use_adaptive:
+      name: Use Adaptive Lighting
+      description: If enabled, calls adaptive_lighting.apply. Otherwise falls back to light.turn_on.
+      default: true
+      selector:
+        boolean: {}
+
+    adaptive_switch:
+      name: Adaptive Lighting Switch
+      description: The switch entity created by your Adaptive Lighting configuration.
+      selector:
+        entity:
+          domain: switch
+
+    transition_time:
+      name: Transition Time (seconds)
+      default: 1
+      selector:
+        number:
+          min: 0
+          max: 6553
           unit_of_measurement: seconds
 
 mode: restart
@@ -68,10 +88,20 @@ condition:
     entity_id: input_boolean.automatic_lights
     state: "on"
 
-
 action:
-  - service: light.turn_on
-    target: !input light_target
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ not input.use_adaptive }}"
+        sequence:
+          - service: light.turn_on
+            target: !input light_target
+    default:
+      - service: adaptive_lighting.apply
+        data:
+          entity_id: !input adaptive_switch
+          lights: !input light_target.entity_id
+          transition: !input transition_time
 
   - wait_for_trigger:
       platform: state
