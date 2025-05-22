@@ -60,11 +60,14 @@ trigger:
     from: "off"
     to: "on"
 
-# Guard clause: only proceed if it's dark enough
 condition:
   - condition: numeric_state
     entity_id: !input light_sensor
     below: !input illuminance_threshold
+  - condition: state
+    entity_id: input_boolean.automatic_lights
+    state: "on"
+
 
 action:
   - service: light.turn_on

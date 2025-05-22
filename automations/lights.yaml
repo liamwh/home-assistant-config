@@ -331,25 +331,38 @@
         # transition: 1
 
 # Hallway
-- alias: "Light: turn on hallway"
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.activity_in_hallway
-      to: "on"
-    - platform: state
-      entity_id: binary_sensor.hallway_motion
-      to: "on"
-  condition:
-    - condition: state
-      entity_id: input_boolean.automatic_lights
-      state: "on"
-  action:
-    service: light.turn_on
-    data:
-      entity_id:
-        - light.hallway_lights
-        - light.staircase_lights
-      transition: 1
+# - alias: "Light: turn on hallway"
+#   unique_id: hallway_lights_motion
+#   trigger:
+#     - platform: state
+#       entity_id: binary_sensor.activity_in_hallway
+#       to: "on"
+#     - platform: state
+#       entity_id: binary_sensor.hallway_motion
+#       to: "on"
+#   condition:
+#     - condition: state
+#       entity_id: input_boolean.automatic_lights
+#       state: "on"
+#   action:
+#     service: light.turn_on
+#     data:
+#       entity_id:
+#         - light.hallway_lights
+#         - light.staircase_lights
+#       transition: 1
+- id: 'motion_light_hallway_with_lux'
+  alias: "Light: Turn on hallway lights only when dark"
+  use_blueprint:
+    path: motion/motion_light_lux.yaml
+    input:
+      motion_entity: binary_sensor.hallway_motion
+      light_sensor: sensor.hallway_illuminance
+      illuminance_threshold: 75
+      light_target:
+        entity_id:
+          - light.hallway_lights
+      no_motion_wait: 180
 
 - alias: "Light: turn off hallway"
   trigger:
