@@ -100,7 +100,7 @@ action:
       - service: adaptive_lighting.apply
         data:
           entity_id: !input adaptive_switch
-          lights: !input light_target.entity_id
+          lights: !input light_target
           transition: !input transition_time
 
   - wait_for_trigger:
