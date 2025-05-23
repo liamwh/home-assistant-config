@@ -1,27 +1,27 @@
 ---
 # Bedroom
-- alias: "Light: automatically turn on the bedroom"
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.activity_in_bedroom
-      to: "on"
-    - platform: state
-      entity_id: binary_sensor.motion_sensor_bedroom
-      to: "on"
-  condition:
-    - condition: state
-      entity_id: input_select.sleep_mode
-      state: "off"
-    - condition: state
-      entity_id: input_boolean.automatic_bedroom_lights
-      state: "on"
-  action:
-    - service: light.turn_on
-      entity_id: light.bedroom_lights
-      data:
-        transition: 2
-    - service: input_boolean.turn_on
-      entity_id: input_boolean.bedroom_lights_automatically_turned_on
+# - alias: "Light: automatically turn on the bedroom"
+#   trigger:
+#     - platform: state
+#       entity_id: binary_sensor.activity_in_bedroom
+#       to: "on"
+#     - platform: state
+#       entity_id: binary_sensor.motion_sensor_bedroom
+#       to: "on"
+#   condition:
+#     - condition: state
+#       entity_id: input_select.sleep_mode
+#       state: "off"
+#     - condition: state
+#       entity_id: input_boolean.automatic_bedroom_lights
+#       state: "on"
+#   action:
+#     - service: light.turn_on
+#       entity_id: light.bedroom_lights
+#       data:
+#         transition: 2
+#     - service: input_boolean.turn_on
+#       entity_id: input_boolean.bedroom_lights_automatically_turned_on
 
 - alias: "Light: turn on automatic_bedroom_lights switch"
   trigger:
@@ -52,28 +52,28 @@
     data:
       entity_id: light.bedroom_lights
 
-- alias: "Light: automatically turn off the bedroom"
-  initial_state: "on"
-  trigger:
-    platform: state
-    entity_id: binary_sensor.activity_in_bedroom
-    to: "off"
-    for: "00:15:00"
-  condition:
-    - condition: state
-      entity_id: input_boolean.bedroom_lights_automatically_turned_on
-      state: "on"
-    - condition: state
-      entity_id: light.bedroom_lights
-      state: "on"
-    - condition: state
-      entity_id: input_boolean.automatic_bedroom_lights
-      state: "on"
-  action:
-    service: light.turn_off
-    entity_id: light.bedroom_lights
-    # data:
-    #   transition: 10
+# - alias: "Light: automatically turn off the bedroom"
+#   initial_state: "on"
+#   trigger:
+#     platform: state
+#     entity_id: binary_sensor.activity_in_bedroom
+#     to: "off"
+#     for: "00:15:00"
+#   condition:
+#     - condition: state
+#       entity_id: input_boolean.bedroom_lights_automatically_turned_on
+#       state: "on"
+#     - condition: state
+#       entity_id: light.bedroom_lights
+#       state: "on"
+#     - condition: state
+#       entity_id: input_boolean.automatic_bedroom_lights
+#       state: "on"
+#   action:
+#     service: light.turn_off
+#     entity_id: light.bedroom_lights
+#     # data:
+#     #   transition: 10
 
 - alias: "Light: turn off bedroom lights auto switch"
   mode: parallel
@@ -90,21 +90,21 @@
     entity_id: input_boolean.bedroom_lights_automatically_turned_on
 
 # Toilet
-- alias: "Light: turn on toilet"
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.activity_in_toilet
-      from: "off"
-      to: "on"
-    - platform: state
-      entity_id: binary_sensor.motion_sensor_toilet
-      from: "off"
-      to: "on"
-  condition: "{{ is_state('light.toilet_lights', 'off') }}"
-  action:
-    service: light.turn_on
-    data:
-      entity_id: light.toilet_lights
+# - alias: "Light: turn on toilet"
+#   trigger:
+#     - platform: state
+#       entity_id: binary_sensor.activity_in_toilet
+#       from: "off"
+#       to: "on"
+#     - platform: state
+#       entity_id: binary_sensor.motion_sensor_toilet
+#       from: "off"
+#       to: "on"
+#   condition: "{{ is_state('light.toilet_lights', 'off') }}"
+#   action:
+#     service: light.turn_on
+#     data:
+#       entity_id: light.toilet_lights
 
 - alias: "Light: Turn on Toilet light when state changes from unavailable"
   description: "Sets the toilet light to on when it becomes available."
@@ -175,17 +175,17 @@
         manual_control: false
   mode: single
 
-- alias: "Light: turn off toilet after 5 minutes of inactivity"
-  trigger:
-    platform: state
-    entity_id: binary_sensor.activity_in_toilet
-    from: "on"
-    to: "off"
-  condition: "{{ is_state('light.toilet_lights', 'on') }}"
-  action:
-    service: light.turn_off
-    data:
-      entity_id: light.toilet_lights
+# - alias: "Light: turn off toilet after 5 minutes of inactivity"
+#   trigger:
+#     platform: state
+#     entity_id: binary_sensor.activity_in_toilet
+#     from: "on"
+#     to: "off"
+#   condition: "{{ is_state('light.toilet_lights', 'on') }}"
+#   action:
+#     service: light.turn_off
+#     data:
+#       entity_id: light.toilet_lights
 
 - alias: "Light: turn off toilet (extra check)"
   description: In case the other automation failed
@@ -204,71 +204,71 @@
     entity_id: light.toilet_lights
 
 # Bathroom
-- alias: "Light: turn on bathroom if motion"
-  trigger:
-    platform: state
-    entity_id: binary_sensor.activity_in_bathroom
-    to: "on"
-  condition:
-    - condition: state
-      entity_id: input_boolean.automatic_lights
-      state: "on"
-  action:
-    service: light.turn_on
-    data:
-      entity_id: light.bathroom_lights
-      transition: 1
+# - alias: "Light: turn on bathroom if motion"
+#   trigger:
+#     platform: state
+#     entity_id: binary_sensor.activity_in_bathroom
+#     to: "on"
+#   condition:
+#     - condition: state
+#       entity_id: input_boolean.automatic_lights
+#       state: "on"
+#   action:
+#     service: light.turn_on
+#     data:
+#       entity_id: light.bathroom_lights
+#       transition: 1
 
-- alias: "Light: turn off bathroom"
-  trigger:
-    platform: state
-    entity_id: binary_sensor.activity_in_bathroom
-    to: "off"
-  condition:
-    - condition: state
-      entity_id: input_boolean.automatic_lights
-      state: "on"
-  action:
-    service: light.turn_off
-    data:
-      entity_id: light.bathroom_lights
-      # transition: 1
+# - alias: "Light: turn off bathroom"
+#   trigger:
+#     platform: state
+#     entity_id: binary_sensor.activity_in_bathroom
+#     to: "off"
+#   condition:
+#     - condition: state
+#       entity_id: input_boolean.automatic_lights
+#       state: "on"
+#   action:
+#     service: light.turn_off
+#     data:
+#       entity_id: light.bathroom_lights
+#       # transition: 1
 
 # Kitchen
-- alias: "Light: turn on kitchen if motion"
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.activity_in_kitchen
-      to: "on"
-    - platform: state
-      entity_id: binary_sensor.motion_sensor_kitchen
-      to: "on"
-  condition:
-    - condition: state
-      entity_id: input_boolean.automatic_lights
-      state: "on"
-    - condition: template
-      value_template: "{{ state_attr('switch.adaptive_lighting_kitchen', 'manual_control') | length == 0 }}"
-  action:
-    - service: light.turn_on
-      data:
-        entity_id: light.kitchen_lights
-        transition: 1
+# - alias: "Light: turn on kitchen if motion"
+#   trigger:
+#     - platform: state
+#       entity_id: binary_sensor.activity_in_kitchen
+#       to: "on"
+#     - platform: state
+#       entity_id: binary_sensor.motion_sensor_kitchen
+#       to: "on"
+#   condition:
+#     - condition: state
+#       entity_id: input_boolean.automatic_lights
+#       state: "on"
+#     - condition: template
+#       value_template: "{{ state_attr('switch.adaptive_lighting_kitchen', 'manual_control') | length == 0 }}"
+#   action:
+#     - service: light.turn_on
+#       data:
+#         entity_id: light.kitchen_lights
+#         transition: 1
 
-- alias: "Light: turn off kitchen"
-  trigger:
-    platform: state
-    entity_id: binary_sensor.activity_in_kitchen
-    to: "off"
-  condition:
-    - condition: state
-      entity_id: input_boolean.automatic_lights
-      state: "on"
-  action:
-    - service: light.turn_off
-      data:
-        entity_id: light.kitchen_lights
-        # transition: 1
+# - alias: "Light: turn off kitchen"
+#   trigger:
+#     platform: state
+#     entity_id: binary_sensor.activity_in_kitchen
+#     to: "off"
+#   condition:
+#     - condition: state
+#       entity_id: input_boolean.automatic_lights
+#       state: "on"
+#   action:
+#     - service: light.turn_off
+#       data:
+#         entity_id: light.kitchen_lights
+#         # transition: 1
 
 # Upstairs
 - alias: "Light: turn on upstairs lights if motion upstairs or staircase"
@@ -447,3 +447,73 @@
       entity_id: light.bedroom_lights
     - service: light.turn_off
       entity_id: input_boolean.bedroom_lights_automatically_turned_on
+
+- id: 'motion_light_bedroom_with_lux'
+  alias: "Light: Turn on bedroom lights only when dark"
+  use_blueprint:
+    path: motion/motion_light_lux.yaml
+    input:
+      motion_entity: binary_sensor.activity_in_bedroom
+      light_sensor: sensor.bedroom_illuminance # ASSUMED
+      illuminance_threshold: 75
+      light_target:
+        entity_id:
+          - light.bedroom_lights
+      no_motion_wait: 900 # 15 minutes
+      adaptive_switch: switch.adaptive_lighting_bedroom
+
+- id: 'motion_light_bathroom_with_lux'
+  alias: "Light: Turn on bathroom lights only when dark"
+  use_blueprint:
+    path: motion/motion_light_lux.yaml
+    input:
+      motion_entity: binary_sensor.activity_in_bathroom
+      light_sensor: sensor.bathroom_illuminance # ASSUMED
+      illuminance_threshold: 75
+      light_target:
+        entity_id:
+          - light.bathroom_lights
+      no_motion_wait: 300 # 5 minutes
+      adaptive_switch: switch.adaptive_lighting_bathroom
+
+- id: 'motion_light_kitchen_with_lux'
+  alias: "Light: Turn on kitchen lights only when dark"
+  use_blueprint:
+    path: motion/motion_light_lux.yaml
+    input:
+      motion_entity: binary_sensor.activity_in_kitchen
+      light_sensor: sensor.kitchen_illuminance # ASSUMED
+      illuminance_threshold: 75
+      light_target:
+        entity_id:
+          - light.kitchen_lights
+      no_motion_wait: 600 # 10 minutes
+      adaptive_switch: switch.adaptive_lighting_kitchen
+
+- id: 'motion_light_toilet_with_lux'
+  alias: "Light: Turn on toilet lights only when dark"
+  use_blueprint:
+    path: motion/motion_light_lux.yaml
+    input:
+      motion_entity: binary_sensor.activity_in_toilet
+      light_sensor: sensor.toilet_illuminance # ASSUMED
+      illuminance_threshold: 75
+      light_target:
+        entity_id:
+          - light.toilet_lights
+      no_motion_wait: 300 # 5 minutes
+      adaptive_switch: switch.adaptive_lighting_toilet
+
+# - id: 'motion_light_pantry_with_lux'
+#   alias: "Light: Turn on pantry lights only when dark"
+#   use_blueprint:
+#     path: motion/motion_light_lux.yaml
+#     input:
+#       motion_entity: binary_sensor.pantry_motion # ASSUMED
+#       light_sensor: sensor.pantry_illuminance # ASSUMED
+#       illuminance_threshold: 75
+#       light_target:
+#         entity_id:
+#           - light.pantry_lights
+#       no_motion_wait: 300 # 5 minutes
+#       adaptive_switch: switch.adaptive_lighting_pantry
