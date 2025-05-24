@@ -11,6 +11,8 @@ resync_lights:
           - switch.adaptive_lighting_bathroom
           - switch.adaptive_lighting_bedroom
           - switch.adaptive_lighting_kitchen
+          # - switch.adaptive_lighting_walk_in_wardrobe
+          # - switch.adaptive_lighting_gym_room
         manual_control: false
 
 message_blood_sugar:

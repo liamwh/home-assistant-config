@@ -379,20 +379,20 @@
         - light.hallway_lights
         - light.staircase_lights
 
-- alias: "Light: turn on living room if motion (backup automation)"
-  trigger:
-    platform: state
-    entity_id: binary_sensor.living_room_motion
-    to: "on"
-  condition:
-    - condition: state
-      entity_id: input_boolean.automatic_lights
-      state: "on"
-  action:
-    service: light.turn_on
-    data:
-      entity_id: light.living_room_lights
-      transition: 1
+# - alias: "Light: turn on living room if motion (backup automation)"
+#   trigger:
+#     platform: state
+#     entity_id: binary_sensor.living_room_motion
+#     to: "on"
+#   condition:
+#     - condition: state
+#       entity_id: input_boolean.automatic_lights
+#       state: "on"
+#   action:
+#     service: light.turn_on
+#     data:
+#       entity_id: light.living_room_lights
+#       transition: 1
 
 # Extra checks
 - alias: "Light: turn off living room (extra check)"
@@ -517,3 +517,31 @@
 #           - light.pantry_lights
 #       no_motion_wait: 300 # 5 minutes
 #       adaptive_switch: switch.adaptive_lighting_pantry
+
+# - id: 'motion_light_gym_room_with_lux'
+#   alias: "Light: Turn on Gym Room lights only when dark"
+#   use_blueprint:
+#     path: motion/motion_light_lux.yaml
+#     input:
+#       motion_entity: binary_sensor.gym_room_motion # ASSUMED
+#       light_sensor: sensor.gym_room_illuminance # ASSUMED
+#       illuminance_threshold: 75
+#       light_target:
+#         entity_id:
+#           - light.gym_ceiling
+#       no_motion_wait: 300 # 5 minutes
+#       adaptive_switch: switch.adaptive_lighting_gym_room # ASSUMED
+
+# - id: 'motion_light_walk_in_wardrobe_with_lux'
+#   alias: "Light: Turn on Walk-in Wardrobe lights only when dark"
+#   use_blueprint:
+#     path: motion/motion_light_lux.yaml
+#     input:
+#       motion_entity: binary_sensor.walk_in_wardrobe_motion # ASSUMED
+#       light_sensor: sensor.walk_in_wardrobe_illuminance # ASSUMED
+#       illuminance_threshold: 75
+#       light_target:
+#         entity_id:
+#           - light.walk_in_wardrobe_ceiling
+#       no_motion_wait: 300 # 5 minutes
+#       adaptive_switch: switch.adaptive_lighting_walk_in_wardrobe # ASSUMED
