@@ -106,6 +106,16 @@ views:
             title: Ground Floor
             type: entities
             entities:
+              - entity: light.living_room_lights
+                name: Living
+                icon: mdi:sofa
+                type: custom:slider-entity-row
+                toggle: true
+              - entity: light.dining_table
+                name: Dining
+                icon: phu:rooms-dining
+                type: custom:slider-entity-row
+                toggle: true
               - type: custom:fold-entity-row
                 head:
                   entity: light.kitchen_spots
@@ -118,11 +128,6 @@ views:
                   - light.kitchen_spot_lower_right
                   - light.kitchen_spot_upper_left
                   - light.kitchen_spot_upper_right
-              - entity: light.living_room_lights
-                name: Living
-                icon: mdi:sofa
-                type: custom:slider-entity-row
-                toggle: true
               - type: custom:fold-entity-row
                 head:
                   name: Hallway
