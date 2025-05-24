@@ -355,7 +355,7 @@
     input:
       motion_entity: binary_sensor.hallway_motion
       light_sensor: sensor.hallway_illuminance
-      illuminance_threshold: 75
+      illuminance_threshold: 4500
       light_target: light.hallway_lights
       no_motion_wait: 180
       adaptive_switch: switch.adaptive_lighting_hallway
