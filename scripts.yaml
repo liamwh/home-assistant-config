@@ -1,19 +1,37 @@
 ---
+# Script: Resync lights with sun
+# Only clears manual control on adaptive_lighting switches that are currently on.
+# Leaves any switches that are off untouched.
 resync_lights:
   alias: Resync lights with sun
+  variables:
+    # List all your adaptive lighting switches here
+    al_switches:
+      - switch.adaptive_lighting_hallway
+      - switch.adaptive_lighting_pantry
+      - switch.adaptive_lighting_living_room
+      - switch.adaptive_lighting_bathroom
+      - switch.adaptive_lighting_bedroom
+      - switch.adaptive_lighting_kitchen
+    # Filter to only those switches whose state is “on”
+    on_switches: >-
+      {{ [ e for e in al_switches if is_state(e, 'on') ] }}
   sequence:
-    - service: adaptive_lighting.set_manual_control
-      data:
-        entity_id:
-          - switch.adaptive_lighting_hallway
-          - switch.adaptive_lighting_pantry
-          - switch.adaptive_lighting_living_room
-          - switch.adaptive_lighting_bathroom
-          - switch.adaptive_lighting_bedroom
-          - switch.adaptive_lighting_kitchen
-          # - switch.adaptive_lighting_walk_in_wardrobe
-          # - switch.adaptive_lighting_gym_room
-        manual_control: false
+    # Guard: if no switches are on, do nothing (and log)
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ on_switches | length > 0 }}"
+          sequence:
+            # Clear manual_control only on the switches that are currently on
+            - service: adaptive_lighting.set_manual_control
+              data:
+                entity_id: "{{ on_switches }}"
+                manual_control: false
+      default:
+        - service: system_log.write
+          data:
+            message: "resync_lights: no adaptive_lighting switches are currently on—skipping."
 
 message_blood_sugar:
   alias: Message blood sugar
