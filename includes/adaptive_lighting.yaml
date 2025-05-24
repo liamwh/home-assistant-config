@@ -2,7 +2,7 @@
 - name: Living room
   lights:
     - light.living_room_lights
-  min_brightness: 50
+  min_brightness: 25
   max_brightness: 75
   sleep_brightness: 10
   prefer_rgb_color: true
