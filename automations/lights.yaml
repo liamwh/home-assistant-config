@@ -270,28 +270,6 @@
 #         entity_id: light.kitchen_lights
 #         # transition: 1
 
-# Upstairs
-- alias: "Light: turn on upstairs lights if motion upstairs or staircase"
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.activity_upstairs
-      to: "on"
-    - platform: state
-      entity_id: binary_sensor.activity_on_staircase
-      to: "on"
-  condition:
-    - condition: state
-      entity_id: binary_sensor.activity_upstairs
-      state: "false"
-    - condition: state
-      entity_id: input_boolean.automatic_lights
-      state: "on"
-  action:
-    - service: light.turn_on
-      data:
-        entity_id: light.upstairs_lights
-        transition: 1
-
 # Living Room
 # - alias: "Light: turn on living room if motion"
 #   trigger:
@@ -466,7 +444,6 @@
 - !include lights/toilet.yaml
 - !include lights/hallway.yaml
 - !include lights/bathroom.yaml
-- !include lights/upstairs.yaml
 - !include lights/living_room.yaml
 - !include lights/kitchen.yaml
 - !include lights/general.yaml
