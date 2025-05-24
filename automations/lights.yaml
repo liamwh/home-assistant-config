@@ -319,10 +319,8 @@
     input:
       motion_entity: binary_sensor.living_room_motion
       light_sensor: sensor.living_room_illuminance
-      illuminance_threshold: 75
-      light_target:
-        entity_id:
-          - light.living_room_lights
+      illuminance_threshold: 4500
+      light_target: light.living_room_lights
       no_motion_wait: 1200
       adaptive_switch: switch.adaptive_lighting_living_room
 
@@ -453,10 +451,8 @@
     input:
       motion_entity: binary_sensor.activity_in_bedroom
       light_sensor: sensor.bedroom_illuminance # ASSUMED
-      illuminance_threshold: 75
-      light_target:
-        entity_id:
-          - light.bedroom_lights
+      illuminance_threshold: 4500
+      light_target: light.bedroom_lights
       no_motion_wait: 900 # 15 minutes
       adaptive_switch: switch.adaptive_lighting_bedroom
 
@@ -467,10 +463,8 @@
     input:
       motion_entity: binary_sensor.activity_in_bathroom
       light_sensor: sensor.bathroom_illuminance # ASSUMED
-      illuminance_threshold: 75
-      light_target:
-        entity_id:
-          - light.bathroom_lights
+      illuminance_threshold: 4500
+      light_target: light.bathroom_lights
       no_motion_wait: 300 # 5 minutes
       adaptive_switch: switch.adaptive_lighting_bathroom
 
@@ -481,10 +475,8 @@
     input:
       motion_entity: binary_sensor.activity_in_kitchen
       light_sensor: sensor.kitchen_illuminance # ASSUMED
-      illuminance_threshold: 75
-      light_target:
-        entity_id:
-          - light.kitchen_lights
+      illuminance_threshold: 4500
+      light_target: light.kitchen_lights
       no_motion_wait: 600 # 10 minutes
       adaptive_switch: switch.adaptive_lighting_kitchen
 
@@ -495,10 +487,8 @@
     input:
       motion_entity: binary_sensor.activity_in_toilet
       light_sensor: sensor.toilet_illuminance # ASSUMED
-      illuminance_threshold: 75
-      light_target:
-        entity_id:
-          - light.toilet_lights
+      illuminance_threshold: 4500
+      light_target: light.toilet_lights
       no_motion_wait: 300 # 5 minutes
       adaptive_switch: switch.adaptive_lighting_toilet
 
