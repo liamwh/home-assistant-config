@@ -1,0 +1,71 @@
+- id: 'motion_light_living_room_with_lux'
+  alias: "Light: Turn on living room lights only when dark"
+  use_blueprint:
+    path: motion/motion_light_lux.yaml
+    input:
+      motion_entity: binary_sensor.living_room_motion
+      light_sensor: sensor.living_room_illuminance
+      illuminance_threshold: 4500
+      light_target: light.living_room_lights
+      no_motion_wait: 1200
+      adaptive_switch: switch.adaptive_lighting_living_room
+
+- id: 'motion_light_hallway_with_lux'
+  alias: "Light: Turn on hallway lights only when dark"
+  use_blueprint:
+    path: motion/motion_light_lux.yaml
+    input:
+      motion_entity: binary_sensor.hallway_motion
+      light_sensor: sensor.hallway_illuminance
+      illuminance_threshold: 4500
+      light_target: light.hallway_lights
+      no_motion_wait: 180
+      adaptive_switch: switch.adaptive_lighting_hallway
+
+- id: 'motion_light_bedroom_with_lux'
+  alias: "Light: Turn on bedroom lights only when dark"
+  use_blueprint:
+    path: motion/motion_light_lux.yaml
+    input:
+      motion_entity: binary_sensor.activity_in_bedroom
+      light_sensor: sensor.bedroom_illuminance
+      illuminance_threshold: 4500
+      light_target: light.bedroom_lights
+      no_motion_wait: 900 # 15 minutes
+      adaptive_switch: switch.adaptive_lighting_bedroom
+
+- id: 'motion_light_bathroom_with_lux'
+  alias: "Light: Turn on bathroom lights only when dark"
+  use_blueprint:
+    path: motion/motion_light_lux.yaml
+    input:
+      motion_entity: binary_sensor.activity_in_bathroom
+      light_sensor: sensor.bathroom_illuminance
+      illuminance_threshold: 4500
+      light_target: light.bathroom_lights
+      no_motion_wait: 300 # 5 minutes
+      adaptive_switch: switch.adaptive_lighting_bathroom
+
+- id: 'motion_light_kitchen_with_lux'
+  alias: "Light: Turn on kitchen lights only when dark"
+  use_blueprint:
+    path: motion/motion_light_lux.yaml
+    input:
+      motion_entity: binary_sensor.activity_in_kitchen
+      light_sensor: sensor.kitchen_illuminance
+      illuminance_threshold: 4500
+      light_target: light.kitchen_lights
+      no_motion_wait: 600 # 10 minutes
+      adaptive_switch: switch.adaptive_lighting_kitchen
+
+- id: 'motion_light_toilet_with_lux'
+  alias: "Light: Turn on toilet lights only when dark"
+  use_blueprint:
+    path: motion/motion_light_lux.yaml
+    input:
+      motion_entity: binary_sensor.activity_in_toilet
+      light_sensor: sensor.toilet_illuminance
+      illuminance_threshold: 4500
+      light_target: light.toilet_lights
+      no_motion_wait: 300 # 5 minutes
+      adaptive_switch: switch.adaptive_lighting_toilet

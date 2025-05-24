@@ -1,0 +1,7 @@
+- alias: "Light: turn on automatic_lights switch"
+  trigger:
+    platform: time
+    at: "12:00"
+  action:
+    entity_id: input_boolean.automatic_lights
+    service: input_boolean.turn_on

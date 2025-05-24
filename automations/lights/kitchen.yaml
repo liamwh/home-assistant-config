@@ -1,0 +1,38 @@
+- alias: "Light: Turn on Kitchen Lights when state changes from unavailable"
+  description: "Sets the Kitchen Lights to on when it becomes available."
+  trigger:
+    - platform: state
+      entity_id: light.kitchen_lights
+      from: "unavailable"
+    - platform: state
+      entity_id: light.kitchen_lights
+      from: "unknown"
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.kitchen_lights
+      data:
+        brightness: 255
+        color_temp_kelvin: 6500
+    - service: adaptive_lighting.set_manual_control
+      data:
+        entity_id:
+          - switch.adaptive_lighting_kitchen
+        manual_control: false
+  mode: single
+
+- alias: "Light: turn off kitchen (extra check)"
+  description: In case the other automation failed
+  trigger:
+    platform: time_pattern
+    minutes: "0"
+  condition:
+    - condition: state
+      entity_id: binary_sensor.activity_upstairs
+      state: "off"
+    - condition: state
+      entity_id: light.kitchen_lights
+      state: "on"
+  action:
+    service: light.turn_off
+    entity_id: light.kitchen_lights

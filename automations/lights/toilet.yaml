@@ -1,0 +1,38 @@
+- alias: "Light: Turn on Toilet light when state changes from unavailable"
+  description: "Sets the toilet light to on when it becomes available."
+  trigger:
+    - platform: state
+      entity_id: light.toilet_lights
+      from: "unavailable"
+    - platform: state
+      entity_id: light.toilet_lights
+      from: "unknown"
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.toilet_lights
+      data:
+        brightness: 255
+        color_temp_kelvin: 6500
+    - service: adaptive_lighting.set_manual_control
+      data:
+        entity_id:
+          - switch.adaptive_lighting_toilet
+        manual_control: false
+  mode: single
+
+- alias: "Light: turn off toilet (extra check)"
+  description: In case the other automation failed
+  trigger:
+    platform: time_pattern
+    minutes: "/15"
+  condition:
+    - condition: state
+      entity_id: binary_sensor.activity_in_toilet
+      state: "off"
+    - condition: state
+      entity_id: light.toilet_lights
+      state: "on"
+  action:
+    service: light.turn_off
+    entity_id: light.toilet_lights

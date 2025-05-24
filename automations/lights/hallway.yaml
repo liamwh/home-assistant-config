@@ -1,0 +1,39 @@
+- alias: "Light: Turn on Hallway Lights when state changes from unavailable"
+  description: "Sets the Hallway Lights to on when it becomes available."
+  trigger:
+    - platform: state
+      entity_id: light.hallway_lights
+      from: "unavailable"
+    - platform: state
+      entity_id: light.hallway_lights
+      from: "unknown"
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.hallway_lights
+      data:
+        brightness: 255
+        color_temp_kelvin: 6500
+    - service: adaptive_lighting.set_manual_control
+      data:
+        entity_id:
+          - switch.adaptive_lighting_hallway
+        manual_control: false
+  mode: single
+
+- alias: "Light: turn off hallway"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.activity_in_hallway
+    from: "on"
+    to: "off"
+  condition:
+    - condition: state
+      entity_id: input_boolean.automatic_lights
+      state: "on"
+  action:
+    service: light.turn_off
+    data:
+      entity_id:
+        - light.hallway_lights
+        - light.staircase_lights
