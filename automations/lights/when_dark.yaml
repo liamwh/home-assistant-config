@@ -3,7 +3,7 @@
   use_blueprint:
     path: motion/motion_light_lux.yaml
     input:
-      motion_entity: binary_sensor.living_room_motion
+      motion_entity: binary_sensor.activity_in_living_room
       light_sensor: sensor.living_room_illuminance
       illuminance_threshold: 4500
       light_target: light.living_room_lights
@@ -15,7 +15,7 @@
   use_blueprint:
     path: motion/motion_light_lux.yaml
     input:
-      motion_entity: binary_sensor.hallway_motion
+      motion_entity: binary_sensor.activity_in_hallway
       light_sensor: sensor.hallway_illuminance
       illuminance_threshold: 4500
       light_target: light.hallway_lights
