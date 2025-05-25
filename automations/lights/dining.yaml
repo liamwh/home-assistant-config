@@ -1,4 +1,4 @@
-- alias: "Light: turn off living room (extra check)"
+- alias: "Light: turn off dining room (extra check)"
   description: In case the other automation failed
   trigger:
     platform: time_pattern
@@ -8,8 +8,8 @@
       entity_id: binary_sensor.activity_in_living_room
       state: "off"
     - condition: state
-      entity_id: light.living_room_lights
+      entity_id: light.dining_room_lights
       state: "on"
   action:
     service: light.turn_off
-    entity_id: light.living_room_lights
+    entity_id: light.dining_room_lights

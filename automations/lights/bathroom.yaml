@@ -20,3 +20,27 @@
           - switch.adaptive_lighting_bathroom
         manual_control: false
   mode: single
+
+- alias: "Light: Turn on Bathroom light when state changes from unavailable"
+  description: "Sets the bathroom light to on when it becomes available."
+  trigger:
+    - platform: state
+      entity_id: light.bathroom_lights
+      from: "unavailable"
+    - platform: state
+      entity_id: light.bathroom_lights
+      from: "unknown"
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.bathroom_lights
+      data:
+        brightness: 255
+        color_temp_kelvin: 6500
+    - service: adaptive_lighting.set_manual_control
+      data:
+        entity_id:
+          - switch.adaptive_lighting_bathroom
+        manual_control: false
+  mode: single
+

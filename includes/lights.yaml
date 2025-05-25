@@ -40,7 +40,7 @@
 - platform: group
   name: Dining Room Lights
   entities:
-    - light.dining_room_ceiling
+    - light.dining_table
 
 - platform: group
   name: Living Room Lights

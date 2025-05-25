@@ -10,17 +10,6 @@
       no_motion_wait: 1200
       adaptive_switch: switch.adaptive_lighting_living_room
 
-- id: 'motion_light_hallway_with_lux'
-  alias: "Light: Turn on hallway lights only when dark"
-  use_blueprint:
-    path: motion/motion_light_lux.yaml
-    input:
-      motion_entity: binary_sensor.activity_in_hallway
-      light_sensor: sensor.hallway_illuminance
-      illuminance_threshold: 4500
-      light_target: light.hallway_lights
-      no_motion_wait: 180
-      adaptive_switch: switch.adaptive_lighting_hallway
 
 - id: 'motion_light_bedroom_with_lux'
   alias: "Light: Turn on bedroom lights only when dark"
