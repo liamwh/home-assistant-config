@@ -123,7 +123,7 @@
   min_brightness: 75
   max_brightness: 100
   sleep_brightness: 10
-  prefer_rgb_color: false # Often these lights are functional, not ambient
+  prefer_rgb_color: true
   detect_non_ha_changes: true
   interval: 30
   sunrise_time: "07:00:00"
