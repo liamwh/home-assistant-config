@@ -1,9 +1,9 @@
-- id: 'motion_light_staircase_with_lux'
+- id: "motion_light_staircase_with_lux"
   alias: "Light: Turn on staircase lights only when dark"
   use_blueprint:
     path: motion/motion_light_lux.yaml
     input:
-      motion_entity: binary_sensor.activity_in_staircase
+      motion_entity: binary_sensor.activity_on_staircase
       light_sensor: sensor.staircase_illuminance
       illuminance_threshold: 4500
       light_target: light.staircase_lights
