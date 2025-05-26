@@ -9,3 +9,4 @@
       light_target: light.staircase_lights
       no_motion_wait: 180
       adaptive_switch: switch.adaptive_lighting_staircase
+      use_adaptive: true
