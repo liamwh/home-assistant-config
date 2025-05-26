@@ -133,7 +133,7 @@
 - name: Staircase
   lights:
     - light.staircase_lights
-  min_brightness: 75
+  min_brightness: 25
   max_brightness: 100
   sleep_brightness: 10
   prefer_rgb_color: true
