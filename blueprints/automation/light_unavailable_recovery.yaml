@@ -1,0 +1,41 @@
+blueprint:
+  name: Light Unavailable Recovery
+  description: Turns on lights when they become available after being unavailable or unknown, and resets adaptive lighting manual control.
+  domain: automation
+  input:
+    light_entity:
+      name: Light Entity
+      description: The light entity to monitor and control
+      selector:
+        entity:
+          domain: light
+    adaptive_switch:
+      name: Adaptive Lighting Switch
+      description: The adaptive lighting switch to reset manual control for
+      selector:
+        entity:
+          domain: switch
+      default: null
+
+trigger:
+  - platform: state
+    entity_id: !input light_entity
+    from: "unavailable"
+  - platform: state
+    entity_id: !input light_entity
+    from: "unknown"
+
+action:
+  - service: light.turn_on
+    target:
+      entity_id: !input light_entity
+  - if:
+      - condition: template
+        value_template: "{{ adaptive_switch != none }}"
+    then:
+      - service: adaptive_lighting.set_manual_control
+        data:
+          entity_id: !input adaptive_switch
+          manual_control: false
+
+mode: single

@@ -10,3 +10,11 @@
       no_motion_wait: 180
       adaptive_switch: switch.adaptive_lighting_staircase
       use_adaptive: true
+
+- alias: "Light: Turn on staircase lights when state changes from unavailable"
+  use_blueprint:
+    path: light_unavailable_recovery.yaml
+    input:
+      light_entity: light.staircase_lights
+      adaptive_switch: switch.adaptive_lighting_staircase
+  mode: single
