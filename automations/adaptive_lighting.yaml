@@ -20,6 +20,7 @@
               - switch.adaptive_lighting_sleep_mode_bathroom
               - switch.adaptive_lighting_sleep_mode_toilet
               - switch.adaptive_lighting_sleep_mode_office
+              - switch.adaptive_lighting_sleep_mode_staircase
 
       - conditions: "{{ sleep_mode == 'half' }}"
         sequence:
@@ -36,6 +37,7 @@
               - switch.adaptive_lighting_sleep_mode_bathroom
               - switch.adaptive_lighting_sleep_mode_toilet
               - switch.adaptive_lighting_sleep_mode_office
+              - switch.adaptive_lighting_sleep_mode_staircase
 
       - conditions: "{{ sleep_mode == 'on' }}"
         sequence:
@@ -48,6 +50,7 @@
               - switch.adaptive_lighting_sleep_mode_bathroom
               - switch.adaptive_lighting_sleep_mode_toilet
               - switch.adaptive_lighting_sleep_mode_office
+              - switch.adaptive_lighting_sleep_mode_staircase
 
 - alias: "Adaptive lighting: reset manual_control after 1 hour"
   mode: parallel
