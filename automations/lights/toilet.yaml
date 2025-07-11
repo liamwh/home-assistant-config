@@ -17,6 +17,22 @@
         turn_on_lights: true
   mode: single
 
+- alias: "Light: Turn off toilet light on motion"
+  description: "Turns off the toilet light when motion is no longer detected."
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.activity_in_toilet
+      to: "off"
+  condition:
+    - condition: state
+      entity_id: light.toilet_lights
+      state: "on"
+  action:
+    - service: light.turn_off
+      target:
+        entity_id: light.toilet_lights
+  mode: single
+
 - alias: "Light: Turn on Toilet light when state changes from unavailable"
   description: "Sets the toilet light to on when it becomes available."
   trigger:
