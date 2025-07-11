@@ -1,3 +1,22 @@
+- alias: "Light: Turn on toilet light on motion"
+  description: "Turns on the toilet light when motion is detected and applies adaptive lighting."
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.activity_in_toilet
+      to: "on"
+  condition:
+    - condition: state
+      entity_id: light.toilet_lights
+      state: "off"
+  action:
+    - service: adaptive_lighting.apply
+      data:
+        entity_id: switch.adaptive_lighting_toilet
+        lights:
+          - light.toilet_lights
+        turn_on_lights: true
+  mode: single
+
 - alias: "Light: Turn on Toilet light when state changes from unavailable"
   description: "Sets the toilet light to on when it becomes available."
   trigger:
