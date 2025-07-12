@@ -2,7 +2,7 @@
   description: "Turns on the toilet light when motion is detected and applies adaptive lighting."
   trigger:
     - platform: state
-      entity_id: binary_sensor.activity_in_toilet
+      entity_id: binary_sensor.toilet_motion
       to: "on"
   condition:
     - condition: state
@@ -46,6 +46,29 @@
     - service: light.turn_on
       target:
         entity_id: light.toilet_lights
+      data:
+        brightness: 255
+        color_temp_kelvin: 6500
+    - service: adaptive_lighting.set_manual_control
+      data:
+        entity_id:
+          - switch.adaptive_lighting_toilet
+        manual_control: false
+  mode: single
+
+- alias: "Light: Turn on Toilet light when state changes from unavailable"
+  description: "Sets the toilet light to on when it becomes available."
+  trigger:
+    - platform: state
+      entity_id: light.toilet
+      from: "unavailable"
+    - platform: state
+      entity_id: light.toilet
+      from: "unknown"
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.toilet
       data:
         brightness: 255
         color_temp_kelvin: 6500
