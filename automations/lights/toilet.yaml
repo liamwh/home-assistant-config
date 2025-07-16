@@ -49,6 +49,11 @@
       data:
         brightness: 255
         color_temp_kelvin: 2700
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.toilet_activity_override
+    - delay: "00:00:05"
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.toilet_activity_override
   mode: single
 
 - alias: "Light: turn off toilet (extra check)"

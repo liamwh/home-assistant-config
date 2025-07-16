@@ -87,3 +87,7 @@ theme_alternative:
 dark_mode:
   name: Dark Mode
   icon: mdi:theme-light-dark
+
+toilet_activity_override:
+  name: Toilet Activity Override
+  initial: false

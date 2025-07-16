@@ -99,7 +99,8 @@
     activity_in_toilet:
       friendly_name: Activity in the toilet
       value_template: >
-        {{ is_state("binary_sensor.motion_sensor_toilet", "on") }}
+        {{ is_state("binary_sensor.motion_sensor_toilet", "on")
+           or is_state("input_boolean.toilet_activity_override", "on") }}
       delay_off: "00:03:00"
 
     activity_in_kitchen:
