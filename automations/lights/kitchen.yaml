@@ -25,10 +25,10 @@
   description: In case the other automation failed
   trigger:
     platform: time_pattern
-    minutes: "0"
+    minutes: "/15"
   condition:
     - condition: state
-      entity_id: binary_sensor.activity_upstairs
+      entity_id: binary_sensor.activity_on_ground_floor
       state: "off"
     - condition: state
       entity_id: light.kitchen_lights
