@@ -77,7 +77,6 @@ max_exceeded: silent
 trigger:
   - platform: state
     entity_id: !input motion_entity
-    from: "off"
     to: "on"
 
 condition:
@@ -85,6 +84,9 @@ condition:
     entity_id: !input light_sensor
     attribute: light_level
     below: !input illuminance_threshold
+  - condition: state
+    entity_id: !input light_target
+    state: "off"
   - condition: state
     entity_id: input_boolean.automatic_lights
     state: "on"
