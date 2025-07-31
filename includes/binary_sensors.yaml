@@ -23,7 +23,17 @@
         or is_state("binary_sensor.activity_in_living_room", "on")
         or is_state("binary_sensor.activity_in_bathroom", "on")
         or is_state("binary_sensor.activity_in_kitchen", "on")
-        or is_state("binary_sensor.activity_in_bedroom", "on") }}
+        or is_state("binary_sensor.activity_in_bedroom", "on")
+        or is_state("binary_sensor.activity_in_toilet", "on") }}
+
+    motion_detected_downstairs:
+      friendly_name: Any motion detected downstairs
+      value_template: >
+        {{ is_state("binary_sensor.activity_in_hallway", "on")
+        or is_state("binary_sensor.activity_in_living_room", "on")
+        or is_state("binary_sensor.activity_in_toilet", "on")
+        or is_state("binary_sensor.activity_in_kitchen", "on") }}
+
 
     motion_detected_in_last_hour:
       friendly_name: Any motion detected in last hour
@@ -159,3 +169,6 @@
       entity_id: sensor.temperature_sensor_bathroom_humidity
       sample_duration: 300
       max_samples: 3
+
+- platform: workday
+  country: NL
