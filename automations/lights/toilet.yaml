@@ -18,6 +18,7 @@
   mode: single
 
 - alias: "Light: Turn off toilet light on motion"
+  id: "light_toilet_off_motion"
   description: "Turns off the toilet light when motion is no longer detected."
   trigger:
     - platform: state
@@ -33,52 +34,32 @@
         entity_id: light.toilet_lights
   mode: single
 
-- alias: "Light: Turn on Toilet light when state changes from unavailable"
-  description: "Sets the toilet light to on when it becomes available."
+- alias: "Light: Turn on Toilet light when state changes from unavailable or unknown"
+  id: "light_toilet_on_unavailable"
+  description: "Sets the toilet light to on whenever it becomes available."
   trigger:
     - platform: state
-      entity_id: light.toilet_lights
-      from: "unavailable"
-    - platform: state
-      entity_id: light.toilet_lights
-      from: "unknown"
+      entity_id:
+        - light.toilet_lights
+        - light.toilet
+      from:
+        - "unavailable"
+        - "unknown"
   action:
     - service: light.turn_on
       target:
-        entity_id: light.toilet_lights
+        entity_id: "{{ trigger.entity_id }}"
       data:
         brightness: 255
         color_temp_kelvin: 2700
     - service: input_boolean.turn_on
-      entity_id: input_boolean.toilet_activity_override
-    - delay: "00:00:05"
-    - service: input_boolean.turn_off
-      entity_id: input_boolean.toilet_activity_override
-  mode: single
-
-- alias: "Light: Turn on Toilet light when state changes from unavailable"
-  description: "Sets the toilet light to on when it becomes available."
-  trigger:
-    - platform: state
-      entity_id: light.toilet
-      from: "unavailable"
-    - platform: state
-      entity_id: light.toilet
-      from: "unknown"
-  action:
-    - service: light.turn_on
       target:
-        entity_id: light.toilet
-      data:
-        brightness: 255
-        color_temp_kelvin: 2700
-    - service: input_boolean.turn_on
-      entity_id: input_boolean.toilet_activity_override
+        entity_id: input_boolean.toilet_activity_override
     - delay: "00:00:05"
     - service: input_boolean.turn_off
-      entity_id: input_boolean.toilet_activity_override
+      target:
+        entity_id: input_boolean.toilet_activity_override
   mode: single
-
 
 - alias: "Light: turn off toilet (extra check)"
   description: In case the other automation failed
