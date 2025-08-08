@@ -37,7 +37,6 @@
         or is_state("binary_sensor.activity_in_toilet", "on")
         or is_state("binary_sensor.activity_in_kitchen", "on") }}
 
-
     motion_detected_in_last_hour:
       unique_id: motion_detected_in_last_hour
       friendly_name: Any motion detected in last hour
@@ -126,7 +125,7 @@
         {{ is_state('binary_sensor.motion_sensor_toilet', 'on')
             or is_state('binary_sensor.toilet_motion', 'on')
             or is_state('input_boolean.toilet_activity_override', 'on') }}
-      delay_off: "00:03:00"
+      delay_off: "00:01:00"
 
     activity_in_kitchen:
       unique_id: activity_in_kitchen
