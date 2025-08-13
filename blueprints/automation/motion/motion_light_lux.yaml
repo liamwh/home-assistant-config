@@ -74,6 +74,15 @@ blueprint:
 mode: restart
 max_exceeded: silent
 
+variables:
+  motion_entity: !input motion_entity
+  light_sensor: !input light_sensor
+  illuminance_threshold: !input illuminance_threshold
+  light_target: !input light_target
+  use_adaptive: !input use_adaptive
+  adaptive_switch: !input adaptive_switch
+  transition_time: !input transition_time
+
 trigger:
   - platform: state
     entity_id: !input motion_entity
@@ -82,8 +91,11 @@ trigger:
 condition:
   - condition: numeric_state
     entity_id: !input light_sensor
-    attribute: light_level
     below: !input illuminance_threshold
+    value_template: >-
+      {{ (state_attr(light_sensor, 'light_level')
+          if state_attr(light_sensor, 'light_level') is not none
+          else states(light_sensor)) | float(999999) }}
   - condition: state
     entity_id: !input light_target
     state: "off"
@@ -95,7 +107,7 @@ action:
   - choose:
       - conditions:
           - condition: template
-            value_template: "{{ not input.use_adaptive }}"
+            value_template: "{{ not use_adaptive }}"
         sequence:
           - service: light.turn_on
             target:
