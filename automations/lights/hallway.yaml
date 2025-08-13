@@ -5,7 +5,7 @@
     input:
       motion_entity: binary_sensor.activity_in_hallway
       light_sensor: sensor.hallway_illuminance
-      illuminance_threshold: 4500
+      illuminance_threshold: 5500
       light_target: light.hallway_lights
       no_motion_wait: 180
       adaptive_switch: switch.adaptive_lighting_hallway
@@ -49,3 +49,29 @@
       entity_id:
         - light.hallway_lights
         - light.staircase_lights
+
+- alias: "Light: Re-on hallway if motion and dark"
+  id: "motion_light_hallway_reon_dark"
+  trigger:
+    - platform: state
+      entity_id: light.hallway_lights
+      to: "off"
+  condition:
+    - condition: state
+      entity_id: binary_sensor.activity_in_hallway
+      state: "on"
+    - condition: numeric_state
+      entity_id: sensor.hallway_illuminance
+      attribute: light_level
+      below: 5500
+    - condition: state
+      entity_id: input_boolean.automatic_lights
+      state: "on"
+  action:
+    - service: adaptive_lighting.apply
+      data:
+        entity_id: switch.adaptive_lighting_hallway
+        lights: light.hallway_lights
+        transition: 1
+        turn_on_lights: true
+  mode: single
