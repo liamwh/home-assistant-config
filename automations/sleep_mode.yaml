@@ -1,5 +1,5 @@
 ---
-- alias: "Sleep mode: automatically turn off on workdays and motion detected downstairs"
+- alias: "Sleep mode: automatically turn off when motion detected downstairs after 9:15am"
   trigger:
     - platform: state
       entity_id: binary_sensor.motion_detected_downstairs
@@ -12,15 +12,6 @@
         - condition: state
           entity_id: input_select.sleep_mode
           state: "off"
-    - condition: state
-      entity_id: binary_sensor.workday_sensor
-      state: "on"
-    - condition: time
-      weekday:
-        - mon
-        - tue
-        - wed
-        - thu
   action:
     - service: input_select.select_option
       data:
