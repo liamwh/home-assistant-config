@@ -4,6 +4,18 @@
     - platform: state
       entity_id: binary_sensor.motion_detected_downstairs
       to: "on"
+    - platform: state
+      entity_id: binary_sensor.activity_in_hallway
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.activity_in_living_room
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.activity_in_kitchen
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.activity_in_toilet
+      to: "on"
   condition:
     - condition: time
       after: "09:15:00"
