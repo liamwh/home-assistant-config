@@ -190,5 +190,5 @@
       sample_duration: 300
       max_samples: 3
 
-- platform: workday
-  country: NL
+# - platform: workday
+#   country: NL
