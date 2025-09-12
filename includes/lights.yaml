@@ -57,9 +57,15 @@
   name: Bedroom lights
   unique_id: bedroom_lights
   entities:
+    - light.bedside_lamps
+    - light.bedroom_ceiling
+
+- platform: group
+  name: Bedside Lamps
+  unique_id: bedside_lamps
+  entities:
     - light.bedside_lamp_left
     - light.bedside_lamp_right
-    - light.bedroom_ceiling
 
 - platform: group
   name: Bathroom Lights
