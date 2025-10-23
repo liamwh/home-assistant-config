@@ -117,7 +117,7 @@
   max_sunset_time: "22:00:00"
   take_over_control: true
 
-- name: Walk-in Wardrobe
+- name: Walk-in Wardrobe # NOTE: Disabled explicitly via the web UI
   lights:
     - light.walk_in_wardrobe_ceiling
   min_brightness: 75
