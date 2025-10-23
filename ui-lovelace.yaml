@@ -5,7 +5,7 @@ decluttering_templates:
     card:
       card:
         show_header_toggle: false
-        title: '[[name]] automations'
+        title: "[[name]] automations"
         type: entities
       filter:
         include:
@@ -16,11 +16,11 @@ decluttering_templates:
     card:
       card:
         show_header_toggle: false
-        title: '[[name]]'
+        title: "[[name]]"
         type: entities
       filter:
         include:
-          - entity_id: '[[include_domain]].[[slug]]*'
+          - entity_id: "[[include_domain]].[[slug]]*"
       sort: entity_id
       type: custom:auto-entities
 views:
@@ -72,6 +72,7 @@ views:
             type: entities
             entities:
               - type: custom:fold-entity-row
+                open: true
                 head:
                   entity: light.bedroom_lights
                   icon: mdi:bed-double
@@ -80,8 +81,17 @@ views:
                   toggle: true
                 entities:
                   - light.bedroom_ceiling
-                  - light.bedside_lamp_left
-                  - light.bedside_lamp_right
+                  - type: custom:fold-entity-row
+                    open: true
+                    head:
+                      entity: light.bedside_lamps
+                      icon: mdi:bed-double
+                      type: custom:slider-entity-row
+                      name: Beside Lamps
+                      toggle: true
+                    entities:
+                      - light.bedside_lamp_left
+                      - light.bedside_lamp_right
               - type: custom:slider-entity-row
                 entity: light.gym_lights
                 name: Gym
@@ -164,7 +174,7 @@ views:
                   service: input_select.select_option
                   service_data:
                     entity_id: input_select.sleep_mode
-                    option: 'off'
+                    option: "off"
                 type: custom:button-card
               - color: auto
                 entity: input_select.sleep_mode
@@ -401,13 +411,13 @@ views:
               - name: CGM Graph - 12 Hours
                 animate: true
                 color_thresholds:
-                  - color: '#039BE5'
+                  - color: "#039BE5"
                     value: 2
-                  - color: '#0DA035'
+                  - color: "#0DA035"
                     value: 5
-                  - color: '#E0B400'
+                  - color: "#E0B400"
                     value: 10
-                  - color: '#E45E65'
+                  - color: "#E45E65"
                     value: 15
                 detail: 2
                 entities:
@@ -427,13 +437,13 @@ views:
               - aggregate_func: avg
                 animate: true
                 color_thresholds:
-                  - color: '#039BE5'
+                  - color: "#039BE5"
                     value: 2
-                  - color: '#0da035'
+                  - color: "#0da035"
                     value: 5
-                  - color: '#e0b400'
+                  - color: "#e0b400"
                     value: 10
-                  - color: '#e45e65'
+                  - color: "#e45e65"
                     value: 15
                 entities:
                   - entity: sensor.liamwoodleigh_glucose_value
@@ -452,13 +462,13 @@ views:
     cards:
       - cards:
           - color_thresholds:
-              - color: '#039BE5'
+              - color: "#039BE5"
                 value: 2
-              - color: '#0DA035'
+              - color: "#0DA035"
                 value: 5
-              - color: '#E0B400'
+              - color: "#E0B400"
                 value: 10
-              - color: '#E45E65'
+              - color: "#E45E65"
                 value: 15
             detail: 1
             entities:
@@ -473,15 +483,15 @@ views:
             show:
               graph: line
             type: custom:mini-graph-card
-            unit: '%'
+            unit: "%"
           - color_thresholds:
-              - color: '#039BE5'
+              - color: "#039BE5"
                 value: 2
-              - color: '#0DA035'
+              - color: "#0DA035"
                 value: 5
-              - color: '#E0B400'
+              - color: "#E0B400"
                 value: 10
-              - color: '#E45E65'
+              - color: "#E45E65"
                 value: 15
             detail: 1
             entities:
@@ -500,13 +510,13 @@ views:
           - aggregate_func: avg
             animate: true
             color_thresholds:
-              - color: '#039BE5'
+              - color: "#039BE5"
                 value: 2
-              - color: '#0da035'
+              - color: "#0da035"
                 value: 5
-              - color: '#e0b400'
+              - color: "#e0b400"
                 value: 10
-              - color: '#e45e65'
+              - color: "#e45e65"
                 value: 15
             entities:
               - entity: sensor.dexcom_liamwoodleigh_glucose_value
@@ -528,13 +538,13 @@ views:
           - type: custom:mini-graph-card
             animate: true
             color_thresholds:
-              - color: '#039BE5'
+              - color: "#039BE5"
                 value: 2
-              - color: '#0DA035'
+              - color: "#0DA035"
                 value: 5
-              - color: '#E0B400'
+              - color: "#E0B400"
                 value: 10
-              - color: '#E45E65'
+              - color: "#E45E65"
                 value: 15
             detail: 2
             entities:
@@ -553,13 +563,13 @@ views:
           - type: custom:mini-graph-card
             animate: true
             color_thresholds:
-              - color: '#c0392b'
+              - color: "#c0392b"
                 value: 3
-              - color: '#08ff2d'
+              - color: "#08ff2d"
                 value: 5
-              - color: '#f7ff08'
+              - color: "#f7ff08"
                 value: 10
-              - color: '#ff3508'
+              - color: "#ff3508"
                 value: 15
             detail: 1
             entities:
@@ -574,13 +584,13 @@ views:
           - type: custom:mini-graph-card
             animate: true
             color_thresholds:
-              - color: '#c0392b'
+              - color: "#c0392b"
                 value: 3
-              - color: '#08ff2d'
+              - color: "#08ff2d"
                 value: 5
-              - color: '#f7ff08'
+              - color: "#f7ff08"
                 value: 10
-              - color: '#ff3508'
+              - color: "#ff3508"
                 value: 15
             entities:
               - sensor.dexcom_liamwoodleigh_glucose_value
