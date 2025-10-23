@@ -1,4 +1,4 @@
-- id: 'motion_light_living_room_with_lux'
+- id: "motion_light_living_room_with_lux"
   alias: "Light: Turn on living room lights only when dark"
   use_blueprint:
     path: motion/motion_light_lux.yaml
@@ -10,8 +10,7 @@
       no_motion_wait: 1200
       adaptive_switch: switch.adaptive_lighting_living_room
 
-
-- id: 'motion_light_bedroom_with_lux'
+- id: "motion_light_bedroom_with_lux"
   alias: "Light: Turn on bedroom lights only when dark"
   use_blueprint:
     path: motion/motion_light_lux.yaml
@@ -23,7 +22,7 @@
       no_motion_wait: 900 # 15 minutes
       adaptive_switch: switch.adaptive_lighting_bedroom
 
-- id: 'motion_light_bathroom_with_lux'
+- id: "motion_light_bathroom_with_lux"
   alias: "Light: Turn on bathroom lights only when dark"
   use_blueprint:
     path: motion/motion_light_lux.yaml
@@ -35,7 +34,7 @@
       no_motion_wait: 300 # 5 minutes
       adaptive_switch: switch.adaptive_lighting_bathroom
 
-- id: 'motion_light_kitchen_with_lux'
+- id: "motion_light_kitchen_with_lux"
   alias: "Light: Turn on kitchen lights only when dark"
   use_blueprint:
     path: motion/motion_light_lux.yaml
@@ -47,7 +46,7 @@
       no_motion_wait: 600 # 10 minutes
       adaptive_switch: switch.adaptive_lighting_kitchen
 
-- id: 'motion_light_toilet_with_lux'
+- id: "motion_light_toilet_with_lux"
   alias: "Light: Turn on toilet lights only when dark"
   use_blueprint:
     path: motion/motion_light_lux.yaml

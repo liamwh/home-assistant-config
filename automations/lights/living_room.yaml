@@ -10,6 +10,9 @@
     - condition: state
       entity_id: light.living_room_lights
       state: "on"
+    - condition: state
+      entity_id: binary_sensor.motion_detected_downstairs_in_last_hour
+      state: "off"
   action:
     service: light.turn_off
     entity_id: light.living_room_lights

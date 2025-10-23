@@ -51,6 +51,13 @@
         {{ is_state("binary_sensor.motion_detected", "on") }}
       delay_off: "00:05:00"
 
+    motion_detected_downstairs_in_last_hour:
+      unique_id: motion_detected_downstairs_in_last_hour
+      friendly_name: Motion detected downstairs in last hour
+      value_template: >-
+        {{ is_state("binary_sensor.motion_detected_downstairs", "on") }}
+      delay_off: "01:00:00"
+
     someone_in_the_house_in_last_hour:
       unique_id: someone_in_the_house_in_last_hour
       friendly_name: Someone in the house in the last hour
@@ -189,6 +196,5 @@
       entity_id: sensor.temperature_sensor_bathroom_humidity
       sample_duration: 300
       max_samples: 3
-
 # - platform: workday
 #   country: NL

@@ -1,4 +1,4 @@
-- id: 'motion_light_hallway_with_lux'
+- id: "motion_light_hallway_with_lux"
   alias: "Light: Turn on hallway lights only when dark"
   use_blueprint:
     path: motion/motion_light_lux.yaml
