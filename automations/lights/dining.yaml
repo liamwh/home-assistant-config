@@ -8,6 +8,10 @@
       entity_id: binary_sensor.activity_in_living_room
       state: "off"
     - condition: state
+      entity_id: binary_sensor.activity_on_ground_floor
+      state: "off"
+      for: "01:00:00"
+    - condition: state
       entity_id: light.dining_room_lights
       state: "on"
   action:
