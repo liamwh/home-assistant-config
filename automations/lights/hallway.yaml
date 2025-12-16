@@ -1,14 +1,33 @@
-- id: "motion_light_hallway_with_lux"
-  alias: "Light: Turn on hallway lights only when dark"
-  use_blueprint:
-    path: motion/motion_light_lux.yaml
-    input:
-      motion_entity: binary_sensor.activity_in_hallway
-      light_sensor: sensor.hallway_illuminance
-      illuminance_threshold: 5500
-      light_target: light.hallway_lights
-      no_motion_wait: 180
-      adaptive_switch: switch.adaptive_lighting_hallway
+- id: "motion_light_hallway"
+  alias: "Light: Turn on hallway lights on motion"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.activity_in_hallway
+      to: "on"
+  condition:
+    - condition: state
+      entity_id: light.hallway_lights
+      state: "off"
+    - condition: state
+      entity_id: input_boolean.automatic_lights
+      state: "on"
+  action:
+    - service: adaptive_lighting.apply
+      data:
+        entity_id: switch.adaptive_lighting_hallway
+        lights: light.hallway_lights
+        transition: 1
+        turn_on_lights: true
+    - wait_for_trigger:
+        platform: state
+        entity_id: binary_sensor.activity_in_hallway
+        from: "on"
+        to: "off"
+    - delay: 180
+    - service: light.turn_off
+      target:
+        entity_id: light.hallway_lights
+  mode: restart
 
 - alias: "Light: Turn on Hallway Lights when state changes from unavailable"
   description: "Sets the Hallway Lights to on when it becomes available."
@@ -33,7 +52,7 @@
         manual_control: false
   mode: single
 
-- alias: "Light: turn off hallway"
+- alias: "Light: turn off staircase when hallway motion stops"
   trigger:
     platform: state
     entity_id: binary_sensor.activity_in_hallway
@@ -46,12 +65,10 @@
   action:
     service: light.turn_off
     data:
-      entity_id:
-        - light.hallway_lights
-        - light.staircase_lights
+      entity_id: light.staircase_lights
 
-- alias: "Light: Re-on hallway if motion and dark"
-  id: "motion_light_hallway_reon_dark"
+- alias: "Light: Re-on hallway if motion"
+  id: "motion_light_hallway_reon"
   trigger:
     - platform: state
       entity_id: light.hallway_lights
@@ -60,10 +77,6 @@
     - condition: state
       entity_id: binary_sensor.activity_in_hallway
       state: "on"
-    - condition: numeric_state
-      entity_id: sensor.hallway_illuminance
-      attribute: light_level
-      below: 5500
     - condition: state
       entity_id: input_boolean.automatic_lights
       state: "on"
