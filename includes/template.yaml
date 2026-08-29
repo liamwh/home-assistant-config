@@ -1,0 +1,486 @@
+---
+# Template entities in the modern `template:` format.
+#
+# Home Assistant 2026.6 removed the legacy `platform: template` entity
+# configuration that used to live in includes/binary_sensors.yaml,
+# includes/sensors.yaml, includes/lights.yaml and includes/switches.yaml.
+# Everything migrated from those files lives here now.
+#
+# Binary sensors that previously used `delay_off` are trigger-based: their
+# state template is re-evaluated when a source entity turns on, or once a
+# source entity has been off for the old `delay_off` duration. The per-source
+# entity lists appear twice (once per trigger) and must be kept in sync.
+#
+# `unique_id` values — and `name` slugs for the sensors that never had a
+# unique_id — match the legacy entity_ids, so automations, scripts and
+# dashboards keep working unchanged.
+
+template:
+  # ------------------------------------------------------------------
+  # Trigger-based binary sensors (replacements for `delay_off`)
+  # ------------------------------------------------------------------
+
+  - triggers:
+      - trigger: state
+        entity_id:
+          - binary_sensor.motion_sensor_hallway
+          - binary_sensor.activity_on_staircase
+          - binary_sensor.hallway_motion
+        to: "on"
+      - trigger: state
+        entity_id:
+          - binary_sensor.motion_sensor_hallway
+          - binary_sensor.activity_on_staircase
+          - binary_sensor.hallway_motion
+        to: "off"
+        for: "00:01:00"
+    binary_sensor:
+      - name: "Activity in the hallway"
+        unique_id: activity_in_hallway
+        state: >-
+          {{ is_state("binary_sensor.motion_sensor_hallway", "on")
+          or is_state("binary_sensor.activity_on_staircase", "on")
+          or is_state("binary_sensor.hallway_motion", "on") }}
+
+  - triggers:
+      - trigger: state
+        entity_id:
+          - binary_sensor.staircase_motion
+        to: "on"
+      - trigger: state
+        entity_id:
+          - binary_sensor.staircase_motion
+        to: "off"
+        for: "00:01:00"
+    binary_sensor:
+      - name: "Activity on the staircase"
+        unique_id: activity_on_staircase
+        state: >-
+          {{ is_state("binary_sensor.staircase_motion", "on") }}
+
+  - triggers:
+      - trigger: state
+        entity_id:
+          - binary_sensor.activity_in_kitchen
+          - binary_sensor.activity_in_living_room
+        to: "on"
+      - trigger: state
+        entity_id:
+          - binary_sensor.activity_in_kitchen
+          - binary_sensor.activity_in_living_room
+        to: "off"
+        for: "00:01:00"
+    binary_sensor:
+      - name: "Activity in the living space"
+        unique_id: activity_in_living_space
+        state: >-
+          {{ is_state("binary_sensor.activity_in_kitchen", "on")
+          or is_state("binary_sensor.activity_in_living_room", "on") }}
+
+  - triggers:
+      - trigger: state
+        entity_id:
+          - binary_sensor.motion_sensor_bathroom
+          - binary_sensor.someone_showering
+        to: "on"
+      - trigger: state
+        entity_id:
+          - binary_sensor.motion_sensor_bathroom
+          - binary_sensor.someone_showering
+        to: "off"
+        for: "00:05:00"
+    binary_sensor:
+      - name: "Activity in the bathroom"
+        unique_id: activity_in_bathroom
+        state: >-
+          {{ is_state("binary_sensor.motion_sensor_bathroom", "on")
+              or is_state("binary_sensor.someone_showering", "on") }}
+
+  - triggers:
+      - trigger: state
+        entity_id:
+          - binary_sensor.activity_in_bathroom
+          - binary_sensor.activity_on_staircase
+          - binary_sensor.activity_in_hallway
+          - binary_sensor.activity_in_kitchen
+          - binary_sensor.activity_in_toilet
+          - binary_sensor.activity_in_living_room
+        to: "on"
+      - trigger: state
+        entity_id:
+          - binary_sensor.activity_in_bathroom
+          - binary_sensor.activity_on_staircase
+          - binary_sensor.activity_in_hallway
+          - binary_sensor.activity_in_kitchen
+          - binary_sensor.activity_in_toilet
+          - binary_sensor.activity_in_living_room
+        to: "off"
+        for: "00:03:00"
+    binary_sensor:
+      - name: "Activity anywhere outside the bedroom"
+        unique_id: activity_outside_bedroom
+        state: >-
+          {{ is_state("binary_sensor.activity_in_bathroom", "on")
+            or is_state("binary_sensor.activity_on_staircase", "on")
+            or is_state("binary_sensor.activity_in_hallway", "on")
+            or is_state("binary_sensor.activity_in_kitchen", "on")
+            or is_state("binary_sensor.activity_in_toilet", "on")
+            or is_state("binary_sensor.activity_in_living_room", "on") }}
+
+  - triggers:
+      - trigger: state
+        entity_id:
+          - binary_sensor.motion_sensor_bedroom
+          - binary_sensor.bedroom_motion
+        to: "on"
+      - trigger: state
+        entity_id:
+          - binary_sensor.motion_sensor_bedroom
+          - binary_sensor.bedroom_motion
+        to: "off"
+        for: "00:01:00"
+    binary_sensor:
+      - name: "Activity in the bedroom"
+        unique_id: activity_in_bedroom
+        state: >-
+          {{ is_state("binary_sensor.motion_sensor_bedroom", "on")
+          or is_state("binary_sensor.bedroom_motion", "on") }}
+
+  - triggers:
+      - trigger: state
+        entity_id:
+          - binary_sensor.living_room_motion
+          - binary_sensor.entrance_motion
+        to: "on"
+      - trigger: state
+        entity_id:
+          - binary_sensor.living_room_motion
+          - binary_sensor.entrance_motion
+        to: "off"
+        for: "00:20:00"
+    binary_sensor:
+      - name: "Activity in the living room"
+        unique_id: activity_in_living_room
+        state: >-
+          {{ is_state("binary_sensor.living_room_motion", "on")
+          or is_state("binary_sensor.entrance_motion", "on") }}
+
+  - triggers:
+      - trigger: state
+        entity_id:
+          - binary_sensor.motion_sensor_toilet
+          - binary_sensor.toilet_motion
+          - input_boolean.toilet_activity_override
+        to: "on"
+      - trigger: state
+        entity_id:
+          - binary_sensor.motion_sensor_toilet
+          - binary_sensor.toilet_motion
+          - input_boolean.toilet_activity_override
+        to: "off"
+        for: "00:01:00"
+    binary_sensor:
+      - name: "Activity in the toilet"
+        unique_id: activity_in_toilet
+        state: >-
+          {{ is_state('binary_sensor.motion_sensor_toilet', 'on')
+              or is_state('binary_sensor.toilet_motion', 'on')
+              or is_state('input_boolean.toilet_activity_override', 'on') }}
+
+  - triggers:
+      - trigger: state
+        entity_id:
+          - binary_sensor.motion_sensor_kitchen
+          - binary_sensor.kitchen_motion
+        to: "on"
+      - trigger: state
+        entity_id:
+          - binary_sensor.motion_sensor_kitchen
+          - binary_sensor.kitchen_motion
+        to: "off"
+        for: "00:20:00"
+    binary_sensor:
+      - name: "Activity in the kitchen"
+        unique_id: activity_in_kitchen
+        state: >-
+          {{ is_state("binary_sensor.motion_sensor_kitchen", "on")
+          or is_state("binary_sensor.kitchen_motion", "on") }}
+
+  - triggers:
+      - trigger: state
+        entity_id:
+          - binary_sensor.activity_in_toilet
+          - binary_sensor.activity_in_kitchen
+          - binary_sensor.activity_in_hallway
+          - binary_sensor.activity_in_living_room
+        to: "on"
+      - trigger: state
+        entity_id:
+          - binary_sensor.activity_in_toilet
+          - binary_sensor.activity_in_kitchen
+          - binary_sensor.activity_in_hallway
+          - binary_sensor.activity_in_living_room
+        to: "off"
+        for: "00:20:00"
+    binary_sensor:
+      - name: "Activity on the ground floor"
+        unique_id: activity_on_ground_floor
+        state: >-
+          {{ is_state("binary_sensor.activity_in_toilet", "on")
+          or is_state("binary_sensor.activity_in_kitchen", "on")
+          or is_state("binary_sensor.activity_in_hallway", "on")
+          or is_state("binary_sensor.activity_in_living_room", "on") }}
+
+  - triggers:
+      - trigger: state
+        entity_id:
+          - binary_sensor.motion_detected
+        to: "on"
+      - trigger: state
+        entity_id:
+          - binary_sensor.motion_detected
+        to: "off"
+        for: "01:00:00"
+    binary_sensor:
+      - name: "Any motion detected in last hour"
+        unique_id: motion_detected_in_last_hour
+        state: >-
+          {{ is_state("binary_sensor.motion_detected", "on") }}
+
+  - triggers:
+      - trigger: state
+        entity_id:
+          - binary_sensor.motion_detected
+        to: "on"
+      - trigger: state
+        entity_id:
+          - binary_sensor.motion_detected
+        to: "off"
+        for: "00:05:00"
+    binary_sensor:
+      - name: "Any motion detected in last 5 minutes"
+        unique_id: motion_detected_in_last_5_minutes
+        state: >-
+          {{ is_state("binary_sensor.motion_detected", "on") }}
+
+  - triggers:
+      - trigger: state
+        entity_id:
+          - binary_sensor.motion_detected_downstairs
+        to: "on"
+      - trigger: state
+        entity_id:
+          - binary_sensor.motion_detected_downstairs
+        to: "off"
+        for: "01:00:00"
+    binary_sensor:
+      - name: "Motion detected downstairs in last hour"
+        unique_id: motion_detected_downstairs_in_last_hour
+        state: >-
+          {{ is_state("binary_sensor.motion_detected_downstairs", "on") }}
+
+  # ------------------------------------------------------------------
+  # Plain template binary sensors (no `delay_off` previously)
+  # ------------------------------------------------------------------
+
+  - binary_sensor:
+      - name: "Someone is showering"
+        unique_id: someone_showering
+        state: >-
+          {% set humidity = states("sensor.temperature_sensor_bathroom_humidity") | float(0) %}
+          {% set treshold = 1.05 * state_attr("sensor.temperature_sensor_bathroom_humidity_stats", "median") | float(0) %}
+          {% set derivative = states("sensor.temperature_sensor_bathroom_humidity_derivative") | float(0) %}
+          {{ humidity > treshold and derivative > 0.25 }}
+        icon: >-
+          {%- if is_state('binary_sensor.someone_showering', 'on') -%}
+          mdi:shower-head
+          {%- else -%}
+          mdi:shower
+          {%- endif -%}
+
+      - name: "Any motion detected"
+        unique_id: motion_detected
+        state: >-
+          {{ is_state("binary_sensor.activity_in_hallway", "on")
+          or is_state("binary_sensor.activity_on_staircase", "on")
+          or is_state("binary_sensor.activity_in_living_room", "on")
+          or is_state("binary_sensor.activity_in_bathroom", "on")
+          or is_state("binary_sensor.activity_in_kitchen", "on")
+          or is_state("binary_sensor.activity_in_bedroom", "on")
+          or is_state("binary_sensor.activity_in_toilet", "on") }}
+
+      - name: "Any motion detected downstairs"
+        unique_id: motion_detected_downstairs
+        state: >-
+          {{ is_state("binary_sensor.activity_in_hallway", "on")
+          or is_state("binary_sensor.activity_in_living_room", "on")
+          or is_state("binary_sensor.activity_in_toilet", "on")
+          or is_state("binary_sensor.activity_in_kitchen", "on") }}
+
+      - name: "Someone in the house in the last hour"
+        unique_id: someone_in_the_house_in_last_hour
+        state: >-
+          {{ is_state("binary_sensor.motion_detected_in_last_hour", "on")
+              or is_state("group.people", "home") }}
+
+      - name: "Worked enough today"
+        unique_id: worked_enough_today
+        state: >-
+          {{ states("sensor.time_at_work_today") | float(0) > 8 }}
+        icon: mdi:work
+
+      - name: "Any light is on"
+        unique_id: any_light_on
+        state: >-
+          {% set bedroom_lights_on = is_state("light.bedroom_lights", "on") %}
+          {% set living_room_lights_on = is_state("light.living_room_lights", "on") %}
+          {% set bathroom_lights_on = is_state("light.bathroom_lights", "on") %}
+          {% set hallway_lights_on = is_state("light.hallway_lights", "on") %}
+          {% set pantry_lights_on = is_state("light.pantry_lights", "on") %}
+          {% set kitchen_lights_on = is_state("light.kitchen_lights", "on") %}
+          {% set toilet_light_on = is_state("light.toilet", "on") %}
+          {{ bathroom_lights_on or bedroom_lights_on or living_room_lights_on or hallway_lights_on or pantry_lights_on or toilet_light_on }}
+
+      - name: "Anything is on"
+        unique_id: anything_on
+        state: >-
+          {% set light_on = is_state("binary_sensor.any_light_on", "on") %}
+          {% set tv_on = is_state("media_player.living_room_android_tv", "on") %}
+          {% set heating_on = is_state_attr('climate.living_room', 'hvac_action', 'heating') %}
+          {{ light_on or tv_on or heating_on}}
+
+      - name: "No one is home"
+        unique_id: no_one_home
+        state: >-
+          {{
+          not is_state("person.liam", "home")
+          and not is_state("binary_sensor.ping_liams_iphone_pad", "on")
+          }}
+
+  # ------------------------------------------------------------------
+  # Template sensors (migrated from includes/sensors.yaml)
+  # ------------------------------------------------------------------
+
+  - sensor:
+      # The `name` slugs below deliberately equal the legacy dict keys so the
+      # entity_ids (used by the alarm clock automations and dashboards) survive
+      # the migration; these entities had no unique_id before.
+      - name: "Liam CGM SGV"
+        unique_id: liam_cgm_sgv
+        default_entity_id: sensor.liam_cgm_sgv
+        state: >-
+          {{ (states('sensor.liam_cgm') | regex_findall_index("sgv:(\d+)") | int) / 18 }}
+        unit_of_measurement: "mmol/L"
+
+      - name: "Liam CGM Trend"
+        unique_id: liam_cgm_trend
+        default_entity_id: sensor.liam_cgm_trend
+        state: >-
+          {{ states('sensor.dexcom_liamwoodleigh_glucose_trend') }}
+
+      - name: "Liam CGM Direction"
+        unique_id: liam_cgm_direction
+        default_entity_id: sensor.liam_cgm_direction
+        state: >-
+          {{ states('sensor.liam_cgm') | regex_findall_index("direction:(\w+)") }}
+
+      - name: "Liam CGM Time"
+        unique_id: liam_cgm_time
+        default_entity_id: sensor.liam_cgm_time
+        state: >-
+          {{ states('sensor.liam_cgm') | regex_findall_index("time:(\d+)") }}
+
+      # Format the Date and Time of the dexcom sensor start to
+      # "January 1, 2000 // 1:00 AM" format.
+      - name: "CGM sensor start"
+        unique_id: cgm_sensor_start
+        default_entity_id: sensor.cgm_sensor_start
+        state: >-
+          {{ state_attr('input_datetime.cgm_sensor_start', 'timestamp') | timestamp_custom('%B %-d, %Y')}} // {{state_attr('input_datetime.cgm_sensor_start', 'timestamp') | timestamp_custom('%-I:%M %p') }}
+        icon: mdi:leak
+
+      # Do the same formatting of the date and time for sensor expiry.
+      - name: "CGM sensor expire"
+        unique_id: cgm_sensor_expire
+        default_entity_id: sensor.cgm_sensor_expire
+        state: >-
+          {{ (state_attr('input_datetime.cgm_sensor_start', 'timestamp') + 864000) | timestamp_custom('%B %-d, %Y')}} // {{state_attr('input_datetime.cgm_sensor_start', 'timestamp') | timestamp_custom('%-I:%M %p') }}
+        icon: mdi:leak-off
+
+      - name: "Liams HBA1C value"
+        unique_id: sensor.glucose_avg_90d
+        default_entity_id: sensor.liams_hba1c_value
+        state: >-
+          {% set a = ( float(states("sensor.glucose_avg_90d"), 0.0) + 2.59 ) %}
+          {% set a1c = (a / 1.59) %}
+          {{a1c}}
+
+      - name: "CGM trans start"
+        unique_id: cgm_trans_start
+        default_entity_id: sensor.cgm_trans_start
+        state: >-
+          {{ state_attr('input_datetime.cgm_trans_start', 'timestamp') | timestamp_custom('%B %-d, %Y')}} // {{state_attr('input_datetime.cgm_trans_start', 'timestamp') | timestamp_custom('%-I:%M %p') }}
+      - name: "Timestamp start of today"
+        unique_id: timestamp_start_of_today
+        default_entity_id: sensor.timestamp_start_of_today
+        state: >-
+          {{ as_timestamp(now().replace(hour=0).replace(minute=0).replace(second=0)) }}
+        unit_of_measurement: "s"
+
+      - name: "Half hour before alarm"
+        unique_id: half_hour_before_alarm
+        default_entity_id: sensor.half_hour_before_alarm
+        state: >-
+          {% set t_alarm = state_attr("input_datetime.alarm_clock", "timestamp") | int %}
+          {% set t_start = states("sensor.timestamp_start_of_today") | int %}
+          {% set half_hour_before_alarm = t_alarm + t_start - 60 * 30 %}
+          {{ half_hour_before_alarm | timestamp_custom("%H:%M", True) }}
+
+      - name: "Ten minutes before alarm"
+        unique_id: ten_minutes_before_alarm
+        default_entity_id: sensor.ten_minutes_before_alarm
+        state: >-
+          {% set t_alarm = state_attr("input_datetime.alarm_clock", "timestamp") | int %}
+          {% set t_start = states("sensor.timestamp_start_of_today") | int %}
+          {% set before_alarm = t_alarm + t_start - 60 * 10 %}
+          {{ before_alarm | timestamp_custom("%H:%M", True) }}
+
+  - light:
+      - name: "Kitchen Cabinet"
+        unique_id: kitchen_cabinet
+        default_entity_id: light.kitchen_cabinet
+        state: "{{ is_state('switch.smart_plug_cabinet', 'on') }}"
+        turn_on:
+          - action: switch.turn_on
+            target:
+              entity_id: switch.smart_plug_cabinet
+        turn_off:
+          - action: switch.turn_off
+            target:
+              entity_id: switch.smart_plug_cabinet
+        icon: >-
+          {% if is_state('switch.smart_plug_cabinet', 'on') %}
+            mdi:lightbulb-on
+          {% else %}
+            mdi:lightbulb-off
+          {% endif %}
+
+  # ------------------------------------------------------------------
+  # Template switch (migrated from includes/switches.yaml)
+  # ------------------------------------------------------------------
+
+  - switch:
+      - name: "Vacuum Mode"
+        unique_id: vacuum_mode
+        default_entity_id: switch.vacuum_mode
+        state: >-
+          {{ is_state("vacuum.xiaomi_vacuum_cleaner", "cleaning")}}
+        turn_on:
+          - action: vacuum.start
+            target:
+              entity_id: vacuum.xiaomi_vacuum_cleaner
+        turn_off:
+          - action: vacuum.return_to_base
+            target:
+              entity_id: vacuum.xiaomi_vacuum_cleaner
+

@@ -307,12 +307,3 @@
 #       no_motion_wait: 300 # 5 minutes
 #       adaptive_switch: switch.adaptive_lighting_walk_in_wardrobe # ASSUMED
 
-- !include lights/bedroom.yaml
-- !include lights/toilet.yaml
-- !include lights/hallway.yaml
-- !include lights/bathroom.yaml
-- !include lights/living_room.yaml
-- !include lights/kitchen.yaml
-- !include lights/general.yaml
-- !include lights/when_dark.yaml
-- !include lights/staircase.yaml
