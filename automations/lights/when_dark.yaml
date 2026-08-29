@@ -55,5 +55,9 @@
       light_sensor: sensor.toilet_illuminance
       illuminance_threshold: 4500
       light_target: light.toilet_lights
+      # Toilet was removed from adaptive_lighting.yaml in 84e5345 (fixed warm
+      # colour instead) — switch.adaptive_lighting_toilet no longer exists, so
+      # fall back to a plain light.turn_on.
+      use_adaptive: false
       no_motion_wait: 300 # 5 minutes
       adaptive_switch: switch.adaptive_lighting_toilet
