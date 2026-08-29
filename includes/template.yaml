@@ -20,7 +20,7 @@
 # ------------------------------------------------------------------
 - triggers:
     - trigger: event
-      event_type: homeassistant_start
+      event_type: homeassistant_started
     - trigger: state
       entity_id:
         - binary_sensor.motion_sensor_hallway
@@ -43,7 +43,7 @@
         or is_state("binary_sensor.hallway_motion", "on") }}
 - triggers:
     - trigger: event
-      event_type: homeassistant_start
+      event_type: homeassistant_started
     - trigger: state
       entity_id:
         - binary_sensor.staircase_motion
@@ -60,7 +60,7 @@
         {{ is_state("binary_sensor.staircase_motion", "on") }}
 - triggers:
     - trigger: event
-      event_type: homeassistant_start
+      event_type: homeassistant_started
     - trigger: state
       entity_id:
         - binary_sensor.activity_in_kitchen
@@ -80,7 +80,7 @@
         or is_state("binary_sensor.activity_in_living_room", "on") }}
 - triggers:
     - trigger: event
-      event_type: homeassistant_start
+      event_type: homeassistant_started
     - trigger: state
       entity_id:
         - binary_sensor.motion_sensor_bathroom
@@ -100,7 +100,7 @@
             or is_state("binary_sensor.someone_showering", "on") }}
 - triggers:
     - trigger: event
-      event_type: homeassistant_start
+      event_type: homeassistant_started
     - trigger: state
       entity_id:
         - binary_sensor.activity_in_bathroom
@@ -132,7 +132,7 @@
           or is_state("binary_sensor.activity_in_living_room", "on") }}
 - triggers:
     - trigger: event
-      event_type: homeassistant_start
+      event_type: homeassistant_started
     - trigger: state
       entity_id:
         - binary_sensor.motion_sensor_bedroom
@@ -152,7 +152,7 @@
         or is_state("binary_sensor.bedroom_motion", "on") }}
 - triggers:
     - trigger: event
-      event_type: homeassistant_start
+      event_type: homeassistant_started
     - trigger: state
       entity_id:
         - binary_sensor.living_room_motion
@@ -172,7 +172,7 @@
         or is_state("binary_sensor.entrance_motion", "on") }}
 - triggers:
     - trigger: event
-      event_type: homeassistant_start
+      event_type: homeassistant_started
     - trigger: state
       entity_id:
         - binary_sensor.motion_sensor_toilet
@@ -195,7 +195,7 @@
             or is_state('input_boolean.toilet_activity_override', 'on') }}
 - triggers:
     - trigger: event
-      event_type: homeassistant_start
+      event_type: homeassistant_started
     - trigger: state
       entity_id:
         - binary_sensor.motion_sensor_kitchen
@@ -215,7 +215,7 @@
         or is_state("binary_sensor.kitchen_motion", "on") }}
 - triggers:
     - trigger: event
-      event_type: homeassistant_start
+      event_type: homeassistant_started
     - trigger: state
       entity_id:
         - binary_sensor.activity_in_toilet
@@ -241,7 +241,7 @@
         or is_state("binary_sensor.activity_in_living_room", "on") }}
 - triggers:
     - trigger: event
-      event_type: homeassistant_start
+      event_type: homeassistant_started
     - trigger: state
       entity_id:
         - binary_sensor.motion_detected
@@ -258,7 +258,7 @@
         {{ is_state("binary_sensor.motion_detected", "on") }}
 - triggers:
     - trigger: event
-      event_type: homeassistant_start
+      event_type: homeassistant_started
     - trigger: state
       entity_id:
         - binary_sensor.motion_detected
@@ -275,7 +275,7 @@
         {{ is_state("binary_sensor.motion_detected", "on") }}
 - triggers:
     - trigger: event
-      event_type: homeassistant_start
+      event_type: homeassistant_started
     - trigger: state
       entity_id:
         - binary_sensor.motion_detected_downstairs
