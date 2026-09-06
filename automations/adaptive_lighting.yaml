@@ -53,6 +53,7 @@
               - switch.adaptive_lighting_sleep_mode_staircase
 
 - alias: "Adaptive lighting: reset manual_control after 1 hour"
+  id: adaptive_lighting_reset_manual_control_after_1_hour
   mode: parallel
   max: 200
   trigger:
@@ -61,11 +62,21 @@
   variables:
     light: "{{ trigger.event.data.entity_id }}"
     switch: "{{ trigger.event.data.switch }}"
-  condition: "{{ 'hallway' not in light and 'staircase' not in light }}"
+  condition:
+    - "{{ 'hallway' not in light and 'staircase' not in light }}"
+    # adaptive-lighting ≥1.31.0 re-fires this event on every interval while a
+    # light sits at a brightness/color it did not set (e.g. changed from a Hue
+    # dimmer/app). Without this guard one storm schedules hundreds of
+    # parallel 1-hour-delayed runs.
+    - condition: template
+      value_template: >-
+        {{ this.attributes.last_triggered is none
+           or now() - (this.attributes.last_triggered | as_datetime)
+              > timedelta(minutes=30) }}
   action:
     - delay: "01:00:00"
     - condition: template
-      value_template: "{{ light in state_attr('switch', 'manual_control') }}"
+      value_template: "{{ light in (state_attr(switch, 'manual_control') or []) }}"
     - condition: state
       entity_id: input_boolean.automatic_lights
       state: "on"
@@ -80,6 +91,7 @@
         message: "{{ light }} is reset to not 'manually controlled'"
 
 - alias: "Adaptive lighting: notify manual_control"
+  id: adaptive_lighting_notify_manual_control
   mode: parallel
   max: 20
   trigger:
@@ -87,14 +99,18 @@
       event_type: adaptive_lighting.manual_control
   variables:
     light: "{{ trigger.event.data.entity_id }}"
-  condition: "{{ 'hallway' not in light and 'staircase' not in light }}"
+  condition:
+    - "{{ 'hallway' not in light and 'staircase' not in light }}"
+    # Rate-limit: the manual_control event repeats every `interval` (30 s)
+    # for as long as the light stays at a non-adaptive brightness, so notify
+    # at most once per 30 minutes instead of twice a minute.
+    - condition: template
+      value_template: >-
+        {{ this.attributes.last_triggered is none
+           or now() - (this.attributes.last_triggered | as_datetime)
+              > timedelta(minutes=30) }}
   action:
-    - service: system_log.write
-      data:
-        message: "{{ light }} is manually controlled"
-        level: error
-        logger: yolo.yolo
     - service: notify.liam
       data:
         title: "Adaptive Lighting: manual_control"
-        message: "{{ light }} is now 'manually controlled', context={{ trigger.event.context }}"
+        message: "{{ light }} is now 'manually controlled'"

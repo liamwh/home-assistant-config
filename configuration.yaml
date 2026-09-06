@@ -7,8 +7,6 @@ tts:
 
 logger:
   default: warning
-  logs:
-    custom_components.adaptive_lighting: debug
 
 # defaults
 cloud:
