@@ -16,6 +16,7 @@ __init__*
 
 *.js
 *.json
+!.omp/mcp.json
 *.js.gz
 
 tts
