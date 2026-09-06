@@ -99,7 +99,7 @@ Config: `includes/adaptive_lighting.yaml` — 9 switches, all with
 
 - `detect_non_ha_changes` polls every light every `interval` (30 s) via
   `homeassistant.update_entity` and compares against the last service data
-  *it* sent. If a light sits at a brightness/color that AL didn't set — e.g.
+  *it* sent. If a light sits at a brightness/colour that AL didn't set — e.g.
   dimmed from a Hue dimmer, Hue app, or bridge scene — adaptive-lighting
   ≥1.31.0 re-fires the `adaptive_lighting.manual_control` **event every
   interval** until the light is turned off or reset. That was the September

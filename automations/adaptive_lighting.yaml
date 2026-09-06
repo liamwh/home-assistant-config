@@ -65,7 +65,7 @@
   condition:
     - "{{ 'hallway' not in light and 'staircase' not in light }}"
     # adaptive-lighting ≥1.31.0 re-fires this event on every interval while a
-    # light sits at a brightness/color it did not set (e.g. changed from a Hue
+    # light sits at a brightness/colour it did not set (e.g. changed from a Hue
     # dimmer/app). Without this guard one storm schedules hundreds of
     # parallel 1-hour-delayed runs.
     - condition: template
