@@ -12,11 +12,10 @@ toggle something is fine — but anything worth keeping gets committed here.
 
 | Piece | Where | Notes |
 |---|---|---|
-| Zeus (dev machine) | `/home/liam/git/home-assistant-config` | Edits, commits, pushes happen here |
+| HA API token (Zeus) | `~/.config/sops-nix/secrets/home-assistant-token` (SOPS, 0400) | For API calls from Zeus; can read states and **call services**, but cannot fire raw events (non-admin user) — drive the integration's own services instead |
 | GitHub | `https://github.com/liamwh/home-assistant-config.git` | `origin` (master) |
 | HA VM | `root@192.168.1.27` (HAOS, SSH add-on on port 22) | `/config` **is** a git checkout of this repo |
 | HA frontend | `http://192.168.1.27:8123` / `https://home.liamwh.com` | HA account auth |
-| HA API token (Zeus) | `~/.config/sops-nix/secrets/home-assistant-token` (SOPS, 0400) | For read/test API calls from Zeus |
 
 SSH from Zeus works passwordless: `ssh root@192.168.1.27`.
 
