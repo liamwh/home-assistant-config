@@ -12,40 +12,53 @@ toggle something is fine — but anything worth keeping gets committed here.
 
 | Piece | Where | Notes |
 |---|---|---|
-| HA API token (Zeus) | `~/.config/sops-nix/secrets/home-assistant-token` (SOPS, 0400) | For API calls from Zeus; can read states and **call services**, but cannot fire raw events (non-admin user) — drive the integration's own services instead |
+| **ha-mcp MCP server** (preferred) | `.omp/mcp.json` in this repo (`uvx ha-mcp@latest`) | Talk to the running HA instance through its tools: inspect states, call services, reload. Auth via `HA_TOKEN` (exported in `~/.zshenv`, long-lived) → `http://homeassistant.local:8123` |
+| SSH (backup) | `root@192.168.1.27` (HAOS SSH add-on, port 22) | Passwordless from Zeus. Use for `git pull`, file access, `ha core logs`, `ha core restart`, and anything MCP can't do |
 | GitHub | `https://github.com/liamwh/home-assistant-config.git` | `origin` (master) |
-| HA VM | `root@192.168.1.27` (HAOS, SSH add-on on port 22) | `/config` **is** a git checkout of this repo |
+| HA VM | `root@192.168.1.27` — `/config` **is** a git checkout of this repo | Same host as SSH above; `homeassistant.local` resolves to it |
 | HA frontend | `http://192.168.1.27:8123` / `https://home.liamwh.com` | HA account auth |
+| HA API token (Zeus) | `~/.config/sops-nix/secrets/home-assistant-token` (SOPS, 0400) | Direct REST fallback; can read states and **call services**, but cannot fire raw events (non-admin user) — drive the integration's own services instead |
 
-SSH from Zeus works passwordless: `ssh root@192.168.1.27`.
+**Interacting with the running instance: prefer the `ha-mcp` MCP server tools**
+(states, service calls, reloads). Fall back to SSH only for git operations on
+the VM, logs, restarts, and file-level work.
+
+## Skill: home-assistant-best-practices
+
+This repo ships the **`home-assistant-best-practices` skill** at
+`.agents/skills/home-assistant-best-practices/` (tracked in `skills-lock.json`,
+source: `homeassistant-ai/skills`). **Read it before creating or editing
+automations, scripts, scenes, dashboards, or blueprints**, choosing helpers vs
+template sensors, picking automation `mode:`s, or touching entity IDs — it
+encodes the conventions this config should follow (e.g. prefer native options
+over Jinja, `entity_id` over `device_id`, check consumers before renames).
 
 ## Standard workflow (edit → deploy)
 
 ```bash
 # on Zeus
 cd ~/git/home-assistant-config
-# ... edit YAML ...
+# ... edit YAML (read the home-assistant-best-practices skill first) ...
 python3 -c "import yaml,glob; [yaml.safe_load(open(f)) for f in glob.glob('**/*.yaml', recursive=True)]"  # sanity parse
 git commit -am "..." && git push
 
-# deploy to the VM
+# deploy to the VM (SSH — the one step that still needs it)
 ssh root@192.168.1.27 'git -C /config pull --ff-only'
 
-# make HA pick it up (pick the cheapest that works):
-#   automations only  → reload automations (API, see below)
+# make HA pick it up (pick the cheapest that works; prefer ha-mcp tools):
+#   automations only  → call the automation.reload service (ha-mcp, or curl below)
 #   includes/*.yaml   → depends on integration; many support a reload service
 #   configuration.yaml / logger / integrations without reload → restart core
 ```
 
-Reload automations without a restart (operational, not config — allowed):
+Reload automations via ha-mcp (service call to `automation.reload`), or via REST:
 
 ```bash
-TOKEN=$(sops -d ~/git/infra/hosts/zeus/secrets/home-assistant-token 2>/dev/null || cat ~/.config/sops-nix/secrets/home-assistant-token)
-curl -s -H "Authorization: Bearer $TOKEN" -H 'Content-Type: application/json' \
-     -d '{"entity_id": "all"}' http://192.168.1.27:8123/api/services/automation/reload
+curl -s -H "Authorization: Bearer $HA_TOKEN" -H 'Content-Type: application/json' \
+     -d '{"entity_id": "all"}' http://homeassistant.local:8123/api/services/automation/reload
 ```
 
-Full restart: `ssh root@192.168.1.27 'ha core restart'` (~1 min).
+Full restart (SSH only): `ssh root@192.168.1.27 'ha core restart'` (~1 min).
 
 ## Repo conventions & gotchas
 
@@ -73,6 +86,8 @@ Full restart: `ssh root@192.168.1.27 'ha core restart'` (~1 min).
 
 ## Inspecting / debugging the running system
 
+- **First choice: ha-mcp tools** for states, service calls, and anything the
+  running instance can tell you. What follows are the lower-level routes.
 - **Logs**: `ssh root@192.168.1.27 'ha core logs'` (journald, follow with
   grep). Log *files* in `/config` are stale leftovers; one 10 GB `.old` log
   was caused by `custom_components.adaptive_lighting: debug` logger config
