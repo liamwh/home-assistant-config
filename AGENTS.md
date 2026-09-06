@@ -19,6 +19,11 @@ toggle something is fine — but anything worth keeping gets committed here.
 | HA frontend | `http://192.168.1.27:8123` / `https://home.liamwh.com` | HA account auth |
 | HA API token (Zeus) | `~/.config/sops-nix/secrets/home-assistant-token` (SOPS, 0400) | Direct REST fallback; can read states and **call services**, but cannot fire raw events (non-admin user) — drive the integration's own services instead |
 
+> **Never read or print the HA token.** Not `cat`/`echo`/`print` of
+> `HA_TOKEN`, the `~/.config/sops-nix/secrets/home-assistant-token` file, or
+> any credential — including in "debugging" output, logs, or tool results.
+> Reference it by name (`$HA_TOKEN`) and let the shell/MCP server expand it.
+
 **Interacting with the running instance: prefer the `ha-mcp` MCP server tools**
 (states, service calls, reloads). Fall back to SSH only for git operations on
 the VM, logs, restarts, and file-level work.
