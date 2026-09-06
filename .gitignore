@@ -55,3 +55,5 @@ ui-lovelace.backup
 ## You can whitelist files/folders with !, these will not be ignored.
 !.gitignore
 !*.md
+.ha_run.lock
+.cache/
