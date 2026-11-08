@@ -266,6 +266,8 @@ ios-dark-mode-blue-red-alternative:
   input-idle-line-color: var(--secondary-text-color)
   input-hover-line-color: var(--secondary-text-color)
   codemirror-property: var(--accent-color)
+  # HA design token: dark select/input field background (was defaulting to white)
+  ha-color-form-background: var(--secondary-background-color)
 
 #
 # iOS Dark Mode Theme - blue-red
@@ -355,6 +357,8 @@ ios-dark-mode-blue-red:
   input-idle-line-color: var(--secondary-text-color)
   input-hover-line-color: var(--secondary-text-color)
   codemirror-property: var(--accent-color)
+  # HA design token: dark select/input field background (was defaulting to white)
+  ha-color-form-background: var(--secondary-background-color)
 
 #
 # iOS Light Mode Theme - dark-blue
@@ -622,6 +626,8 @@ ios-dark-mode-dark-blue-alternative:
   input-idle-line-color: var(--secondary-text-color)
   input-hover-line-color: var(--secondary-text-color)
   codemirror-property: var(--accent-color)
+  # HA design token: dark select/input field background (was defaulting to white)
+  ha-color-form-background: var(--secondary-background-color)
 
 #
 # iOS Dark Mode Theme - dark-blue
@@ -711,6 +717,8 @@ ios-dark-mode-dark-blue:
   input-idle-line-color: var(--secondary-text-color)
   input-hover-line-color: var(--secondary-text-color)
   codemirror-property: var(--accent-color)
+  # HA design token: dark select/input field background (was defaulting to white)
+  ha-color-form-background: var(--secondary-background-color)
 
 #
 # iOS Light Mode Theme - dark-green
@@ -978,6 +986,8 @@ ios-dark-mode-dark-green-alternative:
   input-idle-line-color: var(--secondary-text-color)
   input-hover-line-color: var(--secondary-text-color)
   codemirror-property: var(--accent-color)
+  # HA design token: dark select/input field background (was defaulting to white)
+  ha-color-form-background: var(--secondary-background-color)
 
 #
 # iOS Dark Mode Theme - dark-green
@@ -1067,6 +1077,8 @@ ios-dark-mode-dark-green:
   input-idle-line-color: var(--secondary-text-color)
   input-hover-line-color: var(--secondary-text-color)
   codemirror-property: var(--accent-color)
+  # HA design token: dark select/input field background (was defaulting to white)
+  ha-color-form-background: var(--secondary-background-color)
 
 #
 # iOS Light Mode Theme - light-blue
@@ -1334,6 +1346,8 @@ ios-dark-mode-light-blue-alternative:
   input-idle-line-color: var(--secondary-text-color)
   input-hover-line-color: var(--secondary-text-color)
   codemirror-property: var(--accent-color)
+  # HA design token: dark select/input field background (was defaulting to white)
+  ha-color-form-background: var(--secondary-background-color)
 
 #
 # iOS Dark Mode Theme - light-blue
@@ -1423,6 +1437,8 @@ ios-dark-mode-light-blue:
   input-idle-line-color: var(--secondary-text-color)
   input-hover-line-color: var(--secondary-text-color)
   codemirror-property: var(--accent-color)
+  # HA design token: dark select/input field background (was defaulting to white)
+  ha-color-form-background: var(--secondary-background-color)
 
 #
 # iOS Light Mode Theme - light-green
@@ -1690,6 +1706,8 @@ ios-dark-mode-light-green-alternative:
   input-idle-line-color: var(--secondary-text-color)
   input-hover-line-color: var(--secondary-text-color)
   codemirror-property: var(--accent-color)
+  # HA design token: dark select/input field background (was defaulting to white)
+  ha-color-form-background: var(--secondary-background-color)
 
 #
 # iOS Dark Mode Theme - light-green
@@ -1779,6 +1797,8 @@ ios-dark-mode-light-green:
   input-idle-line-color: var(--secondary-text-color)
   input-hover-line-color: var(--secondary-text-color)
   codemirror-property: var(--accent-color)
+  # HA design token: dark select/input field background (was defaulting to white)
+  ha-color-form-background: var(--secondary-background-color)
 
 #
 # iOS Light Mode Theme - orange
@@ -2046,6 +2066,8 @@ ios-dark-mode-orange-alternative:
   input-idle-line-color: var(--secondary-text-color)
   input-hover-line-color: var(--secondary-text-color)
   codemirror-property: var(--accent-color)
+  # HA design token: dark select/input field background (was defaulting to white)
+  ha-color-form-background: var(--secondary-background-color)
 
 #
 # iOS Dark Mode Theme - orange
@@ -2135,6 +2157,8 @@ ios-dark-mode-orange:
   input-idle-line-color: var(--secondary-text-color)
   input-hover-line-color: var(--secondary-text-color)
   codemirror-property: var(--accent-color)
+  # HA design token: dark select/input field background (was defaulting to white)
+  ha-color-form-background: var(--secondary-background-color)
 
 #
 # iOS Light Mode Theme - red
@@ -2402,6 +2426,8 @@ ios-dark-mode-red-alternative:
   input-idle-line-color: var(--secondary-text-color)
   input-hover-line-color: var(--secondary-text-color)
   codemirror-property: var(--accent-color)
+  # HA design token: dark select/input field background (was defaulting to white)
+  ha-color-form-background: var(--secondary-background-color)
 
 #
 # iOS Dark Mode Theme - red
@@ -2491,3 +2517,5 @@ ios-dark-mode-red:
   input-idle-line-color: var(--secondary-text-color)
   input-hover-line-color: var(--secondary-text-color)
   codemirror-property: var(--accent-color)
+  # HA design token: dark select/input field background (was defaulting to white)
+  ha-color-form-background: var(--secondary-background-color)
