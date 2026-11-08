@@ -93,9 +93,9 @@ views:
                       - light.bedside_lamp_left
                       - light.bedside_lamp_right
               - type: custom:slider-entity-row
-                entity: light.gym_lights
-                name: Gym
-                icon: mdi:dumbbell
+                entity: light.spare_room_lights
+                name: Spare Room
+                icon: mdi:bed-queen
                 toggle: true
               - entity: light.bathroom_ceiling
                 name: Bathroom

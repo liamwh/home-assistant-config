@@ -23,7 +23,7 @@
   name: First Floor Lights
   entities:
     - light.bedroom_lights
-    - light.gym_lights
+    - light.spare_room_lights
     - light.walk_in_wardrobe_ceiling
     - light.bathroom_lights
     - light.staircase_first_floor_hallway
@@ -150,9 +150,9 @@
 #       icon: mdi:lampt
 
 - platform: group
-  name: Gym Lights
+  name: Spare Room Lights
   entities:
-    - light.gym_ceiling
+    - light.spare_room_light
 
 - platform: group
   name: Laundry Lights

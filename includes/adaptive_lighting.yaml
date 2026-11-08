@@ -107,9 +107,9 @@
 #   sunrise_time: "07:00:00"
 #   take_over_control: true
 
-- name: Gym Room
+- name: Spare Room
   lights:
-    - light.gym_ceiling
+    - light.spare_room_light
   min_brightness: 75
   max_brightness: 100
   sleep_brightness: 10
