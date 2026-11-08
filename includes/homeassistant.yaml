@@ -16,7 +16,7 @@ customize:
   light.living_room:
     icon: mdi:sofa
   light.bedroom_lights:
-    icon: mdi:bed-king
+    icon: mdi:bed-double
   light.toilet:
     icon: mdi:emoticon-poop
 auth_mfa_modules:

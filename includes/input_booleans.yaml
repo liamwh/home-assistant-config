@@ -78,7 +78,7 @@ flash_lights_if_low_bg:
 bedroom_chill:
   initial: false
   name: Bedroom Chill
-  icon: mdi:mdi:bed-king
+  icon: mdi:bed-double
 
 theme_alternative:
   name: Alternative theme mode
